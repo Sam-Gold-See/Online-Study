@@ -1,12 +1,17 @@
+server:
+  port: 8080
+
 spring:
   application:
     name: online-study-server
+  profiles:
+    active: dev
   datasource:
-    druid:
-      driver-class-name: ${online-study.datasource.driver-class-name}
-      url: jdbc:mysql://${online-study.datasource.host}:${online-study.datasource.port}/${online-study.datasource.database}?serverTimezone=Asia/Shanghai&useUnicode=true&characterEncoding=utf-8&zeroDateTimeBehavior=convertToNull&useSSL=false&allowPublicKeyRetrieval=true
-      username: ${online-study.datasource.username}
-      password: ${online-study.datasource.password}
+    driver-class-name: ${online-study.datasource.driver-class-name}
+    name: test
+    url: jdbc:mysql://${online-study.datasource.host}:${online-study.datasource.port}/${online-study.datasource.database}
+    username: ${online-study.datasource.username}
+    password: ${online-study.datasource.password}
 
 mybatis:
   mapper-locations: classpath:mapper/*.xml
@@ -14,3 +19,11 @@ mybatis:
   configuration:
     #开启驼峰命名
     map-underscore-to-camel-case: true
+
+logging:
+  level:
+    com:
+      study:
+        mapper: debug
+        service: info
+        controller: info
