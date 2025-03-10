@@ -1,6 +1,7 @@
 package com.study.interceptor;
 
 import com.study.constant.JwtClaimsConstant;
+import com.study.context.BaseContext;
 import com.study.properties.JwtProperties;
 import com.study.utils.JwtUtil;
 import io.jsonwebtoken.Claims;
@@ -45,14 +46,19 @@ public class JwtTokenClientInterceptor implements HandlerInterceptor {
         try {
             log.info("jwt校验：{}", token);
             Claims claims = JwtUtil.parseJWT(jwtProperties.getClientSecretKey(), token);
-            Long empId = Long.valueOf(claims.get(JwtClaimsConstant.CLIENT_ID).toString());
-            log.info("当前C端用户id：{}", empId);
-            //TODO ThreadLocal记录当前C端用户id
+            Long clientUserId = Long.valueOf(claims.get(JwtClaimsConstant.CLIENT_ID).toString());
+            log.info("当前C端用户id：{}", clientUserId);
+            BaseContext.setCurrentId(clientUserId);
             return true;
         } catch (Exception ex) {
             //4. 不通过，响应401状态码（未经授权）
             response.setStatus(401);
             return false;
         }
+    }
+
+    public void afterCompletion(HttpServletRequest request, HttpServletResponse response, Object handler, Exception ex) {
+        // 清除当前线程中的用户 ID
+        BaseContext.removeCurrentId();
     }
 }
