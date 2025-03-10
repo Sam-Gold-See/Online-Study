@@ -32,7 +32,10 @@ online-study:
   jwt:
     # 设置jwt签名加密时使用的秘钥
     admin-secret-key: study
+    client-secret-key: study
     # 设置jwt过期时间，单位毫秒
     admin-ttl: 7200000
+    client-ttl: 7200000
     # 设置前端传递过来的令牌名称，键
     admin-token-name: token
+    client-token-name: token
