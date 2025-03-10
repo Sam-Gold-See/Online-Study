@@ -31,8 +31,8 @@ logging:
 online-study:
   jwt:
     # 设置jwt签名加密时使用的秘钥
-    admin-secret-key: study
-    client-secret-key: study
+    admin-secret-key: AdminStudySamGoldSeeHuangchunxinLZFMJLXYX
+    client-secret-key: ClientStudySamGoldSeeHuangchunxinLZFMJLXYX
     # 设置jwt过期时间，单位毫秒
     admin-ttl: 7200000
     client-ttl: 7200000
