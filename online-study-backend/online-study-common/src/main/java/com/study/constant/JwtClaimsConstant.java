@@ -7,4 +7,5 @@ package com.study.constant;
 public class JwtClaimsConstant {
 
     public static final String ADMIN_ID = "adminId";
+    public static final String CLIENT_ID = "clientId";
 }
