@@ -23,7 +23,6 @@
         <java.version>17</java.version>
         <lombok>1.18.36</lombok>
         <jackson-databind>2.18.3</jackson-databind>
-        <knife4j>3.0.3</knife4j>
         <fastjson>2.0.54</fastjson>
         <commons.lang3>3.17.0</commons.lang3>
         <jjwt>0.12.6</jjwt>
@@ -55,14 +54,6 @@
                 <groupId>com.fasterxml.jackson.core</groupId>
                 <artifactId>jackson-databind</artifactId>
                 <version>${jackson-databind}</version>
-            </dependency>
-
-            <!-- SWAGGER优化 pojo server -->
-
-            <dependency>
-                <groupId>com.github.xiaoymin</groupId>
-                <artifactId>knife4j-spring-boot-starter</artifactId>
-                <version>${knife4j}</version>
             </dependency>
 
             <!-- Object 和 JSON 之间的序列化、反序列化 common server -->
