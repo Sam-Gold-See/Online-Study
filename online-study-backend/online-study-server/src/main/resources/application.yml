@@ -8,7 +8,7 @@ spring:
     active: dev
   datasource:
     driver-class-name: ${online-study.datasource.driver-class-name}
-    name: test
+    name: online_study
     url: jdbc:mysql://${online-study.datasource.host}:${online-study.datasource.port}/${online-study.datasource.database}
     username: ${online-study.datasource.username}
     password: ${online-study.datasource.password}
@@ -38,4 +38,4 @@ online-study:
     client-ttl: 7200000
     # 设置前端传递过来的令牌名称，键
     admin-token-name: token
-    client-token-name: token
+    client-token-name: authentication
