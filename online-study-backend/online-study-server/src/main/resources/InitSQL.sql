@@ -23,3 +23,9 @@ CREATE TABLE admin_user
     update_user BIGINT COMMENT '更新用户ID',
     `level`     TINYINT DEFAULT 0 COMMENT '是否有权限管理用户（1=有权限, 0=无权限）'
 ) COMMENT='管理员用户表';
+
+INSERT INTO admin_user (id, name, username, password, phone, gender, status, create_time, update_time, create_user,
+                        update_user, level)
+VALUES (11741666652149400, 'Admin', 'admin', '123456', '15889925075', 'F', 1,
+        '2025-03-11 12:15:21', '2025-03-11 12:15:21', 11741666213042300, 11741666213042300, 1);
+
