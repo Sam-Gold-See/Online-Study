@@ -12,6 +12,7 @@ import com.study.utils.IdGeneratorUtil;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.util.DigestUtils;
 
 @Service
 public class AdminUserServiceImpl implements AdminUserService {
@@ -34,6 +35,7 @@ public class AdminUserServiceImpl implements AdminUserService {
 
         AdminUser adminUser = new AdminUser();
         BeanUtils.copyProperties(adminUserDTO, adminUser);
+        adminUser.setPassword(DigestUtils.md5DigestAsHex(adminUserDTO.getPassword().getBytes()));
 
         Long Id = IdGeneratorUtil.generateId(IdConstant.ADMIN_SIGNAL);
         adminUser.setId(Id);
