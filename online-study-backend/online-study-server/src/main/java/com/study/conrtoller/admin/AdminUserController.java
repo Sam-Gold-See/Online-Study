@@ -1,8 +1,10 @@
 package com.study.conrtoller.admin;
 
 import com.study.dto.AdminUserDTO;
+import com.study.dto.AdminUserLoginDTO;
 import com.study.result.Result;
 import com.study.service.AdminUserService;
+import com.study.vo.AdminUserLoginVO;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -28,5 +30,17 @@ public class AdminUserController {
     public Result<String> add(@RequestBody AdminUserDTO adminUserDTO) {
         adminUserService.add(adminUserDTO);
         return Result.success();
+    }
+
+    /**
+     * 用户登录
+     *
+     * @param adminUserLoginDTO B端用户登录DTO对象
+     * @return Result<AdminUserLoginVO> B端用户登录VO对象
+     */
+    @PostMapping("/login")
+    public Result<AdminUserLoginVO> login(@RequestBody AdminUserLoginDTO adminUserLoginDTO) {
+        AdminUserLoginVO adminUserLoginVO = adminUserService.login(adminUserLoginDTO);
+        return Result.success(adminUserLoginVO);
     }
 }
