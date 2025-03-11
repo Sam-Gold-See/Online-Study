@@ -26,7 +26,7 @@ CREATE TABLE admin_user
 
 INSERT INTO admin_user (id, name, username, password, phone, gender, status, create_time, update_time, create_user,
                         update_user, level)
-VALUES (11741666652149400, 'Admin', 'admin', '123456', '15889925075', 'F', 1,
+VALUES (11741666652149400, 'Admin', 'admin', 'e10adc3949ba59abbe56e057f20f883e', '15889925075', 'F', 1,
         '2025-03-11 12:15:21', '2025-03-11 12:15:21', 11741666213042300, 11741666213042300, 1);
 
 CREATE TABLE client_user
@@ -37,9 +37,11 @@ CREATE TABLE client_user
     `password`  VARCHAR(64) NOT NULL COMMENT '用户登录密码',
     gender      CHAR(1) COMMENT '用户性别（M: 男，F: 女）',
     `status`    TINYINT DEFAULT 1 COMMENT '使用权限（1=可登录, 0=禁用）',
-    avatar      String COMMENT '头像资源链接',
-    create_time DATETIME COMMENT '创建时间'
-) COMMENT='客户端用户表'
+    avatar      VARCHAR(500) COMMENT '头像资源链接',
+    create_time DATETIME COMMENT '创建时间',
+    update_time DATETIME COMMENT '更新时间'
+) COMMENT='客户端用户表';
 
-INSERT INTO client_user (id, name, phone, password, gender, status, avatar, create_time)
-VALUES (2174169369495300,'SamGoldSee', '15889925075', 'M', 1, '', '2025-03-11 19:48:14');
+INSERT INTO client_user (id, name, phone, password, gender, status, avatar, create_time, update_time)
+VALUES (2174169369495300, 'SamGoldSee', '15889925075', 'e10adc3949ba59abbe56e057f20f883e', 'M', 1, '',
+        '2025-03-11 19:48:14', '2025-03-11 19:48:14');
