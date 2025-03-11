@@ -44,8 +44,8 @@ public class AdminUserServiceImpl implements AdminUserService {
     public void add(AdminUserDTO adminUserDTO) {
         // 校验当前管理员账号是否有权限
         Long creatorId = BaseContext.getCurrentId();
-        Boolean status = adminUserMapper.checkById(creatorId);
-        if (!status)
+        Integer status = adminUserMapper.checkById(creatorId);
+        if (!Objects.equals(status, AdminUserConstant.PERMISSION))
             throw new AdminUserLevelException(MessageConstant.PERMISSION_DENIED);
 
         AdminUser adminUser = new AdminUser();

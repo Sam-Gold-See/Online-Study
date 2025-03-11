@@ -16,7 +16,7 @@ public interface AdminUserMapper {
      * @param id 管理员Id
      */
     @Select("SELECT status FROM admin_user WHERE id = #{id}")
-    Boolean checkById(Long id);
+    Integer checkById(Long id);
 
     /**
      * 插入数据
