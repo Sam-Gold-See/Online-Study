@@ -28,4 +28,13 @@ public interface AdminUserMapper {
             "(id, name, username, password, phone, gender, create_time, update_time, create_user, update_user) " +
             "VALUES(#{id}, #{name}, #{username}, #{password}, #{phone}, #{gender}, #{createTime}, #{updateTime}, #{createUser}, #{updateUser})")
     void insert(AdminUser adminUser);
+
+    /**
+     * 根据用户账号查询数据
+     *
+     * @param username 登录账号
+     * @return AdminUser 管理员用户对象类
+     */
+    @Select("SELECT * FROM admin_user WHERE username = #{username}")
+    AdminUser getByUsername(String username);
 }
