@@ -12,6 +12,22 @@ spring:
     url: jdbc:mysql://${online-study.datasource.host}:${online-study.datasource.port}/${online-study.datasource.database}
     username: ${online-study.datasource.username}
     password: ${online-study.datasource.password}
+  mail:
+    host: smtp.163.com
+    port: 465
+    username: Online_Study@163.com
+    password: EUaFz37FV4XjrXxN
+    protocol: smtp
+    default-encoding: UTF-8
+    properties:
+      mail:
+        smtp:
+          auth: true
+          starttls:
+            enable: true
+            required: true
+          ssl:
+            enable: true
 
 mybatis:
   mapper-locations: classpath:mapper/*.xml
