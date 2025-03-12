@@ -18,16 +18,16 @@ public interface ClientUserMapper {
      */
     @AutoFill(operation = OperationType.INSERT, terminal = TerminalType.CLIENT)
     @Insert("INSERT INTO client_user " +
-            "(id, name, phone, password, gender, avatar, create_time, update_time) " +
-            "VALUES(#{id}, #{name}, #{phone}, #{password}, #{gender}, #{avatar}, #{createTime}, #{updateTime})")
+            "(id, name, email, password, gender, avatar, create_time, update_time) " +
+            "VALUES(#{id}, #{name}, #{email}, #{password}, #{gender}, #{avatar}, #{createTime}, #{updateTime})")
     void insert(ClientUser clientUser);
 
     /**
      * 根据手机号查询用户数据
      *
-     * @param phone 客户端用户手机号、登录账号
+     * @param email 客户端用户手机号、登录账号
      * @return ClientUser客户端用户实体类
      */
-    @Select("SELECT * FROM client_user WHERE phone = #{phone}")
-    ClientUser getByPhone(String phone);
+    @Select("SELECT * FROM client_user WHERE email = #{email}")
+    ClientUser getByEmail(String email);
 }
