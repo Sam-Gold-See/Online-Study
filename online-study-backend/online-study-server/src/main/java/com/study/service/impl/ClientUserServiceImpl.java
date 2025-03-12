@@ -10,6 +10,7 @@ import com.study.entity.ClientUser;
 import com.study.exception.AccountNotFoundException;
 import com.study.exception.AccountStatusException;
 import com.study.exception.PasswordErrorException;
+import com.study.exception.VerificationCodeErrorException;
 import com.study.mapper.ClientUserMapper;
 import com.study.properties.JwtProperties;
 import com.study.service.ClientUserService;
@@ -48,13 +49,28 @@ public class ClientUserServiceImpl implements ClientUserService {
      */
     @Override
     public void add(ClientUserRegistDTO clientUserRegistDTO) {
+        //  获取用户邮箱和验证码
+        String email = clientUserRegistDTO.getEmail();
+        String verificationCodeRedis = stringRedisTemplate.opsForValue().get(email);
+        String verificationCode = clientUserRegistDTO.getVerificationCode();
+
+        //  验证码比对
+        if (verificationCodeRedis == null || !Objects.equals(verificationCode, verificationCodeRedis)) {
+            throw new VerificationCodeErrorException(MessageConstant.VERIFICATION_CODE_ERROR);
+        }
+
+        //  验证码正确，删除 Redis 中的验证码
+        stringRedisTemplate.delete(email);
+
+        //  复制数据并加密密码
         ClientUser clientUser = new ClientUser();
         BeanUtils.copyProperties(clientUserRegistDTO, clientUser);
         clientUser.setPassword(DigestUtils.md5DigestAsHex(clientUserRegistDTO.getPassword().getBytes()));
 
-        Long id = IdGeneratorUtil.generateId(IdConstant.CLIENT_SIGNAL);
-        clientUser.setId(id);
+        //  生成唯一 ID 并赋值
+        clientUser.setId(IdGeneratorUtil.generateId(IdConstant.CLIENT_SIGNAL));
 
+        //  插入数据库
         clientUserMapper.insert(clientUser);
     }
 
