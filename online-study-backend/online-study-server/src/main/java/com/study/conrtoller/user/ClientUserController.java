@@ -7,10 +7,7 @@ import com.study.service.ClientUserService;
 import com.study.vo.ClientUserLoginVO;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/client/user")
@@ -19,6 +16,18 @@ public class ClientUserController {
 
     @Autowired
     ClientUserService clientUserService;
+
+    /**
+     * 请求验证码
+     *
+     * @param toEmail 邮箱账号
+     * @return Result类响应对象
+     */
+    @GetMapping("/sendMsg")
+    public Result<String> sendMsg(String toEmail) {
+        clientUserService.sendMsg(toEmail);
+        return Result.success();
+    }
 
     /**
      * 新增C端用户
