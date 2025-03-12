@@ -127,6 +127,10 @@ public class ClientUserServiceImpl implements ClientUserService {
      */
     @Override
     public void sendMsg(String toEmail) {
+        String verificationCodeRedis = stringRedisTemplate.opsForValue().get(toEmail);
+        if (verificationCodeRedis == null)
+            throw new VerificationCodeErrorException(MessageConstant.VERIFICATION_CODE_REPEAT);
+
         String verificationCode = UUID.randomUUID().toString().substring(
                 AccountConstant.VERIFICATION_CODE_START,
                 AccountConstant.VERIFICATION_CODE_LENGTH);
