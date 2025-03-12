@@ -14,6 +14,7 @@ import com.study.exception.VerificationCodeErrorException;
 import com.study.mapper.ClientUserMapper;
 import com.study.properties.JwtProperties;
 import com.study.service.ClientUserService;
+import com.study.utils.CodeUtils;
 import com.study.utils.EmailUtils;
 import com.study.utils.IdGeneratorUtil;
 import com.study.utils.JwtUtil;
@@ -53,6 +54,7 @@ public class ClientUserServiceImpl implements ClientUserService {
         String email = clientUserRegistDTO.getEmail();
         String verificationCodeRedis = stringRedisTemplate.opsForValue().get(email);
         String verificationCode = clientUserRegistDTO.getVerificationCode();
+        verificationCode = CodeUtils.upperLetters(verificationCode);
 
         //  验证码比对
         if (verificationCodeRedis == null || !Objects.equals(verificationCode, verificationCodeRedis)) {
@@ -128,6 +130,7 @@ public class ClientUserServiceImpl implements ClientUserService {
         String verificationCode = UUID.randomUUID().toString().substring(
                 AccountConstant.VERIFICATION_CODE_START,
                 AccountConstant.VERIFICATION_CODE_LENGTH);
+        verificationCode = CodeUtils.upperLetters(verificationCode);
         EmailUtils.sendVerificationCode(toEmail, verificationCode);
 
         stringRedisTemplate.opsForValue()
