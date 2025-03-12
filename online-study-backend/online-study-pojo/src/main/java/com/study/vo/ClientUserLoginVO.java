@@ -19,9 +19,9 @@ public class ClientUserLoginVO implements Serializable {
     // 用户名
     private String name;
 
-    // 用户登录账号
-    private String username;
+    // 用户手机号、登录账号
+    private String phone;
 
     // jwt令牌
-    private String token;
+    private String authentication;
 }
