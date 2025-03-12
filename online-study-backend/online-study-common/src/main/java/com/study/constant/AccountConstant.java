@@ -1,6 +1,6 @@
 package com.study.constant;
 
-public class AdminUserConstant {
+public class AccountConstant {
 
     // 账号状态正常可登录
     public static final Integer ENABLED = 1;

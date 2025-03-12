@@ -1,6 +1,6 @@
 package com.study.service.impl;
 
-import com.study.constant.AdminUserConstant;
+import com.study.constant.AccountConstant;
 import com.study.constant.IdConstant;
 import com.study.constant.JwtClaimsConstant;
 import com.study.constant.MessageConstant;
@@ -10,7 +10,7 @@ import com.study.dto.AdminUserLoginDTO;
 import com.study.entity.AdminUser;
 import com.study.exception.AccountNotFoundException;
 import com.study.exception.AdminUserLevelException;
-import com.study.exception.AdminUserStatusException;
+import com.study.exception.AccountStatusException;
 import com.study.exception.PasswordErrorException;
 import com.study.mapper.AdminUserMapper;
 import com.study.properties.JwtProperties;
@@ -32,6 +32,7 @@ public class AdminUserServiceImpl implements AdminUserService {
 
     @Autowired
     private AdminUserMapper adminUserMapper;
+
     @Autowired
     private JwtProperties jwtProperties;
 
@@ -45,15 +46,15 @@ public class AdminUserServiceImpl implements AdminUserService {
         // 校验当前管理员账号是否有权限
         Long creatorId = BaseContext.getCurrentId();
         Integer status = adminUserMapper.checkById(creatorId);
-        if (!Objects.equals(status, AdminUserConstant.PERMISSION))
+        if (!Objects.equals(status, AccountConstant.PERMISSION))
             throw new AdminUserLevelException(MessageConstant.PERMISSION_DENIED);
 
         AdminUser adminUser = new AdminUser();
         BeanUtils.copyProperties(adminUserDTO, adminUser);
         adminUser.setPassword(DigestUtils.md5DigestAsHex(adminUserDTO.getPassword().getBytes()));
 
-        Long Id = IdGeneratorUtil.generateId(IdConstant.ADMIN_SIGNAL);
-        adminUser.setId(Id);
+        Long id = IdGeneratorUtil.generateId(IdConstant.ADMIN_SIGNAL);
+        adminUser.setId(id);
 
         adminUserMapper.insert(adminUser);
     }
@@ -74,6 +75,10 @@ public class AdminUserServiceImpl implements AdminUserService {
             // 账号不存在
             throw new AccountNotFoundException(MessageConstant.ACCOUNT_NOT_FOUND);
 
+        if (!Objects.equals(adminUserDB.getStatus(), AccountConstant.ENABLED))
+            // 账号被锁定无法登陆
+            throw new AccountStatusException(MessageConstant.ACCOUNT_LOCKED);
+
         String password = adminUserLoginDTO.getPassword();
         // 密码加密成暗文，在数据库中密码以暗文形式存储
         password = DigestUtils.md5DigestAsHex(password.getBytes());
@@ -81,10 +86,6 @@ public class AdminUserServiceImpl implements AdminUserService {
         if (!password.equals(adminUserDB.getPassword()))
             // 密码错误
             throw new PasswordErrorException(MessageConstant.PASSWORD_ERROR);
-
-        if (!Objects.equals(adminUserDB.getStatus(), AdminUserConstant.ENABLED))
-            // 账号被锁定无法登陆
-            throw new AdminUserStatusException(MessageConstant.ACCOUNT_LOCKED);
 
         // 生成JWT令牌
         Map<String, Object> claims = new HashMap<>();
