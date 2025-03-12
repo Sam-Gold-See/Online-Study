@@ -62,7 +62,8 @@ public class AutoFillAspect {
 
                 case UPDATE:
                     setFieldValue(entity, AutoFillConstant.SET_UPDATE_TIME, now);
-                    setFieldValue(entity, AutoFillConstant.SET_UPDATE_USER, currentId);
+                    if (terminalType == TerminalType.ADMIN)
+                        setFieldValue(entity, AutoFillConstant.SET_UPDATE_USER, currentId);
                     break;
 
                 default:
