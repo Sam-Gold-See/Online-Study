@@ -11,4 +11,5 @@ public class MessageConstant {
     public static final String ACCOUNT_NOT_FOUND = "账号不存在";
     public static final String PASSWORD_ERROR = "密码错误";
     public static final String ACCOUNT_LOCKED = "账号锁定";
+    public static final String SEND_EMAIL_FAIL = "发送邮件失败";
 }
