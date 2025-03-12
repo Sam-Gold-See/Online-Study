@@ -4,7 +4,6 @@ import com.study.constant.AccountConstant;
 import com.study.constant.IdConstant;
 import com.study.constant.JwtClaimsConstant;
 import com.study.constant.MessageConstant;
-import com.study.context.BaseContext;
 import com.study.dto.ClientUserEditPasswordDTO;
 import com.study.dto.ClientUserLoginDTO;
 import com.study.dto.ClientUserRegistDTO;
@@ -163,12 +162,11 @@ public class ClientUserServiceImpl implements ClientUserService {
 
         stringRedisTemplate.delete(email);
 
-        Long userId = BaseContext.getCurrentId();
         String password = clientUserEditPasswordDTO.getPassword();
         password = DigestUtils.md5DigestAsHex(password.getBytes());
 
         clientUserMapper.update(ClientUser.builder()
-                .id(userId)
+                .email(email)
                 .password(password)
                 .build());
     }
