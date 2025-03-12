@@ -1,5 +1,6 @@
 package com.study.conrtoller.user;
 
+import com.study.dto.ClientUserEditEmailDTO;
 import com.study.dto.ClientUserEditPasswordDTO;
 import com.study.dto.ClientUserLoginDTO;
 import com.study.dto.ClientUserRegistDTO;
@@ -63,6 +64,18 @@ public class ClientUserController {
     @PostMapping("/editPassword")
     public Result<String> editPassword(@RequestBody ClientUserEditPasswordDTO clientUserEditPasswordDTO) {
         clientUserService.editPassword(clientUserEditPasswordDTO);
+        return Result.success();
+    }
+
+    /**
+     * 修改邮箱
+     *
+     * @param clientUserEditEmailDTO C端用户修改账号DTO
+     * @return Result类响应对象
+     */
+    @PostMapping("/editEmail")
+    public Result<String> editEmail(@RequestBody ClientUserEditEmailDTO clientUserEditEmailDTO) {
+        clientUserService.editEmail(clientUserEditEmailDTO);
         return Result.success();
     }
 }
