@@ -30,4 +30,12 @@ public interface ClientUserMapper {
      */
     @Select("SELECT * FROM client_user WHERE email = #{email}")
     ClientUser getByEmail(String email);
+
+    /**
+     * 动态更新
+     *
+     * @param clientUser 客户端对象实体类
+     */
+    @AutoFill(operation = OperationType.UPDATE, terminal = TerminalType.CLIENT)
+    void update(ClientUser clientUser);
 }
