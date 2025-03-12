@@ -26,8 +26,8 @@ public class ClientUserController {
      * @param clientUserDTO C端用户DTO对象
      * @return Result类响应对象
      */
-    @PostMapping("/add")
-    public Result<String> add(@RequestBody ClientUserDTO clientUserDTO) {
+    @PostMapping("/regist")
+    public Result<String> regist(@RequestBody ClientUserDTO clientUserDTO) {
         clientUserService.add(clientUserDTO);
         return Result.success();
     }
