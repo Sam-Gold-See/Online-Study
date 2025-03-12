@@ -4,6 +4,8 @@ import com.study.constant.AccountConstant;
 import com.study.constant.IdConstant;
 import com.study.constant.JwtClaimsConstant;
 import com.study.constant.MessageConstant;
+import com.study.context.BaseContext;
+import com.study.dto.ClientUserEditPasswordDTO;
 import com.study.dto.ClientUserLoginDTO;
 import com.study.dto.ClientUserRegistDTO;
 import com.study.entity.ClientUser;
@@ -139,5 +141,35 @@ public class ClientUserServiceImpl implements ClientUserService {
 
         stringRedisTemplate.opsForValue()
                 .set(toEmail, verificationCode, AccountConstant.VERIFICATION_CODE_TTL, TimeUnit.MINUTES);
+    }
+
+    /**
+     * 修改密码
+     *
+     * @param clientUserEditPasswordDTO C端用户修改密码DTO
+     */
+    @Override
+    public void editPassword(ClientUserEditPasswordDTO clientUserEditPasswordDTO) {
+        //  获取用户邮箱和验证码
+        String email = clientUserEditPasswordDTO.getEmail();
+        String verificationCodeRedis = stringRedisTemplate.opsForValue().get(email);
+        String verificationCode = clientUserEditPasswordDTO.getVerificationCode();
+        verificationCode = CodeUtils.upperLetters(verificationCode);
+
+        //  验证码比对
+        if (verificationCodeRedis == null || !Objects.equals(verificationCode, verificationCodeRedis)) {
+            throw new VerificationCodeErrorException(MessageConstant.VERIFICATION_CODE_ERROR);
+        }
+
+        stringRedisTemplate.delete(email);
+
+        Long userId = BaseContext.getCurrentId();
+        String password = clientUserEditPasswordDTO.getPassword();
+        password = DigestUtils.md5DigestAsHex(password.getBytes());
+
+        clientUserMapper.update(ClientUser.builder()
+                .id(userId)
+                .password(password)
+                .build());
     }
 }
