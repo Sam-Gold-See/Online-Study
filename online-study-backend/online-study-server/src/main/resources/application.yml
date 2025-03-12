@@ -12,6 +12,12 @@ spring:
     url: jdbc:mysql://${online-study.datasource.host}:${online-study.datasource.port}/${online-study.datasource.database}
     username: ${online-study.datasource.username}
     password: ${online-study.datasource.password}
+  data:
+    redis:
+      host: ${online-study.redis.host}
+      port: ${online-study.redis.port}
+      password: ${online-study.redis.password}
+      database: ${online-study.redis.database}
   mail:
     host: smtp.163.com
     port: 465
