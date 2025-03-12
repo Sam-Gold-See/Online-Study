@@ -3,6 +3,7 @@ package com.study.mapper;
 import com.study.annotation.AutoFill;
 import com.study.entity.AdminUser;
 import com.study.enumeration.OperationType;
+import com.study.enumeration.TerminalType;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Select;
@@ -23,7 +24,7 @@ public interface AdminUserMapper {
      *
      * @param adminUser 管理员用户实体类
      */
-    @AutoFill(OperationType.INSERT)
+    @AutoFill(operation = OperationType.INSERT, terminal = TerminalType.ADMIN)
     @Insert("INSERT INTO admin_user " +
             "(id, name, username, password, phone, gender, create_time, update_time, create_user, update_user) " +
             "VALUES(#{id}, #{name}, #{username}, #{password}, #{phone}, #{gender}, #{createTime}, #{updateTime}, #{createUser}, #{updateUser})")
