@@ -4,8 +4,8 @@ import com.study.constant.AccountConstant;
 import com.study.constant.IdConstant;
 import com.study.constant.JwtClaimsConstant;
 import com.study.constant.MessageConstant;
-import com.study.dto.ClientUserDTO;
 import com.study.dto.ClientUserLoginDTO;
+import com.study.dto.ClientUserRegistDTO;
 import com.study.entity.ClientUser;
 import com.study.exception.AccountNotFoundException;
 import com.study.exception.AccountStatusException;
@@ -13,36 +13,44 @@ import com.study.exception.PasswordErrorException;
 import com.study.mapper.ClientUserMapper;
 import com.study.properties.JwtProperties;
 import com.study.service.ClientUserService;
+import com.study.utils.EmailUtils;
 import com.study.utils.IdGeneratorUtil;
 import com.study.utils.JwtUtil;
 import com.study.vo.ClientUserLoginVO;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.stereotype.Service;
 import org.springframework.util.DigestUtils;
 
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
+import java.util.UUID;
+import java.util.concurrent.TimeUnit;
 
 @Service
 public class ClientUserServiceImpl implements ClientUserService {
 
     @Autowired
-    ClientUserMapper clientUserMapper;
+    private ClientUserMapper clientUserMapper;
+
     @Autowired
     private JwtProperties jwtProperties;
+
+    @Autowired
+    private StringRedisTemplate stringRedisTemplate;
 
     /**
      * 新增C端用户
      *
-     * @param clientUserDTO C端用户DTO对象
+     * @param clientUserRegistDTO C端用户注册DTO对象
      */
     @Override
-    public void add(ClientUserDTO clientUserDTO) {
+    public void add(ClientUserRegistDTO clientUserRegistDTO) {
         ClientUser clientUser = new ClientUser();
-        BeanUtils.copyProperties(clientUserDTO, clientUser);
-        clientUser.setPassword(DigestUtils.md5DigestAsHex(clientUserDTO.getPassword().getBytes()));
+        BeanUtils.copyProperties(clientUserRegistDTO, clientUser);
+        clientUser.setPassword(DigestUtils.md5DigestAsHex(clientUserRegistDTO.getPassword().getBytes()));
 
         Long id = IdGeneratorUtil.generateId(IdConstant.CLIENT_SIGNAL);
         clientUser.setId(id);
@@ -58,10 +66,10 @@ public class ClientUserServiceImpl implements ClientUserService {
      */
     @Override
     public ClientUserLoginVO login(ClientUserLoginDTO clientUserLoginDTO) {
-        String phone = clientUserLoginDTO.getPhone();
+        String email = clientUserLoginDTO.getEmail();
 
-        // 根据用户手机号、登录账号查询用户库数据
-        ClientUser clientUserDB = clientUserMapper.getByPhone(phone);
+        // 根据用户邮箱号、登录账号查询用户库数据
+        ClientUser clientUserDB = clientUserMapper.getByEmail(email);
         if (clientUserDB == null)
             // 账号不存在
             throw new AccountNotFoundException(MessageConstant.ACCOUNT_NOT_FOUND);
@@ -89,8 +97,24 @@ public class ClientUserServiceImpl implements ClientUserService {
         return ClientUserLoginVO.builder()
                 .id(clientUserDB.getId())
                 .name(clientUserDB.getName())
-                .phone(phone)
+                .email(email)
                 .authentication(authentication)
                 .build();
+    }
+
+    /**
+     * 发送验证码
+     *
+     * @param toEmail 目标邮箱
+     */
+    @Override
+    public void sendMsg(String toEmail) {
+        String verificationCode = UUID.randomUUID().toString().substring(
+                AccountConstant.VERIFICATION_CODE_START,
+                AccountConstant.VERIFICATION_CODE_LENGTH);
+        EmailUtils.sendVerificationCode(toEmail, verificationCode);
+
+        stringRedisTemplate.opsForValue()
+                .set(toEmail, verificationCode, AccountConstant.VERIFICATION_CODE_TTL, TimeUnit.MINUTES);
     }
 }
