@@ -1,7 +1,7 @@
 package com.study.conrtoller.user;
 
-import com.study.dto.ClientUserDTO;
 import com.study.dto.ClientUserLoginDTO;
+import com.study.dto.ClientUserRegistDTO;
 import com.study.result.Result;
 import com.study.service.ClientUserService;
 import com.study.vo.ClientUserLoginVO;
@@ -23,12 +23,12 @@ public class ClientUserController {
     /**
      * 新增C端用户
      *
-     * @param clientUserDTO C端用户DTO对象
+     * @param clientUserRegistDTO C端用户注册DTO对象
      * @return Result类响应对象
      */
     @PostMapping("/regist")
-    public Result<String> regist(@RequestBody ClientUserDTO clientUserDTO) {
-        clientUserService.add(clientUserDTO);
+    public Result<String> regist(@RequestBody ClientUserRegistDTO clientUserRegistDTO) {
+        clientUserService.add(clientUserRegistDTO);
         return Result.success();
     }
 
