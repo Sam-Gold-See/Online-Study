@@ -1,6 +1,7 @@
 package com.study.annotation;
 
 import com.study.enumeration.OperationType;
+import com.study.enumeration.TerminalType;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
@@ -15,5 +16,8 @@ import java.lang.annotation.Target;
 @Retention(RetentionPolicy.RUNTIME)
 public @interface AutoFill {
     // 指定数据库的操作类型：UPDATE INSERT
-    OperationType value();
+    OperationType operation();
+
+    // 指定客户端的种类：ADMIN CLIENT
+    TerminalType terminal();
 }

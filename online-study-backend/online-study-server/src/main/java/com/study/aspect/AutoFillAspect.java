@@ -4,6 +4,7 @@ import com.study.annotation.AutoFill;
 import com.study.constant.AutoFillConstant;
 import com.study.context.BaseContext;
 import com.study.enumeration.OperationType;
+import com.study.enumeration.TerminalType;
 import lombok.extern.slf4j.Slf4j;
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.annotation.Aspect;
@@ -34,44 +35,49 @@ public class AutoFillAspect {
     @Before("autoFillPointCut()")
     public void autoFill(JoinPoint joinPoint) {
         // 获取当前被拦截的方法上的数据库操作类型
-        MethodSignature signature = (MethodSignature) joinPoint.getSignature();// 方法签名对象
-        AutoFill autoFill = signature.getMethod().getAnnotation(AutoFill.class);// 获得方法上的注释对象
-        OperationType operationType = autoFill.value();// 获得数据库操作类型
+        MethodSignature signature = (MethodSignature) joinPoint.getSignature();
+        AutoFill autoFill = signature.getMethod().getAnnotation(AutoFill.class);
+        OperationType operationType = autoFill.operation();
+        TerminalType terminalType = autoFill.terminal();
 
-        // 获取到当前被拦截的方法的参数实体对象
-        Object[] args = joinPoint.getArgs();// 约定所有方法，将实体对象作为第一个参数
-        if (args == null || args.length == 0)
-            return;
+        // 获取实体对象
+        Object[] args = joinPoint.getArgs();
+        if (args == null || args.length == 0 || args[0] == null) return;
         Object entity = args[0];
 
         // 准备赋值的数据
         LocalDateTime now = LocalDateTime.now();
         Long currentId = BaseContext.getCurrentId();
 
-        // 根据不同的操作类型，为对应的属性通过反射赋值
-        if (operationType == OperationType.INSERT)
-            try {
-                Method setCreateTime = entity.getClass().getDeclaredMethod(AutoFillConstant.SET_CREATE_TIME, LocalDateTime.class);
-                Method setCreateUser = entity.getClass().getDeclaredMethod(AutoFillConstant.SET_CREATE_USER, Long.class);
-                Method setUpdateTime = entity.getClass().getDeclaredMethod(AutoFillConstant.SET_UPDATE_TIME, LocalDateTime.class);
-                Method setUpdateUser = entity.getClass().getDeclaredMethod(AutoFillConstant.SET_UPDATE_USER, Long.class);
+        try {
+            switch (operationType) {
+                case INSERT:
+                    setFieldValue(entity, AutoFillConstant.SET_CREATE_TIME, now);
+                    setFieldValue(entity, AutoFillConstant.SET_UPDATE_TIME, now);
+                    if (terminalType == TerminalType.ADMIN) {
+                        setFieldValue(entity, AutoFillConstant.SET_CREATE_USER, currentId);
+                        setFieldValue(entity, AutoFillConstant.SET_UPDATE_USER, currentId);
+                    }
+                    break;
 
-                setCreateTime.invoke(entity, now);
-                setCreateUser.invoke(entity, currentId);
-                setUpdateTime.invoke(entity, now);
-                setUpdateUser.invoke(entity, currentId);
-            } catch (Exception e) {
-                throw new RuntimeException(e);
-            }
-        else if (operationType == OperationType.UPDATE)
-            try {
-                Method setUpdateTime = entity.getClass().getDeclaredMethod(AutoFillConstant.SET_UPDATE_TIME, LocalDateTime.class);
-                Method setUpdateUser = entity.getClass().getDeclaredMethod(AutoFillConstant.SET_UPDATE_USER, Long.class);
+                case UPDATE:
+                    setFieldValue(entity, AutoFillConstant.SET_UPDATE_TIME, now);
+                    setFieldValue(entity, AutoFillConstant.SET_UPDATE_USER, currentId);
+                    break;
 
-                setUpdateTime.invoke(entity, now);
-                setUpdateUser.invoke(entity, currentId);
-            } catch (Exception e) {
-                throw new RuntimeException(e);
+                default:
+                    throw new IllegalArgumentException("Unsupported operation type: " + operationType);
             }
+        } catch (Exception e) {
+            throw new RuntimeException("Error while auto-filling entity fields", e);
+        }
+    }
+
+    /**
+     * 反射调用实体类的 set 方法，赋值对应字段
+     */
+    private void setFieldValue(Object entity, String methodName, Object value) throws Exception {
+        Method method = entity.getClass().getDeclaredMethod(methodName, value.getClass());
+        method.invoke(entity, value);
     }
 }
