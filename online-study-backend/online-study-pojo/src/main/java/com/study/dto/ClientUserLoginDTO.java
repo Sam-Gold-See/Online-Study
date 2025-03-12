@@ -11,8 +11,8 @@ import lombok.NoArgsConstructor;
 @Builder
 public class ClientUserLoginDTO {
 
-    // 用户登录账号、手机号
-    private String phone;
+    // 用户登录账号、邮箱号
+    private String email;
 
     // 用户登录密码
     private String password;

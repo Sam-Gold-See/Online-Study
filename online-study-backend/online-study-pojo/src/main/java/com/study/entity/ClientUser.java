@@ -24,8 +24,8 @@ public class ClientUser implements Serializable {
     // 用户名
     private String name;
 
-    // 用户手机
-    private String phone;
+    // 用户邮箱号
+    private String email;
 
     // 用户登录密码
     private String password;
