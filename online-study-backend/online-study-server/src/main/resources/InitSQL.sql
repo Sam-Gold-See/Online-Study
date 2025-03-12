@@ -33,7 +33,7 @@ CREATE TABLE client_user
 (
     id          BIGINT      NOT NULL PRIMARY KEY COMMENT '时间戳唯一id',
     `name`      VARCHAR(32) COMMENT '用户名',
-    phone       VARCHAR(15) UNIQUE COMMENT '用户手机，同为登录账号',
+    email       VARCHAR(256) UNIQUE COMMENT '用户邮箱地址，同为登录账号',
     `password`  VARCHAR(64) NOT NULL COMMENT '用户登录密码',
     gender      CHAR(1) COMMENT '用户性别（M: 男，F: 女）',
     `status`    TINYINT DEFAULT 1 COMMENT '使用权限（1=可登录, 0=禁用）',
@@ -42,6 +42,6 @@ CREATE TABLE client_user
     update_time DATETIME COMMENT '更新时间'
 ) COMMENT='客户端用户表';
 
-INSERT INTO client_user (id, name, phone, password, gender, status, avatar, create_time, update_time)
-VALUES (2174169369495300, 'SamGoldSee', '15889925075', 'e10adc3949ba59abbe56e057f20f883e', 'M', 1, '',
+INSERT INTO client_user (id, name, email, password, gender, status, avatar, create_time, update_time)
+VALUES (2174169369495300, 'SamGoldSee', 'chunxin.huang@m.scnu.edu.cn', 'e10adc3949ba59abbe56e057f20f883e', 'M', 1, '',
         '2025-03-11 19:48:14', '2025-03-11 19:48:14');
