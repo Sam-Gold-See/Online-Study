@@ -81,4 +81,16 @@ public class AdminUserController {
         PageResult<AdminUser> pageResult = adminUserService.getAdminListPage(adminUserPageQueryDTO);
         return Result.success(pageResult);
     }
+
+    /**
+     * B端用户数据查询
+     *
+     * @param id 用户id
+     * @return Result类响应对象
+     */
+    @GetMapping
+    public Result<AdminUser> getAdmin(Long id) {
+        AdminUser adminUser = adminUserService.getById(id);
+        return Result.success(adminUser);
+    }
 }
