@@ -1,5 +1,6 @@
 package com.study.utils;
 
+import com.study.constant.AccountConstant;
 import com.study.constant.MessageConstant;
 import com.study.exception.EmailException;
 import com.study.properties.EmailConfigProperties;
@@ -37,7 +38,7 @@ public class EmailUtils {
             email.setSSLOnConnect(true); // 启用SSL
             email.addTo(toEmail); // 收件人
             email.setSubject("登录验证码"); // 邮件主题
-            email.setMsg("尊敬的用户，您好！您本次操作的验证码是：" + verificationCode + " ，请尽快使用。"); // 邮件内容
+            email.setMsg("尊敬的用户，您好！您本次操作的验证码是：" + verificationCode + " ，请在" + AccountConstant.VERIFICATION_CODE_TTL + "分钟内尽快使用。"); // 邮件内容
             email.send();
         } catch (Exception e) {
             throw new EmailException(MessageConstant.SEND_EMAIL_FAIL);

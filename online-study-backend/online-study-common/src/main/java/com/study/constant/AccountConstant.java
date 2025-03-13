@@ -21,5 +21,5 @@ public class AccountConstant {
     public static final Integer VERIFICATION_CODE_LENGTH = 6;
 
     // 验证码有效时长
-    public static final Integer VERIFICATION_CODE_TTL = 1;
+    public static final Integer VERIFICATION_CODE_TTL = 5;
 }
