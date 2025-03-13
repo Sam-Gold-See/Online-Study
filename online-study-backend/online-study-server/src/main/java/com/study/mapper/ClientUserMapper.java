@@ -1,6 +1,8 @@
 package com.study.mapper;
 
+import com.github.pagehelper.Page;
 import com.study.annotation.AutoFill;
+import com.study.dto.ClientUserPageQueryDTO;
 import com.study.entity.ClientUser;
 import com.study.enumeration.OperationType;
 import com.study.enumeration.TerminalType;
@@ -57,4 +59,13 @@ public interface ClientUserMapper {
     @Update("UPDATE client_user SET email = #{email} WHERE id = #{id}")
     @AutoFill(operation = OperationType.UPDATE, terminal = TerminalType.CLIENT)
     void updateEmail(ClientUser clientUser);
+
+
+    /**
+     * C端用户分页查询
+     *
+     * @param clientUserPageQueryDTO C端用户分页查询DTO对象
+     * @return PageResult<AdminUser> ClientUser类的分页查询对象
+     */
+    Page<ClientUser> getListPage(ClientUserPageQueryDTO clientUserPageQueryDTO);
 }
