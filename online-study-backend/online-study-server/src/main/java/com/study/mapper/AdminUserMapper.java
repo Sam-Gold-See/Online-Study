@@ -47,4 +47,12 @@ public interface AdminUserMapper {
      **/
     @Select("SELECT * FROM admin_user WHERE id = #{id}")
     AdminUser getById(Long id);
+
+    /**
+     * 动态更新管理端用户数据
+     *
+     * @param adminUser 管理员用户对象类
+     */
+    @AutoFill(operation = OperationType.UPDATE, terminal = TerminalType.ADMIN)
+    void update(AdminUser adminUser);
 }
