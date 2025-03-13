@@ -36,7 +36,7 @@ public class AdminUser implements Serializable {
     // 用户性别（M：男，女：F）
     private Character gender;
 
-    // 使用权限（1=正常，0=禁用）
+    // 登录权限（1=正常，0=禁用）
     private Integer status;
 
     // 创建时间
@@ -51,6 +51,6 @@ public class AdminUser implements Serializable {
     // 更新用户ID
     private Long updateUser;
 
-    // 是否用权限管理其他管理端用户
+    // 是否用权限修改其他管理端用户（1=有权限，0=无）
     private Integer level;
 }

@@ -5,11 +5,13 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.io.Serializable;
+
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-public class ClientUserEditEmailDTO {
+public class ClientUserEditEmailDTO implements Serializable {
 
     // 现在的邮箱
     private String oldEmail;
