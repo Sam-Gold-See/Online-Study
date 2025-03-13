@@ -20,4 +20,11 @@ public interface AdminUserService {
      * @return AdminUserLoginVO B端用户登录VO对象
      */
     AdminUserLoginVO login(AdminUserLoginDTO adminUserLoginDTO);
+
+    /**
+     * 启用、禁用B端用户登录权限
+     *
+     * @param id 用户id
+     */
+    void editStatus(Long id, Integer status);
 }

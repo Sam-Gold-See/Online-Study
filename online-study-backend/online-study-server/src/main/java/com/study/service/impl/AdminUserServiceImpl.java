@@ -9,8 +9,8 @@ import com.study.dto.AdminUserDTO;
 import com.study.dto.AdminUserLoginDTO;
 import com.study.entity.AdminUser;
 import com.study.exception.AccountNotFoundException;
-import com.study.exception.AdminUserLevelException;
 import com.study.exception.AccountStatusException;
+import com.study.exception.AdminUserLevelException;
 import com.study.exception.PasswordErrorException;
 import com.study.mapper.AdminUserMapper;
 import com.study.properties.JwtProperties;
@@ -101,5 +101,25 @@ public class AdminUserServiceImpl implements AdminUserService {
                 .username(username)
                 .token(token)
                 .build();
+    }
+
+    /**
+     * 启用、禁用B端用户登录权限
+     *
+     * @param id 用户id
+     */
+    @Override
+    public void editStatus(Long id, Integer status) {
+        Long userId = BaseContext.getCurrentId();
+
+        AdminUser adminUserDB = adminUserMapper.getById(userId);
+
+        if (!Objects.equals(adminUserDB.getLevel(), AccountConstant.PERMISSION))
+            adminUserMapper.update(AdminUser.builder()
+                    .id(id)
+                    .status(status)
+                    .build());
+        else
+            throw new AdminUserLevelException(MessageConstant.PERMISSION_DENIED);
     }
 }
