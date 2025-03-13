@@ -1,6 +1,8 @@
 package com.study.mapper;
 
+import com.github.pagehelper.Page;
 import com.study.annotation.AutoFill;
+import com.study.dto.AdminUserPageQueryDTO;
 import com.study.entity.AdminUser;
 import com.study.enumeration.OperationType;
 import com.study.enumeration.TerminalType;
@@ -55,4 +57,12 @@ public interface AdminUserMapper {
      */
     @AutoFill(operation = OperationType.UPDATE, terminal = TerminalType.ADMIN)
     void update(AdminUser adminUser);
+
+    /**
+     * B端用户分页查询
+     *
+     * @param adminUserPageQueryDTO B端用户分页查询DTO对象
+     * @return Page<AdminUser> AdminUser类的分页对象
+     */
+    Page<AdminUser> getListPage(AdminUserPageQueryDTO adminUserPageQueryDTO);
 }

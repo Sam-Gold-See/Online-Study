@@ -34,4 +34,13 @@
         </set>
         WHERE id = #{id}
     </update>
+    <select id="getListPage" resultType="com.study.entity.AdminUser">
+        SELECT * FROM admin_user
+        <where>
+            <if test="name != null and name != ''">
+                AND name like concat('%', #{name}, '%')
+            </if>
+        </where>
+        ORDER BY create_time desc
+    </select>
 </mapper>
