@@ -199,7 +199,9 @@ public class ClientUserServiceImpl implements ClientUserService {
         if (!(Objects.equals(oldClientUser.getEmail(), clientUserEditEmailDTO.getOldEmail())))
             throw new AccountNotFoundException(MessageConstant.ACCOUNT_NOT_FOUND);
 
-        if (!Objects.equals(oldClientUser.getPassword(), clientUserEditEmailDTO.getPassword()))
+        String password = clientUserEditEmailDTO.getPassword();
+        password = DigestUtils.md5DigestAsHex(password.getBytes());
+        if (!Objects.equals(oldClientUser.getPassword(), password))
             throw new PasswordErrorException(MessageConstant.PASSWORD_ERROR);
 
         clientUserMapper.updateEmail(ClientUser.builder()
