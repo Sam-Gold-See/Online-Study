@@ -24,7 +24,8 @@ public interface AdminUserService {
     /**
      * 启用、禁用B端用户登录权限
      *
-     * @param id 用户id
+     * @param id     用户id
+     * @param status 目标状态
      */
     void editStatus(Long id, Integer status);
 }

@@ -106,7 +106,8 @@ public class AdminUserServiceImpl implements AdminUserService {
     /**
      * 启用、禁用B端用户登录权限
      *
-     * @param id 用户id
+     * @param id     用户id
+     * @param status 目标状态
      */
     @Override
     public void editStatus(Long id, Integer status) {
@@ -114,7 +115,7 @@ public class AdminUserServiceImpl implements AdminUserService {
 
         AdminUser adminUserDB = adminUserMapper.getById(userId);
 
-        if (!Objects.equals(adminUserDB.getLevel(), AccountConstant.PERMISSION))
+        if (Objects.equals(adminUserDB.getLevel(), AccountConstant.PERMISSION))
             adminUserMapper.update(AdminUser.builder()
                     .id(id)
                     .status(status)
