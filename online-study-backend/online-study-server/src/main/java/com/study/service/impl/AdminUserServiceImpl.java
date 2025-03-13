@@ -11,10 +11,7 @@ import com.study.dto.AdminUserDTO;
 import com.study.dto.AdminUserLoginDTO;
 import com.study.dto.AdminUserPageQueryDTO;
 import com.study.entity.AdminUser;
-import com.study.exception.AccountNotFoundException;
-import com.study.exception.AccountStatusException;
-import com.study.exception.AdminUserLevelException;
-import com.study.exception.PasswordErrorException;
+import com.study.exception.*;
 import com.study.mapper.AdminUserMapper;
 import com.study.properties.JwtProperties;
 import com.study.result.PageResult;
@@ -173,5 +170,28 @@ public class AdminUserServiceImpl implements AdminUserService {
     @Override
     public AdminUser getById(Long id) {
         return adminUserMapper.getById(id);
+    }
+
+    /**
+     * B端用户数据更新
+     *
+     * @param adminUser B端用户
+     */
+    @Override
+    public void updateAdmin(AdminUser adminUser) {
+        Long userId = BaseContext.getCurrentId();
+
+        if (Objects.equals(adminUser.getId(), userId))
+            throw new OperationErrorException(MessageConstant.INVALID_OPERATION);
+
+        AdminUser adminUserDB = adminUserMapper.getById(userId);
+
+        if (!Objects.equals(adminUserDB.getLevel(), AccountConstant.PERMISSION))
+            throw new AdminUserLevelException(MessageConstant.PERMISSION_DENIED);
+
+        String password = adminUser.getPassword();
+        adminUser.setPassword(DigestUtils.md5DigestAsHex(password.getBytes()));
+
+        adminUserMapper.update(adminUser);
     }
 }

@@ -56,4 +56,11 @@ public interface AdminUserService {
      * @return AdminUser类Admin用户实体对象
      */
     AdminUser getById(Long id);
+
+    /**
+     * B端用户数据更新
+     *
+     * @param adminUser B端用户
+     */
+    void updateAdmin(AdminUser adminUser);
 }
