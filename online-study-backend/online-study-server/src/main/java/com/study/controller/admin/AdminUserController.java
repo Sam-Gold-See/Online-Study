@@ -93,4 +93,16 @@ public class AdminUserController {
         AdminUser adminUser = adminUserService.getById(id);
         return Result.success(adminUser);
     }
+
+    /**
+     * B端用户数据更新
+     *
+     * @param adminUser B端用户
+     * @return Result类响应对象
+     */
+    @PostMapping("/update")
+    public Result<String> updateAdmin(@RequestBody AdminUser adminUser) {
+        adminUserService.updateAdmin(adminUser);
+        return Result.success();
+    }
 }
