@@ -28,4 +28,13 @@ public interface AdminUserService {
      * @param status 目标状态
      */
     void editStatus(Long id, Integer status);
+
+
+    /**
+     * 启用、禁用B端用户修改权限
+     *
+     * @param id    用户id
+     * @param level 目标权限
+     */
+    void editLevel(Long id, Integer level);
 }

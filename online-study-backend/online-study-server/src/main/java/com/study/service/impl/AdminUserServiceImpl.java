@@ -123,4 +123,25 @@ public class AdminUserServiceImpl implements AdminUserService {
         else
             throw new AdminUserLevelException(MessageConstant.PERMISSION_DENIED);
     }
+
+    /**
+     * 启用、禁用B端用户修改权限
+     *
+     * @param id    用户id
+     * @param level 目标权限
+     */
+    @Override
+    public void editLevel(Long id, Integer level) {
+        Long userId = BaseContext.getCurrentId();
+
+        AdminUser adminUserDB = adminUserMapper.getById(userId);
+
+        if (Objects.equals(adminUserDB.getLevel(), AccountConstant.PERMISSION))
+            adminUserMapper.update(AdminUser.builder()
+                    .id(id)
+                    .level(level)
+                    .build());
+        else
+            throw new AdminUserLevelException(MessageConstant.PERMISSION_DENIED);
+    }
 }
