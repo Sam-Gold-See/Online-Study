@@ -1,5 +1,7 @@
 package com.study.service.impl;
 
+import com.github.pagehelper.Page;
+import com.github.pagehelper.PageHelper;
 import com.study.constant.AccountConstant;
 import com.study.constant.IdConstant;
 import com.study.constant.JwtClaimsConstant;
@@ -7,6 +9,7 @@ import com.study.constant.MessageConstant;
 import com.study.context.BaseContext;
 import com.study.dto.AdminUserDTO;
 import com.study.dto.AdminUserLoginDTO;
+import com.study.dto.AdminUserPageQueryDTO;
 import com.study.entity.AdminUser;
 import com.study.exception.AccountNotFoundException;
 import com.study.exception.AccountStatusException;
@@ -14,6 +17,7 @@ import com.study.exception.AdminUserLevelException;
 import com.study.exception.PasswordErrorException;
 import com.study.mapper.AdminUserMapper;
 import com.study.properties.JwtProperties;
+import com.study.result.PageResult;
 import com.study.service.AdminUserService;
 import com.study.utils.IdGeneratorUtil;
 import com.study.utils.JwtUtil;
@@ -143,5 +147,20 @@ public class AdminUserServiceImpl implements AdminUserService {
                     .build());
         else
             throw new AdminUserLevelException(MessageConstant.PERMISSION_DENIED);
+    }
+
+    /**
+     * B端用户分页查询
+     *
+     * @param adminUserPageQueryDTO B端用户分页查询DTO对象
+     * @return PageResult<AdminUser> AdminUser类的分页查询对象
+     */
+    @Override
+    public PageResult<AdminUser> getAdminListPage(AdminUserPageQueryDTO adminUserPageQueryDTO) {
+        PageHelper.startPage(adminUserPageQueryDTO.getPage(), adminUserPageQueryDTO.getPageSize());
+
+        Page<AdminUser> page = adminUserMapper.getListPage(adminUserPageQueryDTO);
+
+        return new PageResult<>(page.getTotal(), page.getResult());
     }
 }
