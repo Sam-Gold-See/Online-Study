@@ -44,12 +44,26 @@ public class AdminUserController {
     /**
      * 启用、禁用B端用户登录权限
      *
-     * @param id 用户id
+     * @param id     用户id
+     * @param status 目标状态
      * @return Result类响应对象
      */
     @GetMapping("/editStatus")
     public Result<String> editStatus(Long id, Integer status) {
         adminUserService.editStatus(id, status);
+        return Result.success();
+    }
+
+    /**
+     * 启用、禁用B端用户修改权限
+     *
+     * @param id    用户id
+     * @param level 目标权限
+     * @return Result类响应对象
+     */
+    @GetMapping("/editLevel")
+    public Result<String> editLevel(Long id, Integer level) {
+        adminUserService.editLevel(id, level);
         return Result.success();
     }
 }
