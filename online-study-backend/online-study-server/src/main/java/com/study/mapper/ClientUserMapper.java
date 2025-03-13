@@ -55,5 +55,6 @@ public interface ClientUserMapper {
      * @param clientUser 客户端用户实体类
      */
     @Update("UPDATE client_user SET email = #{email} WHERE id = #{id}")
+    @AutoFill(operation = OperationType.UPDATE, terminal = TerminalType.CLIENT)
     void updateEmail(ClientUser clientUser);
 }
