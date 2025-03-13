@@ -1,7 +1,10 @@
-package com.study.conrtoller.admin;
+package com.study.controller.admin;
 
 import com.study.dto.AdminUserDTO;
 import com.study.dto.AdminUserLoginDTO;
+import com.study.dto.AdminUserPageQueryDTO;
+import com.study.entity.AdminUser;
+import com.study.result.PageResult;
 import com.study.result.Result;
 import com.study.service.AdminUserService;
 import com.study.vo.AdminUserLoginVO;
@@ -9,7 +12,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-@RestController
+@RestController("bAdminUserController")
 @RequestMapping("/admin/user")
 @Slf4j
 public class AdminUserController {
@@ -65,5 +68,17 @@ public class AdminUserController {
     public Result<String> editLevel(Long id, Integer level) {
         adminUserService.editLevel(id, level);
         return Result.success();
+    }
+
+    /**
+     * B端用户分页查询
+     *
+     * @param adminUserPageQueryDTO B端用户分页查询DTO对象
+     * @return Result类响应对象
+     */
+    @GetMapping("/page")
+    public Result<PageResult<AdminUser>> getAdminListPage(AdminUserPageQueryDTO adminUserPageQueryDTO) {
+        PageResult<AdminUser> pageResult = adminUserService.getAdminListPage(adminUserPageQueryDTO);
+        return Result.success(pageResult);
     }
 }
