@@ -4,6 +4,8 @@ import com.study.constant.AccountConstant;
 import com.study.constant.IdConstant;
 import com.study.constant.JwtClaimsConstant;
 import com.study.constant.MessageConstant;
+import com.study.context.BaseContext;
+import com.study.dto.ClientUserEditEmailDTO;
 import com.study.dto.ClientUserEditPasswordDTO;
 import com.study.dto.ClientUserLoginDTO;
 import com.study.dto.ClientUserRegistDTO;
@@ -168,6 +170,41 @@ public class ClientUserServiceImpl implements ClientUserService {
         clientUserMapper.update(ClientUser.builder()
                 .email(email)
                 .password(password)
+                .build());
+    }
+
+    /**
+     * 修改邮箱
+     *
+     * @param clientUserEditEmailDTO C端用户修改邮箱DTO
+     */
+    @Override
+    public void editEmail(ClientUserEditEmailDTO clientUserEditEmailDTO) {
+        //  获取用户新邮箱和验证码
+        String newEmail = clientUserEditEmailDTO.getNewEmail();
+        String verificationCodeRedis = stringRedisTemplate.opsForValue().get(newEmail);
+        String verificationCode = clientUserEditEmailDTO.getVerificationCode();
+        verificationCode = CodeUtils.upperLetters(verificationCode);
+
+        //  验证码比对
+        if (verificationCodeRedis == null || !Objects.equals(verificationCode, verificationCodeRedis)) {
+            throw new VerificationCodeErrorException(MessageConstant.VERIFICATION_CODE_ERROR);
+        }
+
+        stringRedisTemplate.delete(newEmail);
+
+        Long userId = BaseContext.getCurrentId();
+        ClientUser oldClientUser = clientUserMapper.getById(userId);
+
+        if (!(Objects.equals(oldClientUser.getEmail(), clientUserEditEmailDTO.getOldEmail())))
+            throw new AccountNotFoundException(MessageConstant.ACCOUNT_NOT_FOUND);
+
+        if (!Objects.equals(oldClientUser.getPassword(), clientUserEditEmailDTO.getPassword()))
+            throw new PasswordErrorException(MessageConstant.PASSWORD_ERROR);
+
+        clientUserMapper.updateEmail(ClientUser.builder()
+                .email(newEmail)
+                .id(userId)
                 .build());
     }
 }

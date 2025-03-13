@@ -1,5 +1,6 @@
 package com.study.service;
 
+import com.study.dto.ClientUserEditEmailDTO;
 import com.study.dto.ClientUserEditPasswordDTO;
 import com.study.dto.ClientUserLoginDTO;
 import com.study.dto.ClientUserRegistDTO;
@@ -35,4 +36,11 @@ public interface ClientUserService {
      * @param clientUserEditPasswordDTO C端用户修改密码DTO
      */
     void editPassword(ClientUserEditPasswordDTO clientUserEditPasswordDTO);
+
+    /**
+     * 修改邮箱
+     *
+     * @param clientUserEditEmailDTO C端用户修改邮箱DTO
+     */
+    void editEmail(ClientUserEditEmailDTO clientUserEditEmailDTO);
 }
