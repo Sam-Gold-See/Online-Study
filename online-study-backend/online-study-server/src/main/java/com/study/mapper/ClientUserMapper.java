@@ -7,6 +7,7 @@ import com.study.enumeration.TerminalType;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.Update;
 
 @Mapper
 public interface ClientUserMapper {
@@ -47,4 +48,12 @@ public interface ClientUserMapper {
      */
     @Select("SELECT * FROM client_user WHERE id = #{userId}")
     ClientUser getById(Long userId);
+
+    /**
+     * 更新用户Email
+     *
+     * @param clientUser 客户端用户实体类
+     */
+    @Update("UPDATE client_user SET email = #{email} WHERE id = #{id}")
+    void updateEmail(ClientUser clientUser);
 }
