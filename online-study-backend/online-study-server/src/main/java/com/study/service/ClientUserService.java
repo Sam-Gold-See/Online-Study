@@ -1,9 +1,8 @@
 package com.study.service;
 
-import com.study.dto.ClientUserEditEmailDTO;
-import com.study.dto.ClientUserEditPasswordDTO;
-import com.study.dto.ClientUserLoginDTO;
-import com.study.dto.ClientUserRegistDTO;
+import com.study.dto.*;
+import com.study.entity.ClientUser;
+import com.study.result.PageResult;
 import com.study.vo.ClientUserLoginVO;
 
 public interface ClientUserService {
@@ -43,4 +42,12 @@ public interface ClientUserService {
      * @param clientUserEditEmailDTO C端用户修改邮箱DTO
      */
     void editEmail(ClientUserEditEmailDTO clientUserEditEmailDTO);
+
+    /**
+     * C端用户分页查询
+     *
+     * @param clientUserPageQueryDTO C端用户分页查询DTO对象
+     * @return PageResult<AdminUser> ClientUser类的分页查询对象
+     */
+    PageResult<ClientUser> getClientListPage(ClientUserPageQueryDTO clientUserPageQueryDTO);
 }

@@ -1,14 +1,13 @@
 package com.study.service.impl;
 
+import com.github.pagehelper.Page;
+import com.github.pagehelper.PageHelper;
 import com.study.constant.AccountConstant;
 import com.study.constant.IdConstant;
 import com.study.constant.JwtClaimsConstant;
 import com.study.constant.MessageConstant;
 import com.study.context.BaseContext;
-import com.study.dto.ClientUserEditEmailDTO;
-import com.study.dto.ClientUserEditPasswordDTO;
-import com.study.dto.ClientUserLoginDTO;
-import com.study.dto.ClientUserRegistDTO;
+import com.study.dto.*;
 import com.study.entity.ClientUser;
 import com.study.exception.AccountNotFoundException;
 import com.study.exception.AccountStatusException;
@@ -16,6 +15,7 @@ import com.study.exception.PasswordErrorException;
 import com.study.exception.VerificationCodeErrorException;
 import com.study.mapper.ClientUserMapper;
 import com.study.properties.JwtProperties;
+import com.study.result.PageResult;
 import com.study.service.ClientUserService;
 import com.study.utils.CodeUtils;
 import com.study.utils.EmailUtils;
@@ -208,5 +208,20 @@ public class ClientUserServiceImpl implements ClientUserService {
                 .email(newEmail)
                 .id(userId)
                 .build());
+    }
+
+    /**
+     * C端用户分页查询
+     *
+     * @param clientUserPageQueryDTO C端用户分页查询DTO对象
+     * @return PageResult<AdminUser> ClientUser类的分页查询对象
+     */
+    @Override
+    public PageResult<ClientUser> getClientListPage(ClientUserPageQueryDTO clientUserPageQueryDTO) {
+        PageHelper.startPage(clientUserPageQueryDTO.getPage(),clientUserPageQueryDTO.getPageSize());
+
+        Page<ClientUser> page = clientUserMapper.getListPage(clientUserPageQueryDTO);
+
+        return new PageResult<>(page.getTotal(), page.getResult());
     }
 }
