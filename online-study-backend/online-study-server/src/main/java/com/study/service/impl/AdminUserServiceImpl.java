@@ -163,4 +163,15 @@ public class AdminUserServiceImpl implements AdminUserService {
 
         return new PageResult<>(page.getTotal(), page.getResult());
     }
+
+    /**
+     * B端用户数据查询
+     *
+     * @param id 用户id
+     * @return AdminUser类Admin用户实体对象
+     */
+    @Override
+    public AdminUser getById(Long id) {
+        return adminUserMapper.getById(id);
+    }
 }

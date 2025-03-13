@@ -48,4 +48,12 @@ public interface AdminUserService {
      * @return PageResult<AdminUser> AdminUser类的分页查询对象
      */
     PageResult<AdminUser> getAdminListPage(AdminUserPageQueryDTO adminUserPageQueryDTO);
+
+    /**
+     * B端用户数据查询
+     *
+     * @param id 用户id
+     * @return AdminUser类Admin用户实体对象
+     */
+    AdminUser getById(Long id);
 }
