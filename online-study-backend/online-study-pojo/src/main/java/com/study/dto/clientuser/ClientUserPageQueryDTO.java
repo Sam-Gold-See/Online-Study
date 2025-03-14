@@ -1,4 +1,4 @@
-package com.study.dto;
+package com.study.dto.clientuser;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -11,7 +11,7 @@ import java.io.Serializable;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-public class AdminUserPageQueryDTO implements Serializable {
+public class ClientUserPageQueryDTO implements Serializable {
 
     // 用户名
     private String name;

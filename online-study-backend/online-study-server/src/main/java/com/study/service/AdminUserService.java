@@ -1,8 +1,8 @@
 package com.study.service;
 
-import com.study.dto.AdminUserDTO;
-import com.study.dto.AdminUserLoginDTO;
-import com.study.dto.AdminUserPageQueryDTO;
+import com.study.dto.adminuser.AdminUserDTO;
+import com.study.dto.adminuser.AdminUserLoginDTO;
+import com.study.dto.adminuser.AdminUserPageQueryDTO;
 import com.study.entity.AdminUser;
 import com.study.result.PageResult;
 import com.study.vo.AdminUserLoginVO;

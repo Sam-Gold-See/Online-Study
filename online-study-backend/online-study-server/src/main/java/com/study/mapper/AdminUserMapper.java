@@ -2,7 +2,7 @@ package com.study.mapper;
 
 import com.github.pagehelper.Page;
 import com.study.annotation.AutoFill;
-import com.study.dto.AdminUserPageQueryDTO;
+import com.study.dto.adminuser.AdminUserPageQueryDTO;
 import com.study.entity.AdminUser;
 import com.study.enumeration.OperationType;
 import com.study.enumeration.TerminalType;

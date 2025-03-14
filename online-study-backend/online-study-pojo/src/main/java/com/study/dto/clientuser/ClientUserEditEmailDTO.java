@@ -1,4 +1,4 @@
-package com.study.dto;
+package com.study.dto.clientuser;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;

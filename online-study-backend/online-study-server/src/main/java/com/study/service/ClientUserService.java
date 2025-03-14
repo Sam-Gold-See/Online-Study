@@ -1,6 +1,6 @@
 package com.study.service;
 
-import com.study.dto.*;
+import com.study.dto.clientuser.*;
 import com.study.entity.ClientUser;
 import com.study.result.PageResult;
 import com.study.vo.ClientUserLoginVO;

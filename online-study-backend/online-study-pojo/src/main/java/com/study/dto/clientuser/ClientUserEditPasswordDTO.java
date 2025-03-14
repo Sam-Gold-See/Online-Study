@@ -1,4 +1,4 @@
-package com.study.dto;
+package com.study.dto.clientuser;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -11,11 +11,14 @@ import java.io.Serializable;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class ClientUserLoginDTO implements Serializable {
+public class ClientUserEditPasswordDTO implements Serializable {
 
-    // 用户登录账号、邮箱号
+    // 用户邮箱、用户账号
     private String email;
 
-    // 用户登录密码
+    // 验证码
+    private String verificationCode;
+
+    // 新密码
     private String password;
 }

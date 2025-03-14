@@ -1,9 +1,9 @@
 package com.study.controller.client;
 
-import com.study.dto.ClientUserEditEmailDTO;
-import com.study.dto.ClientUserEditPasswordDTO;
-import com.study.dto.ClientUserLoginDTO;
-import com.study.dto.ClientUserRegistDTO;
+import com.study.dto.clientuser.ClientUserEditEmailDTO;
+import com.study.dto.clientuser.ClientUserEditPasswordDTO;
+import com.study.dto.clientuser.ClientUserLoginDTO;
+import com.study.dto.clientuser.ClientUserRegistDTO;
 import com.study.result.Result;
 import com.study.service.ClientUserService;
 import com.study.vo.ClientUserLoginVO;
@@ -78,4 +78,10 @@ public class ClientUserController {
         clientUserService.editEmail(clientUserEditEmailDTO);
         return Result.success();
     }
+
+    /**
+     * 修改个人信息
+     *
+     * @param
+     * @return*/
 }

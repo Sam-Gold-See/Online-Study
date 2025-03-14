@@ -1,6 +1,6 @@
 package com.study.controller.admin;
 
-import com.study.dto.ClientUserPageQueryDTO;
+import com.study.dto.clientuser.ClientUserPageQueryDTO;
 import com.study.entity.ClientUser;
 import com.study.result.PageResult;
 import com.study.result.Result;

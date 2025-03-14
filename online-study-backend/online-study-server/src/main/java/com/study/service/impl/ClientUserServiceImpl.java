@@ -7,7 +7,7 @@ import com.study.constant.IdConstant;
 import com.study.constant.JwtClaimsConstant;
 import com.study.constant.MessageConstant;
 import com.study.context.BaseContext;
-import com.study.dto.*;
+import com.study.dto.clientuser.*;
 import com.study.entity.ClientUser;
 import com.study.exception.AccountNotFoundException;
 import com.study.exception.AccountStatusException;
