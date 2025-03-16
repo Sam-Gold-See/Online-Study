@@ -15,5 +15,5 @@ public class ClientUserUpdateDTO {
     private String name;
 
     // 用户性别（M：男，女：F）
-    private String gender;
+    private Character gender;
 }

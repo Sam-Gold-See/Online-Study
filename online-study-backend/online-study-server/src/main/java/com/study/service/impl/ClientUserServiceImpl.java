@@ -232,7 +232,10 @@ public class ClientUserServiceImpl implements ClientUserService {
      */
     @Override
     public void updateInfo(ClientUserUpdateDTO clientUserUpdateDTO) {
+        Long userId = BaseContext.getCurrentId();
+
         ClientUser clientUser = new ClientUser();
+        clientUser.setId(userId);
         BeanUtils.copyProperties(clientUserUpdateDTO, clientUser);
 
         clientUserMapper.update(clientUser);
