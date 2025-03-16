@@ -1,6 +1,7 @@
 package com.study.controller.client;
 
 import com.study.dto.clientuser.*;
+import com.study.entity.ClientUser;
 import com.study.result.Result;
 import com.study.service.ClientUserService;
 import com.study.vo.ClientUserLoginVO;
@@ -86,5 +87,17 @@ public class ClientUserController {
     public Result<String> updateInfo(@RequestBody ClientUserUpdateDTO clientUserUpdateDTO) {
         clientUserService.updateInfo(clientUserUpdateDTO);
         return Result.success();
+    }
+
+
+    /**
+     * 查询个人信息
+     *
+     * @return Result类响应对象
+     */
+    @GetMapping("/getInfo")
+    public Result<ClientUser> getInfo() {
+        ClientUser clientUser = clientUserService.getInfo();
+        return Result.success(clientUser);
     }
 }
