@@ -100,4 +100,16 @@ public class ClientUserController {
         ClientUser clientUser = clientUserService.getInfo();
         return Result.success(clientUser);
     }
+
+    /**
+     * 修改头像
+     *
+     * @param avatar 头像资源链接
+     * @return Result类响应对象
+     */
+    @GetMapping("/editAvatar")
+    public Result<String> editAvatar(String avatar) {
+        clientUserService.editAvatar(avatar);
+        return Result.success();
+    }
 }
