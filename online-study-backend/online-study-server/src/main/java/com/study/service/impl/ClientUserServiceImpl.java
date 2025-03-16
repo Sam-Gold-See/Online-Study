@@ -240,4 +240,14 @@ public class ClientUserServiceImpl implements ClientUserService {
 
         clientUserMapper.update(clientUser);
     }
+
+    /**
+     * 查询个人信息
+     *
+     * @return ClientUser实体类对象
+     */
+    @Override
+    public ClientUser getInfo() {
+        return clientUserMapper.getById(BaseContext.getCurrentId());
+    }
 }

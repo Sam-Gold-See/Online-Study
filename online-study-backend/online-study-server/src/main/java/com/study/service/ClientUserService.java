@@ -57,4 +57,11 @@ public interface ClientUserService {
      * @param clientUserUpdateDTO 用户更新个人信息DTO
      */
     void updateInfo(ClientUserUpdateDTO clientUserUpdateDTO);
+
+    /**
+     * 查询个人信息
+     *
+     * @return ClientUser实体类对象
+     */
+    ClientUser getInfo();
 }
