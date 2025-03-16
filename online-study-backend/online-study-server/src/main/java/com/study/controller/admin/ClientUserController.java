@@ -30,4 +30,16 @@ public class ClientUserController {
         PageResult<ClientUser> pageResult = clientUserService.getClientListPage(clientUserPageQueryDTO);
         return Result.success(pageResult);
     }
+
+    /**
+     * 设置C端用户账号登录状态
+     *
+     * @param id     C端用户id
+     * @param status C端用户目标状态
+     */
+    @GetMapping("/editStatus")
+    public Result<String> editStatus(Long id, Integer status) {
+        clientUserService.editStatus(id, status);
+        return Result.success();
+    }
 }
