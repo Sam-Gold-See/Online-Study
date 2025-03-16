@@ -71,4 +71,12 @@ public interface ClientUserService {
      * @param avatar 头像资源链接
      */
     void editAvatar(String avatar);
+
+    /**
+     * 设置C端用户账号登录状态
+     *
+     * @param id     C端用户id
+     * @param status C端用户目标状态
+     */
+    void editStatus(Long id, Integer status);
 }

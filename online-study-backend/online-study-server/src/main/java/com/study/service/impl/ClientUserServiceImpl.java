@@ -263,4 +263,22 @@ public class ClientUserServiceImpl implements ClientUserService {
                 .id(BaseContext.getCurrentId())
                 .build());
     }
+
+    /**
+     * 设置C端用户账号登录状态
+     *
+     * @param id     C端用户id
+     * @param status C端用户目标状态
+     */
+    @Override
+    public void editStatus(Long id, Integer status) {
+        ClientUser clientUser = clientUserMapper.getById(id);
+        if (clientUser == null)
+            throw new AccountNotFoundException(MessageConstant.ACCOUNT_NOT_FOUND);
+
+        clientUserMapper.update(ClientUser.builder()
+                .id(id)
+                .status(status)
+                .build());
+    }
 }
