@@ -224,4 +224,17 @@ public class ClientUserServiceImpl implements ClientUserService {
 
         return new PageResult<>(page.getTotal(), page.getResult());
     }
+
+    /**
+     * 修改个人信息
+     *
+     * @param clientUserUpdateDTO 用户更新个人信息DTO
+     */
+    @Override
+    public void updateInfo(ClientUserUpdateDTO clientUserUpdateDTO) {
+        ClientUser clientUser = new ClientUser();
+        BeanUtils.copyProperties(clientUserUpdateDTO, clientUser);
+
+        clientUserMapper.update(clientUser);
+    }
 }

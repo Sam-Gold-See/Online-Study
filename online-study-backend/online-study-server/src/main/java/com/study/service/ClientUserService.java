@@ -50,4 +50,11 @@ public interface ClientUserService {
      * @return PageResult<AdminUser> ClientUser类的分页查询对象
      */
     PageResult<ClientUser> getClientListPage(ClientUserPageQueryDTO clientUserPageQueryDTO);
+
+    /**
+     * 修改个人信息
+     *
+     * @param clientUserUpdateDTO 用户更新个人信息DTO
+     */
+    void updateInfo(ClientUserUpdateDTO clientUserUpdateDTO);
 }
