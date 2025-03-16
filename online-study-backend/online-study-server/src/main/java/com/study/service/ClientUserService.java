@@ -64,4 +64,11 @@ public interface ClientUserService {
      * @return ClientUser实体类对象
      */
     ClientUser getInfo();
+
+    /**
+     * 修改头像
+     *
+     * @param avatar 头像资源链接
+     */
+    void editAvatar(String avatar);
 }

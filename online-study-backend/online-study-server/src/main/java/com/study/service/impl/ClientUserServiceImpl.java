@@ -218,7 +218,7 @@ public class ClientUserServiceImpl implements ClientUserService {
      */
     @Override
     public PageResult<ClientUser> getClientListPage(ClientUserPageQueryDTO clientUserPageQueryDTO) {
-        PageHelper.startPage(clientUserPageQueryDTO.getPage(),clientUserPageQueryDTO.getPageSize());
+        PageHelper.startPage(clientUserPageQueryDTO.getPage(), clientUserPageQueryDTO.getPageSize());
 
         Page<ClientUser> page = clientUserMapper.getListPage(clientUserPageQueryDTO);
 
@@ -249,5 +249,18 @@ public class ClientUserServiceImpl implements ClientUserService {
     @Override
     public ClientUser getInfo() {
         return clientUserMapper.getById(BaseContext.getCurrentId());
+    }
+
+    /**
+     * 修改头像
+     *
+     * @param avatar 头像资源链接
+     */
+    @Override
+    public void editAvatar(String avatar) {
+        clientUserMapper.update(ClientUser.builder()
+                .avatar(avatar)
+                .id(BaseContext.getCurrentId())
+                .build());
     }
 }
