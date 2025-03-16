@@ -1,9 +1,6 @@
 package com.study.controller.client;
 
-import com.study.dto.clientuser.ClientUserEditEmailDTO;
-import com.study.dto.clientuser.ClientUserEditPasswordDTO;
-import com.study.dto.clientuser.ClientUserLoginDTO;
-import com.study.dto.clientuser.ClientUserRegistDTO;
+import com.study.dto.clientuser.*;
 import com.study.result.Result;
 import com.study.service.ClientUserService;
 import com.study.vo.ClientUserLoginVO;
@@ -82,6 +79,12 @@ public class ClientUserController {
     /**
      * 修改个人信息
      *
-     * @param
-     * @return*/
+     * @param clientUserUpdateDTO 用户更新个人信息DTO
+     * @return Result类响应对象
+     */
+    @PostMapping("/updateInfo")
+    public Result<String> updateInfo(@RequestBody ClientUserUpdateDTO clientUserUpdateDTO) {
+        clientUserService.updateInfo(clientUserUpdateDTO);
+        return Result.success();
+    }
 }
