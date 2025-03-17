@@ -64,3 +64,16 @@ export const editCode=(form)=>{
 }
 
 
+//获取日程信息接口
+export const scheduleDetail=(form)=>{
+    return http({
+        url:'client/user/editPassword',
+        method:'POST',
+        data:{
+            email
+        }
+    })
+
+}
+
+

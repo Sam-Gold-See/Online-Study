@@ -1,8 +1,6 @@
 <script setup lang="ts">
 import { useUserStore } from '@/stores/user' 
 import myForm from '@/views/Login/form.vue'
-import { reactive, ref } from 'vue'
-import type { ComponentSize, FormInstance, FormRules } from 'element-plus'
 import { useRouter } from 'vue-router'
 
 

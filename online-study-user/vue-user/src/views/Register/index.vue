@@ -24,19 +24,19 @@ const ruleForm = reactive<Form>({
 
 const rules = reactive<FormRules<Form>>({
   name: [
-    { required: true, message: '请输入用户名'},
-    { min: 3, max: 5, message: '用户名长度'},
+    { required: true, message: '请输入用户名',trigger: 'blur'},
+    { min: 3, max: 5, message: '用户名长度限制',trigger: 'blur'},
   ],
   email: [
-    {required: true,message: '请输入邮箱地址'},
-    { type:'email' , message:'邮箱地址格式不正确'}
+    {required: true,message: '请输入邮箱地址',trigger: 'blur'},
+    { type:'email' , message:'邮箱地址格式不正确',trigger: 'blur'}
   ],
   password: [
-    {required: true,message: '请输入密码',trigger: 'blur',},
+    {required: true,message: '请输入密码',trigger: 'blur'},
     {}
   ],
   confirmPassword: [
-    {required: true, message: '请再次输入密码'},
+    {required: true, message: '请再次输入密码',trigger: 'blur'},
 
     {validator:(rule,value,callback)=>{
         if(value!=ruleForm.password)
