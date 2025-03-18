@@ -16,7 +16,7 @@ import com.study.mapper.AdminUserMapper;
 import com.study.properties.JwtProperties;
 import com.study.result.PageResult;
 import com.study.service.AdminUserService;
-import com.study.utils.IdGeneratorUtil;
+import com.study.utils.IdUtil;
 import com.study.utils.JwtUtil;
 import com.study.vo.AdminUserLoginVO;
 import org.springframework.beans.BeanUtils;
@@ -54,7 +54,7 @@ public class AdminUserServiceImpl implements AdminUserService {
         BeanUtils.copyProperties(adminUserDTO, adminUser);
         adminUser.setPassword(DigestUtils.md5DigestAsHex(adminUserDTO.getPassword().getBytes()));
 
-        Long id = IdGeneratorUtil.generateId(IdConstant.ADMIN_SIGNAL);
+        Long id = IdUtil.generateId(IdConstant.ADMIN_SIGNAL);
         adminUser.setId(id);
 
         adminUserMapper.insert(adminUser);

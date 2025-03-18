@@ -19,7 +19,7 @@ import com.study.result.PageResult;
 import com.study.service.ClientUserService;
 import com.study.utils.CodeUtils;
 import com.study.utils.EmailUtils;
-import com.study.utils.IdGeneratorUtil;
+import com.study.utils.IdUtil;
 import com.study.utils.JwtUtil;
 import com.study.vo.ClientUserLoginVO;
 import org.springframework.beans.BeanUtils;
@@ -73,7 +73,7 @@ public class ClientUserServiceImpl implements ClientUserService {
         clientUser.setPassword(DigestUtils.md5DigestAsHex(clientUserRegistDTO.getPassword().getBytes()));
 
         //  生成唯一 ID 并赋值
-        clientUser.setId(IdGeneratorUtil.generateId(IdConstant.CLIENT_SIGNAL));
+        clientUser.setId(IdUtil.generateId(IdConstant.CLIENT_SIGNAL));
 
         //  插入数据库
         clientUserMapper.insert(clientUser);
