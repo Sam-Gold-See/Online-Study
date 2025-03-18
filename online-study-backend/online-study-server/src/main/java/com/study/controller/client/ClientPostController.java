@@ -74,7 +74,7 @@ public class ClientPostController {
      */
     @GetMapping("/page")
     public Result<PageResult<PostVO>> pageQuery(PostPageQueryDTO postPageQueryDTO) {
-        PageResult<PostVO> pageResult = postService.pageQuery(postPageQueryDTO);
+        PageResult<PostVO> pageResult = postService.ClientPageQuery(postPageQueryDTO);
         return Result.success(pageResult);
     }
 }
