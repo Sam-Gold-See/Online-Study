@@ -43,4 +43,12 @@ public interface PostService {
      * @return PageResult类响应对象
      */
     PageResult<PostVO> ClientPageQuery(PostPageQueryDTO postPageQueryDTO);
+
+    /**
+     * 分页查询
+     *
+     * @param postPageQueryDTO 帖子分页查询DTO对象
+     * @return PageResult类响应对象
+     */
+    PageResult<PostVO> AdminPageQuery(PostPageQueryDTO postPageQueryDTO);
 }
