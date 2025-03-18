@@ -26,4 +26,11 @@ public interface PostService {
      * @param postDTO 帖子DTO对象
      */
     void update(PostDTO postDTO);
+
+    /**
+     * 删除帖子
+     *
+     * @param id 帖子id
+     */
+    void delete(Long id);
 }

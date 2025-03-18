@@ -8,6 +8,7 @@ import com.study.exception.AccountPermissionsException;
 import com.study.exception.PostNotFoundException;
 import com.study.mapper.PostMapper;
 import com.study.service.PostService;
+import com.study.utils.IdUtil;
 import com.study.vo.PostVO;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -71,5 +72,21 @@ public class PostServiceImpl implements PostService {
 
         BeanUtils.copyProperties(postDTO, post);
         postMapper.update(post);
+    }
+
+    /**
+     * 删除帖子
+     *
+     * @param id 帖子id
+     */
+    @Override
+    public void delete(Long id) {
+        Post post = postMapper.getById(id);
+        Long userId = BaseContext.getCurrentId();
+
+        if (!Objects.equals(post.getUserId(), userId) && !IdUtil.isAdmin(post.getUserId()))
+            throw new AccountPermissionsException(MessageConstant.PERMISSION_DENIED);
+
+        postMapper.update(Post.builder().id(id).status(2).build());
     }
 }
