@@ -39,4 +39,16 @@ public class ClientPostController {
         PostVO postVO = postService.get(id);
         return Result.success(postVO);
     }
+
+    /**
+     * 修改帖子信息
+     *
+     * @param postDTO 帖子DTO对象
+     * @return Result类响应对象
+     */
+    @PostMapping("/update")
+    public Result<String> update(@RequestBody PostDTO postDTO) {
+        postService.update(postDTO);
+        return Result.success();
+    }
 }
