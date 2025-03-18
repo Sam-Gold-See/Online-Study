@@ -1,6 +1,8 @@
 package com.study.service;
 
 import com.study.dto.post.PostDTO;
+import com.study.dto.post.PostPageQueryDTO;
+import com.study.result.PageResult;
 import com.study.vo.PostVO;
 
 public interface PostService {
@@ -33,4 +35,12 @@ public interface PostService {
      * @param id 帖子id
      */
     void delete(Long id);
+
+    /**
+     * 分页查询
+     *
+     * @param postPageQueryDTO 帖子分页查询DTO对象
+     * @return PageResult类响应对象
+     */
+    PageResult<PostVO> pageQuery(PostPageQueryDTO postPageQueryDTO);
 }
