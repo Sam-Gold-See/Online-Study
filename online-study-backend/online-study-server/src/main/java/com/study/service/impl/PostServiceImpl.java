@@ -109,4 +109,16 @@ public class PostServiceImpl implements PostService {
 
         return new PageResult<>(page.getTotal(), page.getResult());
     }
+
+    /**
+     * 置顶帖子
+     *
+     * @param id   帖子id
+     * @param type 置顶状态
+     */
+    @Override
+    public void setType(Long id, Integer type) {
+        Post post = Post.builder().id(id).type(type).build();
+        postMapper.update(post);
+    }
 }

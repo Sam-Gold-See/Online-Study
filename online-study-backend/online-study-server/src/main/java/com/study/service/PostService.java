@@ -44,4 +44,12 @@ public interface PostService {
      * @return PageResult类响应对象
      */
     PageResult<PostVO> PageQuery(PostPageQueryDTO postPageQueryDTO, TerminalType terminalType);
+
+    /**
+     * 置顶帖子
+     *
+     * @param id     帖子id
+     * @param type 置顶状态
+     */
+    void setType(Long id, Integer type);
 }
