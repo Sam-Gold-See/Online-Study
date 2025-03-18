@@ -55,12 +55,13 @@ CREATE TABLE post
     type        TINYINT DEFAULT 0 COMMENT '帖子类型，0=普通，1=置顶',
     status      INT     DEFAULT 0 COMMENT '帖子状态，0=正常，1=精华，2=拉黑',
     create_time DATETIME COMMENT '创建时间',
+    update_time DATETIME COMMENT '更新时间',
     score DOUBLE DEFAULT NULL COMMENT '热度系数',
     category_id INT     DEFAULT 1 COMMENT '帖子种类id'
 )COMMENT ='帖子数据表';
 
-INSERT INTO post (user_id, title, content, create_time)
-VALUES (2174169369495300, '测试帖子', '测试内容', '2025-03-18 09:00:00');
+INSERT INTO post (user_id, title, content, create_time, update_time)
+VALUES (2174169369495300, '测试帖子', '测试内容', '2025-03-18 09:00:00','2025-03-18 09:00:00');
 
 CREATE TABLE post_category
 (

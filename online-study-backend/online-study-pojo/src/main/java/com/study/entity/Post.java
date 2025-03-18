@@ -5,7 +5,7 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.util.Date;
+import java.time.LocalDateTime;
 
 @Data
 @AllArgsConstructor
@@ -32,7 +32,10 @@ public class Post {
     private Integer status;
 
     // 创建时间
-    private Date createTime;
+    private LocalDateTime createTime;
+
+    // 更新时间
+    private LocalDateTime updateTime;
 
     // 热度系数
     private Double score;
