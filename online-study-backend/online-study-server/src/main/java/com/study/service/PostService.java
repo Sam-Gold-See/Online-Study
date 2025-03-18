@@ -19,4 +19,11 @@ public interface PostService {
      * @return PostVO帖子VO对象
      */
     PostVO get(Long id);
+
+    /**
+     * 修改帖子信息
+     *
+     * @param postDTO 帖子DTO对象
+     */
+    void update(PostDTO postDTO);
 }
