@@ -10,6 +10,7 @@ import com.study.vo.PostVO;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -31,5 +32,17 @@ public class AdminPostController {
     public Result<PageResult<PostVO>> pageQuery(PostPageQueryDTO postPageQueryDTO) {
         PageResult<PostVO> pageResult = postService.PageQuery(postPageQueryDTO, TerminalType.ADMIN);
         return Result.success(pageResult);
+    }
+
+    /**
+     * 置顶帖子
+     *
+     * @param id     帖子id
+     * @param type 置顶状态
+     */
+    @PutMapping("/type")
+    public Result<String> setType(Long id, Integer type) {
+        postService.setType(id, type);
+        return Result.success();
     }
 }
