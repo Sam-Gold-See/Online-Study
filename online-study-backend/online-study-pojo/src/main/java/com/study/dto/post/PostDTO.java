@@ -13,6 +13,9 @@ import java.io.Serializable;
 @Builder
 public class PostDTO implements Serializable {
 
+    // 帖子自增id
+    private Long id;
+
     // 帖子标题
     private String title;
 
