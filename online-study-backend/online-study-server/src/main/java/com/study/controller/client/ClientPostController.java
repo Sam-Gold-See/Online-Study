@@ -1,14 +1,12 @@
 package com.study.controller.client;
 
-import com.study.dto.post.PostInsertDTO;
+import com.study.dto.post.PostDTO;
 import com.study.result.Result;
 import com.study.service.PostService;
+import com.study.vo.PostVO;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController("ClientPostController")
 @RequestMapping("/client/post")
@@ -21,12 +19,24 @@ public class ClientPostController {
     /**
      * 新增帖子
      *
-     * @param postInsertDTO 帖子新增DTO对象
+     * @param postDTO 帖子DTO对象
      * @return Result类响应对象
      */
     @PostMapping("/insert")
-    public Result<String> insert(@RequestBody PostInsertDTO postInsertDTO) {
-        postService.insert(postInsertDTO);
+    public Result<String> insert(@RequestBody PostDTO postDTO) {
+        postService.insert(postDTO);
         return Result.success();
+    }
+
+    /**
+     * 获取帖子信息
+     *
+     * @param id 帖子Id
+     * @return Result类响应对象
+     */
+    @GetMapping("/get")
+    public Result<PostVO> get(Long id) {
+        PostVO postVO = postService.get(id);
+        return Result.success(postVO);
     }
 }
