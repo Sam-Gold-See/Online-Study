@@ -15,4 +15,13 @@
         </set>
         WHERE id = #{id}
     </update>
+    <select id="getListPage" resultType="com.study.vo.PostVO">
+        SELECT * FROM post
+        <where>
+            <if test="title != null and title != ''">
+                AND name like concat('%', #{title}, '%')
+            </if>
+        </where>
+        ORDER BY update_time DESC
+    </select>
 </mapper>

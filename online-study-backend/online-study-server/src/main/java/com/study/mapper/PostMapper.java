@@ -1,9 +1,12 @@
 package com.study.mapper;
 
+import com.github.pagehelper.Page;
 import com.study.annotation.AutoFill;
+import com.study.dto.post.PostPageQueryDTO;
 import com.study.entity.Post;
 import com.study.enumeration.OperationType;
 import com.study.enumeration.TerminalType;
+import com.study.vo.PostVO;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Select;
@@ -37,4 +40,12 @@ public interface PostMapper {
      */
     @AutoFill(operation = OperationType.UPDATE, terminal = TerminalType.CLIENT)
     void update(Post post);
+
+    /**
+     * 分页查询
+     *
+     * @param postPageQueryDTO 帖子分页查询DTO对象
+     * @return Page<PostVO>类分页对象
+     */
+    Page<PostVO> getListPage(PostPageQueryDTO postPageQueryDTO);
 }
