@@ -6,6 +6,7 @@ USE
 DROP TABLE IF EXISTS admin_user;
 DROP TABLE IF EXISTS client_user;
 DROP TABLE IF EXISTS post;
+DROP TABLE IF EXISTS post_category;
 
 CREATE TABLE admin_user
 (
@@ -54,8 +55,24 @@ CREATE TABLE post
     type        TINYINT DEFAULT 0 COMMENT '帖子类型，0=普通，1=置顶',
     status      INT     DEFAULT 0 COMMENT '帖子状态，0=正常，1=精华，2=拉黑',
     create_time DATETIME COMMENT '创建时间',
-    score DOUBLE DEFAULT NULL COMMENT '热度系数'
+    score DOUBLE DEFAULT NULL COMMENT '热度系数',
+    category_id INT     DEFAULT 1 COMMENT '帖子种类id'
 )COMMENT ='帖子数据表';
 
 INSERT INTO post (user_id, title, content, create_time)
 VALUES (2174169369495300, '测试帖子', '测试内容', '2025-03-18 09:00:00');
+
+CREATE TABLE post_category
+(
+    id   INT         NOT NULL PRIMARY KEY AUTO_INCREMENT COMMENT '帖子种类自增id',
+    name VARCHAR(50) NOT NULL COMMENT '帖子种类'
+)COMMENT = '帖子分类表';
+
+INSERT INTO post_category (name)
+VALUES ('其他'),
+       ('组队'),
+       ('教程'),
+       ('笔记'),
+       ('经验'),
+       ('资源'),
+       ('求助');
