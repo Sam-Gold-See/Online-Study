@@ -1,6 +1,8 @@
 package com.study.controller.client;
 
 import com.study.dto.post.PostDTO;
+import com.study.dto.post.PostPageQueryDTO;
+import com.study.result.PageResult;
 import com.study.result.Result;
 import com.study.service.PostService;
 import com.study.vo.PostVO;
@@ -62,5 +64,17 @@ public class ClientPostController {
     public Result<String> delete(Long id) {
         postService.delete(id);
         return Result.success();
+    }
+
+    /**
+     * 分页查询
+     *
+     * @param postPageQueryDTO 帖子分页查询DTO对象
+     * @return Result类响应对象
+     */
+    @GetMapping("/page")
+    public Result<PageResult<PostVO>> pageQuery(PostPageQueryDTO postPageQueryDTO) {
+        PageResult<PostVO> pageResult = postService.pageQuery(postPageQueryDTO);
+        return Result.success(pageResult);
     }
 }
