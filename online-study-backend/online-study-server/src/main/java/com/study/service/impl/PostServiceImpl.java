@@ -7,6 +7,7 @@ import com.study.context.BaseContext;
 import com.study.dto.post.PostDTO;
 import com.study.dto.post.PostPageQueryDTO;
 import com.study.entity.Post;
+import com.study.enumeration.TerminalType;
 import com.study.exception.AccountPermissionsException;
 import com.study.exception.PostNotFoundException;
 import com.study.mapper.PostMapper;
@@ -101,10 +102,10 @@ public class PostServiceImpl implements PostService {
      * @return PageResult类响应对象
      */
     @Override
-    public PageResult<PostVO> pageQuery(PostPageQueryDTO postPageQueryDTO) {
+    public PageResult<PostVO> ClientPageQuery(PostPageQueryDTO postPageQueryDTO) {
         PageHelper.startPage(postPageQueryDTO.getPage(), postPageQueryDTO.getPageSize());
 
-        Page<PostVO> page = postMapper.getListPage(postPageQueryDTO);
+        Page<PostVO> page = postMapper.getListPage(postPageQueryDTO, TerminalType.CLIENT);
 
         return new PageResult<>(page.getTotal(), page.getResult());
     }
