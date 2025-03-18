@@ -1,11 +1,10 @@
-package com.study.entity;
+package com.study.vo;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.io.Serial;
 import java.io.Serializable;
 import java.time.LocalDateTime;
 
@@ -13,10 +12,7 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-public class Post implements Serializable {
-
-    @Serial
-    private static final long serialVersionUID = 1L;
+public class PostVO implements Serializable {
 
     // 帖子自增id
     private Long id;
@@ -41,9 +37,6 @@ public class Post implements Serializable {
 
     // 更新时间
     private LocalDateTime updateTime;
-
-    // 热度系数
-    private Double score;
 
     // 帖子种类Id
     private Integer categoryId;
