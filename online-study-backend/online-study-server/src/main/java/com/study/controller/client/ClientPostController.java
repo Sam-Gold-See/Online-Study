@@ -61,7 +61,7 @@ public class ClientPostController {
      * @param id 帖子id
      * @return Result类响应对象
      */
-    @GetMapping("/delete")
+    @DeleteMapping("/delete")
     public Result<String> delete(Long id) {
         postService.delete(id);
         return Result.success();
