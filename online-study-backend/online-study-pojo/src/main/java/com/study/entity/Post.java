@@ -36,4 +36,7 @@ public class Post {
 
     // 热度系数
     private Double score;
+
+    // 帖子种类Id
+    private Integer categoryId;
 }
