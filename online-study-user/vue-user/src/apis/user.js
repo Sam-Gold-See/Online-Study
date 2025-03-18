@@ -2,8 +2,8 @@ import http from "../utils/http";
 
 //登录接口
 export const loginApi= (message) => {
-    email=message.email
-    password=message.password
+    const email=message.email
+    const password=message.password
     return http({
         url:'client/user/login',
         method:'POST',

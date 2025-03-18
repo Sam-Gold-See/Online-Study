@@ -8,6 +8,10 @@ import apply from '@/views/findPassword/apply.vue'
 import def from '@/views/Main/default.vue'
 import plan from '@/views/Main/plan.vue'
 import dynamic from '@/views/Main/dynamic.vue'
+import self from '@/views/Self/index.vue'
+import changeself from '@/views/ChangeSelf/index.vue'
+import edit from '@/views/ChangeSelf/edit.vue'
+import cgpass from '@/views/ChangeSelf/password.vue'
 
 
 const router = createRouter({
@@ -59,6 +63,31 @@ const router = createRouter({
           component: success
         }
       ]
+    },
+
+    {
+      path:'/self',
+      component: self,   //个人中心页
+      
+
+    },
+
+    {
+      path:'/changeself',
+      component: changeself,   //更改个人信息页
+      children:[
+        {
+          path:'',
+          component: edit
+        },
+
+        {
+          path:'password',
+          component: cgpass
+        },
+      ]
+
+
     }
 
 
