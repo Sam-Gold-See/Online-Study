@@ -33,7 +33,7 @@ public class Post implements Serializable {
     // 帖子类型，0=普通，1=置顶
     private Integer type;
 
-    // 帖子状态，0=正常，1=精华，2=拉黑
+    // 帖子状态，0=正常，1=精华，2=隐藏
     private Integer status;
 
     // 创建时间
