@@ -3,10 +3,9 @@ DATABASE IF NOT EXISTS `online_study` ;
 USE
 `online_study`;
 
-CREATE
-DATABASE IF NOT EXISTS `online_study`;
-USE
-`online_study`;
+DROP TABLE IF EXISTS admin_user;
+DROP TABLE IF EXISTS client_user;
+DROP TABLE IF EXISTS post;
 
 CREATE TABLE admin_user
 (
@@ -45,3 +44,18 @@ CREATE TABLE client_user
 INSERT INTO client_user (id, name, email, password, gender, status, avatar, create_time, update_time)
 VALUES (2174169369495300, 'SamGoldSee', 'chunxin.huang@m.scnu.edu.cn', 'e10adc3949ba59abbe56e057f20f883e', 'M', 1, '',
         '2025-03-11 19:48:14', '2025-03-11 19:48:14');
+
+CREATE TABLE post
+(
+    id          BIGINT       NOT NULL PRIMARY KEY AUTO_INCREMENT COMMENT '帖子自增id',
+    user_id     BIGINT       NOT NULL COMMENT 'C端用户id',
+    title       VARCHAR(100) NOT NULL COMMENT '帖子标题',
+    content     text COMMENT '帖子内容',
+    type        TINYINT DEFAULT 0 COMMENT '帖子类型，0=普通，1=置顶',
+    status      INT     DEFAULT 0 COMMENT '帖子状态，0=正常，1=精华，2=拉黑',
+    create_time DATETIME COMMENT '创建时间',
+    score DOUBLE DEFAULT NULL COMMENT '热度系数'
+)COMMENT ='帖子数据表';
+
+INSERT INTO post (user_id, title, content, create_time)
+VALUES (2174169369495300, '测试帖子', '测试内容', '2025-03-18 09:00:00');
