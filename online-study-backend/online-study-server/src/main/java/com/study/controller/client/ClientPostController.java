@@ -2,6 +2,7 @@ package com.study.controller.client;
 
 import com.study.dto.post.PostDTO;
 import com.study.dto.post.PostPageQueryDTO;
+import com.study.enumeration.TerminalType;
 import com.study.result.PageResult;
 import com.study.result.Result;
 import com.study.service.PostService;
@@ -74,7 +75,7 @@ public class ClientPostController {
      */
     @GetMapping("/page")
     public Result<PageResult<PostVO>> pageQuery(PostPageQueryDTO postPageQueryDTO) {
-        PageResult<PostVO> pageResult = postService.ClientPageQuery(postPageQueryDTO);
+        PageResult<PostVO> pageResult = postService.PageQuery(postPageQueryDTO, TerminalType.CLIENT);
         return Result.success(pageResult);
     }
 }

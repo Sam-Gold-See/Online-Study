@@ -2,6 +2,7 @@ package com.study.controller.admin;
 
 
 import com.study.dto.post.PostPageQueryDTO;
+import com.study.enumeration.TerminalType;
 import com.study.result.PageResult;
 import com.study.result.Result;
 import com.study.service.PostService;
@@ -28,7 +29,7 @@ public class AdminPostController {
      */
     @GetMapping("/page")
     public Result<PageResult<PostVO>> pageQuery(PostPageQueryDTO postPageQueryDTO) {
-        PageResult<PostVO> pageResult = postService.AdminPageQuery(postPageQueryDTO);
+        PageResult<PostVO> pageResult = postService.PageQuery(postPageQueryDTO, TerminalType.ADMIN);
         return Result.success(pageResult);
     }
 }

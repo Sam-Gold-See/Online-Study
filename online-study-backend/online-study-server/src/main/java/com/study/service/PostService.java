@@ -2,6 +2,7 @@ package com.study.service;
 
 import com.study.dto.post.PostDTO;
 import com.study.dto.post.PostPageQueryDTO;
+import com.study.enumeration.TerminalType;
 import com.study.result.PageResult;
 import com.study.vo.PostVO;
 
@@ -42,13 +43,5 @@ public interface PostService {
      * @param postPageQueryDTO 帖子分页查询DTO对象
      * @return PageResult类响应对象
      */
-    PageResult<PostVO> ClientPageQuery(PostPageQueryDTO postPageQueryDTO);
-
-    /**
-     * 分页查询
-     *
-     * @param postPageQueryDTO 帖子分页查询DTO对象
-     * @return PageResult类响应对象
-     */
-    PageResult<PostVO> AdminPageQuery(PostPageQueryDTO postPageQueryDTO);
+    PageResult<PostVO> PageQuery(PostPageQueryDTO postPageQueryDTO, TerminalType terminalType);
 }

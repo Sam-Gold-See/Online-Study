@@ -102,25 +102,10 @@ public class PostServiceImpl implements PostService {
      * @return PageResult类响应对象
      */
     @Override
-    public PageResult<PostVO> ClientPageQuery(PostPageQueryDTO postPageQueryDTO) {
+    public PageResult<PostVO> PageQuery(PostPageQueryDTO postPageQueryDTO, TerminalType terminalType) {
         PageHelper.startPage(postPageQueryDTO.getPage(), postPageQueryDTO.getPageSize());
 
-        Page<PostVO> page = postMapper.getListPage(postPageQueryDTO, TerminalType.CLIENT);
-
-        return new PageResult<>(page.getTotal(), page.getResult());
-    }
-
-    /**
-     * 分页查询
-     *
-     * @param postPageQueryDTO 帖子分页查询DTO对象
-     * @return PageResult类响应对象
-     */
-    @Override
-    public PageResult<PostVO> AdminPageQuery(PostPageQueryDTO postPageQueryDTO) {
-        PageHelper.startPage(postPageQueryDTO.getPage(), postPageQueryDTO.getPageSize());
-
-        Page<PostVO> page = postMapper.getListPage(postPageQueryDTO, TerminalType.ADMIN);
+        Page<PostVO> page = postMapper.getListPage(postPageQueryDTO, terminalType);
 
         return new PageResult<>(page.getTotal(), page.getResult());
     }
