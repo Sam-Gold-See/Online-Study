@@ -47,5 +47,5 @@ public interface PostMapper {
      * @param postPageQueryDTO 帖子分页查询DTO对象
      * @return Page<PostVO>类分页对象
      */
-    Page<PostVO> getListPage(PostPageQueryDTO postPageQueryDTO);
+    Page<PostVO> getListPage(PostPageQueryDTO postPageQueryDTO, TerminalType terminalType);
 }

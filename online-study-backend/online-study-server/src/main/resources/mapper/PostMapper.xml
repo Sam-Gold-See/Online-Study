@@ -18,8 +18,12 @@
     <select id="getListPage" resultType="com.study.vo.PostVO">
         SELECT * FROM post
         <where>
-            <if test="title != null and title != ''">
-                AND name like concat('%', #{title}, '%')
+            1=1
+            <if test="postPageQueryDTO.title != null and postPageQueryDTO.title != ''">
+                AND title LIKE CONCAT('%', #{postPageQueryDTO.title}, '%')
+            </if>
+            <if test="terminalType != null and terminalType.name() == 'CLIENT'">
+                AND status != 2
             </if>
         </where>
         ORDER BY update_time DESC
