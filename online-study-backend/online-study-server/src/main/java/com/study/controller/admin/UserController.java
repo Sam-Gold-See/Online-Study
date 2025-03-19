@@ -3,6 +3,7 @@ package com.study.controller.admin;
 import com.study.dto.AdminUserDTO;
 import com.study.result.Result;
 import com.study.service.AdminUserService;
+import com.study.vo.AdminUserLoginVO;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -27,5 +28,16 @@ public class UserController {
     public Result<String> add(@RequestBody AdminUserDTO adminUserDTO) {
         adminUserService.add(adminUserDTO);
         return Result.success();
+    }
+
+    /**
+     * B端用户登录
+     *
+     * @param adminUserDTO B端用户DTO
+     */
+    @PostMapping("/login")
+    public Result<AdminUserLoginVO> login(@RequestBody AdminUserDTO adminUserDTO) {
+        AdminUserLoginVO adminUserLoginVO = adminUserService.login(adminUserDTO);
+        return Result.success(adminUserLoginVO);
     }
 }
