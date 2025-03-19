@@ -45,4 +45,12 @@ public interface AdminUserMapper {
      */
     @Select("SELECT * FROM admin_user WHERE id = #{id}")
     AdminUser getById(Long id);
+
+    /**
+     * 动态更新B端用户
+     *
+     * @param adminUser B端用户实体类
+     */
+    @AutoFill(operation = OperationType.UPDATE, terminal = TerminalType.ADMIN)
+    void update(AdminUser adminUser);
 }
