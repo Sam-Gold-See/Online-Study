@@ -37,4 +37,12 @@ public interface ClientUserMapper {
      */
     @AutoFill(operation = OperationType.UPDATE, terminal = TerminalType.CLIENT)
     void update(ClientUser clientUser);
+
+    /**
+     * 根据id查询用户信息
+     *
+     * @param id 用户id
+     */
+    @Select("SELECT * FROM client_user WHERE id = #{id}")
+    ClientUser getById(Long id);
 }
