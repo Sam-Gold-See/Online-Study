@@ -39,4 +39,11 @@ public interface ClientUserService {
      * @param clientUserDTO C端用户DTO
      */
     void editInfo(ClientUserDTO clientUserDTO);
+
+    /**
+     * C端用户退出
+     *
+     * @param authentication jwt令牌
+     */
+    long logout(String authentication);
 }

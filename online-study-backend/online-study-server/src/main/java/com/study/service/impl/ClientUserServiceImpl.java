@@ -16,15 +16,18 @@ import com.study.utils.CodeUtils;
 import com.study.utils.IdUtil;
 import com.study.utils.JwtUtil;
 import com.study.vo.ClientUserLoginVO;
+import io.jsonwebtoken.Claims;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.stereotype.Service;
 import org.springframework.util.DigestUtils;
 
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
+import java.util.concurrent.TimeUnit;
 
 @Service
 public class ClientUserServiceImpl implements ClientUserService {
@@ -177,6 +180,27 @@ public class ClientUserServiceImpl implements ClientUserService {
         BeanUtils.copyProperties(clientUserDTO, clientUser);
 
         clientUserMapper.update(clientUser);
+    }
+
+    /**
+     * C端用户退出
+     *
+     * @param authentication jwt令牌
+     */
+    @Override
+    public long logout(String authentication) {
+        try {
+            Claims claims = JwtUtil.parseJWT(jwtProperties.getClientSecretKey(), authentication);
+            Date expiration = claims.getExpiration();
+            long expireTime = (expiration.getTime() - System.currentTimeMillis()) / 1000;
+
+            if (expireTime > 0)
+                stringRedisTemplate.opsForValue().set(JwtConstant.BLACKLIST_KEY + authentication, "", expireTime, TimeUnit.SECONDS);
+
+            return Long.parseLong(claims.get(JwtConstant.CLIENT_ID).toString());
+        } catch (Exception ex) {
+            throw new AccountException(MessageConstant.JWT_ERROR);
+        }
     }
 
     private void checkVerificationCode(ClientUserDTO clientUserDTO, String email) {
