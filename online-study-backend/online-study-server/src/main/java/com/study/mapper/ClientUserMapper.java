@@ -6,6 +6,7 @@ import com.study.enumeration.OperationType;
 import com.study.enumeration.TerminalType;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Select;
 
 @Mapper
 public interface ClientUserMapper {
@@ -20,4 +21,10 @@ public interface ClientUserMapper {
             "(id, name, email, password, gender, create_time, update_time) " +
             "VALUES(#{id}, #{name}, #{email}, #{password}, #{gender}, #{createTime}, #{updateTime})")
     void insert(ClientUser clientUser);
+
+    /**
+     * 根据Email查询用户信息
+     */
+    @Select("SELECT * FROM client_user WHERE email = #{email}")
+    ClientUser getByEmail(String email);
 }
