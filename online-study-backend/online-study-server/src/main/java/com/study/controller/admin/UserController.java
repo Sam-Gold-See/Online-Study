@@ -42,6 +42,18 @@ public class UserController {
     }
 
     /**
+     * 设置B端用户登录权限
+     *
+     * @param adminUserDTO B端用户DTO
+     */
+    @PutMapping("/editStatus")
+    public Result<String> editStatus(@RequestBody AdminUserDTO adminUserDTO) {
+        adminUserService.editStatus(adminUserDTO);
+        log.info("设置B端用户(id：{})登录权限为：{}", adminUserDTO.getId(), adminUserDTO.getStatus());
+        return Result.success();
+    }
+
+    /**
      * B端用户退出
      *
      * @param token jwt令牌
