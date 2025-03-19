@@ -48,4 +48,15 @@ public class UserController {
         clientUserService.editPassword(clientUserDTO);
         return Result.success();
     }
+
+    /**
+     * C端用户重置邮箱
+     *
+     * @param clientUserDTO C端用户DTO
+     */
+    @PutMapping("/editEmail")
+    public Result<String> editEmail(@RequestBody ClientUserDTO clientUserDTO) {
+        clientUserService.editEmail(clientUserDTO);
+        return Result.success();
+    }
 }
