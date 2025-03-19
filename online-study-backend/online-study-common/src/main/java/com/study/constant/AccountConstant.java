@@ -1,8 +1,9 @@
 package com.study.constant;
 
 /**
- * Account相关常量类
+ * 账号相关常量类
  */
 public class AccountConstant {
 
+    public static final Integer VERIFICATION_CODE_TTL = 5;
 }
