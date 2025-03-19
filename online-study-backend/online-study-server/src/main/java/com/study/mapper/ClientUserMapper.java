@@ -24,7 +24,17 @@ public interface ClientUserMapper {
 
     /**
      * 根据Email查询用户信息
+     *
+     * @param email 用户邮箱
      */
     @Select("SELECT * FROM client_user WHERE email = #{email}")
     ClientUser getByEmail(String email);
+
+    /**
+     * 动态更新C端用户信息
+     *
+     * @param clientUser C端用户对象实体类
+     */
+    @AutoFill(operation = OperationType.UPDATE, terminal = TerminalType.CLIENT)
+    void update(ClientUser clientUser);
 }
