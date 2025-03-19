@@ -8,7 +8,7 @@ import com.study.context.BaseContext;
 import com.study.dto.ClientUserDTO;
 import com.study.entity.ClientUser;
 import com.study.exception.AccountException;
-import com.study.exception.VerificationErrorException;
+import com.study.exception.VerificationException;
 import com.study.mapper.ClientUserMapper;
 import com.study.properties.JwtProperties;
 import com.study.service.ClientUserService;
@@ -208,7 +208,7 @@ public class ClientUserServiceImpl implements ClientUserService {
 
         // 验证码比对
         if (verificationCodeRedis == null || !Objects.equals(verificationCodeRedis, verificationCode)) {
-            throw new VerificationErrorException(MessageConstant.VERIFICATION_CODE_ERROR);
+            throw new VerificationException(MessageConstant.VERIFICATION_CODE_ERROR);
         }
 
         // 验证码正确，删除 Redis 中的验证码
