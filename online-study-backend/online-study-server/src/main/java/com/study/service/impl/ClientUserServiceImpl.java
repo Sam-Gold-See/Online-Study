@@ -2,7 +2,7 @@ package com.study.service.impl;
 
 import com.study.constant.AccountConstant;
 import com.study.constant.IdConstant;
-import com.study.constant.JwtClaimsConstant;
+import com.study.constant.JwtConstant;
 import com.study.constant.MessageConstant;
 import com.study.context.BaseContext;
 import com.study.dto.ClientUserDTO;
@@ -95,7 +95,7 @@ public class ClientUserServiceImpl implements ClientUserService {
 
         // 生成Jwt令牌
         Map<String, Object> claims = new HashMap<>();
-        claims.put(JwtClaimsConstant.CLIENT_ID, clientUserDB.getId());
+        claims.put(JwtConstant.CLIENT_ID, clientUserDB.getId());
         String authentication = JwtUtil.createJWT(
                 jwtProperties.getClientSecretKey(),
                 jwtProperties.getClientTtl(),

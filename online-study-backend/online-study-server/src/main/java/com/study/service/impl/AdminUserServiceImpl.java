@@ -2,7 +2,7 @@ package com.study.service.impl;
 
 import com.study.constant.AccountConstant;
 import com.study.constant.IdConstant;
-import com.study.constant.JwtClaimsConstant;
+import com.study.constant.JwtConstant;
 import com.study.constant.MessageConstant;
 import com.study.context.BaseContext;
 import com.study.dto.AdminUserDTO;
@@ -89,7 +89,7 @@ public class AdminUserServiceImpl implements AdminUserService {
 
         // 生成Jwt令牌
         Map<String, Object> claims = new HashMap<>();
-        claims.put(JwtClaimsConstant.ADMIN_ID, adminUserDB.getId());
+        claims.put(JwtConstant.ADMIN_ID, adminUserDB.getId());
         String token = JwtUtil.createJWT(
                 jwtProperties.getAdminSecretKey(),
                 jwtProperties.getAdminTtl(),
