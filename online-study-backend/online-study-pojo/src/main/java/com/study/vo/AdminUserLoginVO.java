@@ -27,4 +27,7 @@ public class AdminUserLoginVO implements Serializable {
 
     // 用户性别（M：男，女：F）
     private Character gender;
+
+    // jwt令牌
+    private String token;
 }
