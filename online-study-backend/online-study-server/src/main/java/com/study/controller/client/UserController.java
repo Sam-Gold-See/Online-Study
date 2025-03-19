@@ -1,7 +1,6 @@
 package com.study.controller.client;
 
-import com.study.dto.ClientUserLoginDTO;
-import com.study.dto.ClientUserRegistDTO;
+import com.study.dto.ClientUserDTO;
 import com.study.result.Result;
 import com.study.service.ClientUserService;
 import com.study.vo.ClientUserLoginVO;
@@ -23,22 +22,22 @@ public class UserController {
     /**
      * C端用户注册
      *
-     * @param clientUserRegistDTO C端用户注册DTO
+     * @param clientUserDTO C端用户DTO
      */
     @PostMapping("/regist")
-    public Result<String> regist(@RequestBody ClientUserRegistDTO clientUserRegistDTO) {
-        clientUserService.add(clientUserRegistDTO);
+    public Result<String> regist(@RequestBody ClientUserDTO clientUserDTO) {
+        clientUserService.add(clientUserDTO);
         return Result.success();
     }
 
     /**
      * C端用户登录
      *
-     * @param clientUserLoginDTO C端用户登录DTO
+     * @param clientUserDTO C端用户DTO
      */
     @PostMapping("/login")
-    public Result<ClientUserLoginVO> login(@RequestBody ClientUserLoginDTO clientUserLoginDTO) {
-        ClientUserLoginVO clientUserLoginVO = clientUserService.login(clientUserLoginDTO);
+    public Result<ClientUserLoginVO> login(@RequestBody ClientUserDTO clientUserDTO) {
+        ClientUserLoginVO clientUserLoginVO = clientUserService.login(clientUserDTO);
         return Result.success(clientUserLoginVO);
     }
 }

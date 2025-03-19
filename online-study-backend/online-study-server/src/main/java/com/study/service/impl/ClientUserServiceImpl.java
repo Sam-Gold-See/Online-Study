@@ -4,8 +4,7 @@ import com.study.constant.AccountConstant;
 import com.study.constant.IdConstant;
 import com.study.constant.JwtClaimsConstant;
 import com.study.constant.MessageConstant;
-import com.study.dto.ClientUserLoginDTO;
-import com.study.dto.ClientUserRegistDTO;
+import com.study.dto.ClientUserDTO;
 import com.study.entity.ClientUser;
 import com.study.exception.AccountException;
 import com.study.exception.VerificationErrorException;
@@ -44,7 +43,7 @@ public class ClientUserServiceImpl implements ClientUserService {
      * @param clientUserRegistDTO C端用户注册DTO
      */
     @Override
-    public void add(ClientUserRegistDTO clientUserRegistDTO) {
+    public void add(ClientUserDTO clientUserRegistDTO) {
         // 获取用户邮箱和验证码
         String email = clientUserRegistDTO.getEmail();
         String verificationCodeRedis = stringRedisTemplate.opsForValue().get(email);
@@ -76,11 +75,11 @@ public class ClientUserServiceImpl implements ClientUserService {
     /**
      * C端用户登录
      *
-     * @param clientUserLoginDTO C端用户登录DTO
+     * @param clientUserDTO C端用户DTO
      */
     @Override
-    public ClientUserLoginVO login(ClientUserLoginDTO clientUserLoginDTO) {
-        String email = clientUserLoginDTO.getEmail();
+    public ClientUserLoginVO login(ClientUserDTO clientUserDTO) {
+        String email = clientUserDTO.getEmail();
 
         // 根据用户邮箱号/登录账号查询用户库数据
         ClientUser clientUserDB = clientUserMapper.getByEmail(email);
@@ -95,7 +94,7 @@ public class ClientUserServiceImpl implements ClientUserService {
         }
 
         // 密码加密
-        String password = DigestUtils.md5DigestAsHex(clientUserLoginDTO.getPassword().getBytes());
+        String password = DigestUtils.md5DigestAsHex(clientUserDTO.getPassword().getBytes());
 
         if (!password.equals(clientUserDB.getPassword())) {
             throw new AccountException(MessageConstant.PASSWORD_ERROR);

@@ -11,7 +11,7 @@ import java.io.Serializable;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-public class ClientUserRegistDTO implements Serializable {
+public class ClientUserDTO implements Serializable {
 
     // 用户名
     private String name;
@@ -27,4 +27,7 @@ public class ClientUserRegistDTO implements Serializable {
 
     // 验证码
     private String verificationCode;
+
+    // 旧邮箱
+    private String oldEmail;
 }
