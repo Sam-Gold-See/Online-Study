@@ -37,4 +37,12 @@ public interface AdminUserMapper {
      */
     @Select("SELECT * FROM admin_user WHERE username = #{username}")
     AdminUser getByUsername(String username);
+
+    /**
+     * 根据id查询B端用户
+     *
+     * @param id B端用户id
+     */
+    @Select("SELECT * FROM admin_user WHERE id = #{id}")
+    AdminUser getById(Long id);
 }
