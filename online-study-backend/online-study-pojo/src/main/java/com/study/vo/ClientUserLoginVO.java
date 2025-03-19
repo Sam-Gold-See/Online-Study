@@ -22,6 +22,9 @@ public class ClientUserLoginVO implements Serializable {
     // 用户邮箱号
     private String email;
 
+    // 用户头像资源链接
+    private String avatar;
+
     // C端Jwt令牌
     private String authentication;
 }
