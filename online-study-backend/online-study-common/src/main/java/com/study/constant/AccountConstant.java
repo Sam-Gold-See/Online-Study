@@ -13,4 +13,7 @@ public class AccountConstant {
 
     // 账号登录状态正常
     public static final Integer ENABLED = 1;
+
+    // 账号修改权限正常
+    public static final Object PERMISSION = 1;
 }
