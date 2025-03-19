@@ -14,20 +14,27 @@ import com.study.service.AdminUserService;
 import com.study.utils.IdUtil;
 import com.study.utils.JwtUtil;
 import com.study.vo.AdminUserLoginVO;
+import io.jsonwebtoken.Claims;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.stereotype.Service;
 import org.springframework.util.DigestUtils;
 
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
+import java.util.concurrent.TimeUnit;
 
 @Service
 public class AdminUserServiceImpl implements AdminUserService {
 
     @Autowired
     private AdminUserMapper adminUserMapper;
+
+    @Autowired
+    private StringRedisTemplate stringRedisTemplate;
 
     @Autowired
     private JwtProperties jwtProperties;
@@ -101,5 +108,26 @@ public class AdminUserServiceImpl implements AdminUserService {
         adminUserLoginVO.setToken(token);
 
         return adminUserLoginVO;
+    }
+
+    /**
+     * B端用户退出
+     *
+     * @param token jwt令牌
+     */
+    @Override
+    public long logout(String token) {
+        try {
+            Claims claims = JwtUtil.parseJWT(jwtProperties.getAdminSecretKey(), token);
+            Date expiration = claims.getExpiration();
+            long expireTime = (expiration.getTime() - System.currentTimeMillis()) / 1000;
+
+            if (expireTime > 0)
+                stringRedisTemplate.opsForValue().set(JwtConstant.BLACKLIST_KEY + token, "", expireTime, TimeUnit.SECONDS);
+
+            return Long.parseLong(claims.get(JwtConstant.ADMIN_ID).toString());
+        } catch (Exception ex) {
+            throw new AccountException(MessageConstant.JWT_ERROR);
+        }
     }
 }

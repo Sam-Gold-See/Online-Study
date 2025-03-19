@@ -18,4 +18,11 @@ public interface AdminUserService {
      * @param adminUserDTO B端用户DTO
      */
     AdminUserLoginVO login(AdminUserDTO adminUserDTO);
+
+    /**
+     * B端用户退出
+     *
+     * @param token jwt令牌
+     */
+    long logout(String token);
 }
