@@ -27,6 +27,7 @@ public class UserController {
     @PostMapping("/add")
     public Result<String> add(@RequestBody AdminUserDTO adminUserDTO) {
         adminUserService.add(adminUserDTO);
+        log.info("新增B端用户：{}", adminUserDTO);
         return Result.success();
     }
 
@@ -38,6 +39,7 @@ public class UserController {
     @PostMapping("/login")
     public Result<AdminUserLoginVO> login(@RequestBody AdminUserDTO adminUserDTO) {
         AdminUserLoginVO adminUserLoginVO = adminUserService.login(adminUserDTO);
+        log.info("B端用户登录：{}", adminUserDTO);
         return Result.success(adminUserLoginVO);
     }
 }

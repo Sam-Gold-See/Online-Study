@@ -24,6 +24,7 @@ public class EmailController {
     @GetMapping("/sendCode")
     public Result<String> sendCode(String email) {
         emailService.sendCode(email);
+        log.info("请求验证码：{}", email);
         return Result.success();
     }
 }
