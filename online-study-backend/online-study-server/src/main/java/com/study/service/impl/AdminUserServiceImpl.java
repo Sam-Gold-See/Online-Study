@@ -116,7 +116,7 @@ public class AdminUserServiceImpl implements AdminUserService {
      * @param token jwt令牌
      */
     @Override
-    public long logout(String token) {
+    public void logout(String token) {
         try {
             Claims claims = JwtUtil.parseJWT(jwtProperties.getAdminSecretKey(), token);
             Date expiration = claims.getExpiration();
@@ -124,8 +124,6 @@ public class AdminUserServiceImpl implements AdminUserService {
 
             if (expireTime > 0)
                 stringRedisTemplate.opsForValue().set(JwtConstant.BLACKLIST_KEY + token, "", expireTime, TimeUnit.SECONDS);
-
-            return Long.parseLong(claims.get(JwtConstant.ADMIN_ID).toString());
         } catch (Exception ex) {
             throw new AccountException(MessageConstant.JWT_ERROR);
         }

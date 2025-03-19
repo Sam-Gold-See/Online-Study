@@ -24,5 +24,5 @@ public interface AdminUserService {
      *
      * @param token jwt令牌
      */
-    long logout(String token);
+    void logout(String token);
 }

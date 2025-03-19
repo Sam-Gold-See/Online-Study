@@ -188,7 +188,7 @@ public class ClientUserServiceImpl implements ClientUserService {
      * @param authentication jwt令牌
      */
     @Override
-    public long logout(String authentication) {
+    public void logout(String authentication) {
         try {
             Claims claims = JwtUtil.parseJWT(jwtProperties.getClientSecretKey(), authentication);
             Date expiration = claims.getExpiration();
@@ -196,8 +196,6 @@ public class ClientUserServiceImpl implements ClientUserService {
 
             if (expireTime > 0)
                 stringRedisTemplate.opsForValue().set(JwtConstant.BLACKLIST_KEY + authentication, "", expireTime, TimeUnit.SECONDS);
-
-            return Long.parseLong(claims.get(JwtConstant.CLIENT_ID).toString());
         } catch (Exception ex) {
             throw new AccountException(MessageConstant.JWT_ERROR);
         }

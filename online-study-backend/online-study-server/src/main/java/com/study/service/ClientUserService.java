@@ -45,5 +45,5 @@ public interface ClientUserService {
      *
      * @param authentication jwt令牌
      */
-    long logout(String authentication);
+    void logout(String authentication);
 }

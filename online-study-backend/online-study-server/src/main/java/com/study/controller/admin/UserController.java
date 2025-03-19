@@ -1,5 +1,6 @@
 package com.study.controller.admin;
 
+import com.study.context.BaseContext;
 import com.study.dto.AdminUserDTO;
 import com.study.result.Result;
 import com.study.service.AdminUserService;
@@ -47,8 +48,8 @@ public class UserController {
      */
     @GetMapping("/logout")
     public Result<String> logout(@RequestHeader String token) {
-        long id = adminUserService.logout(token);
-        log.info("B端用户退出，用户id：{}", id);
+        adminUserService.logout(token);
+        log.info("B端用户退出，用户id：{}", BaseContext.getCurrentId());
         return Result.success();
     }
 }
