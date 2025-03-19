@@ -40,8 +40,8 @@ CREATE TABLE `client_user`
     `email`       VARCHAR(256) UNIQUE COMMENT '用户邮箱地址，同为登录账号',
     `password`    VARCHAR(64) NOT NULL COMMENT '用户登录密码',
     `gender`      CHAR(1) COMMENT '用户性别（M: 男，F: 女）',
-    `status`      TINYINT DEFAULT 1 COMMENT '使用权限（1=可登录, 0=禁用）',
-    `avatar`      VARCHAR(500) COMMENT '头像资源链接',
+    `status`      TINYINT      DEFAULT 1 COMMENT '使用权限（1=可登录, 0=禁用）',
+    `avatar`      VARCHAR(500) DEFAULT NULL COMMENT '头像资源链接',
     `create_time` DATETIME COMMENT '创建时间',
     `update_time` DATETIME COMMENT '更新时间'
 ) COMMENT='客户端用户表';
@@ -73,7 +73,7 @@ CREATE TABLE `post`
     `content`       text COMMENT '帖子内容',
     `top`           TINYINT DEFAULT 0 COMMENT '置顶状态，0=普通，1=置顶',
     `pro`           TINYINT DEFAULT 0 COMMENT '加精状态，0=正常，1=精华',
-    `is_deleted`    TINYINT DEFAULT 0 COMMENT '删除状态，0=正常，1=删除',  -- 修改字段名
+    `is_deleted`    TINYINT DEFAULT 0 COMMENT '删除状态，0=正常，1=删除', -- 修改字段名
     `view_count`    INT     DEFAULT 0 COMMENT '浏览数',
     `like_count`    INT     DEFAULT 0 COMMENT '点赞数',
     `comment_count` INT     DEFAULT 0 COMMENT '评论数',
