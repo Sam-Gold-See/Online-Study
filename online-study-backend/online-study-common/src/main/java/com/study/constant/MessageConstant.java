@@ -9,4 +9,5 @@ public class MessageConstant {
     public static final String VERIFICATION_CODE_ERROR = "验证码错误";
     public static final String ACCOUNT_NOT_FOUND = "账号不存在";
     public static final String ACCOUNT_LOCKED = "账号处于封禁状态";
+    public static final String PASSWORD_ERROR = "密码错误";
 }
