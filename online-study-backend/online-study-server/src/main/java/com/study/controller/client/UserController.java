@@ -59,4 +59,15 @@ public class UserController {
         clientUserService.editEmail(clientUserDTO);
         return Result.success();
     }
+
+    /**
+     * C端用户修改个人信息
+     *
+     * @param clientUserDTO C端用户DTO
+     */
+    @PutMapping("/editInfo")
+    public Result<String> editInfo(@RequestBody ClientUserDTO clientUserDTO) {
+        clientUserService.editInfo(clientUserDTO);
+        return Result.success();
+    }
 }
