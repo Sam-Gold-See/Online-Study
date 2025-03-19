@@ -8,6 +8,7 @@ import com.study.context.BaseContext;
 import com.study.dto.AdminUserDTO;
 import com.study.entity.AdminUser;
 import com.study.exception.AccountException;
+import com.study.exception.OperationException;
 import com.study.mapper.AdminUserMapper;
 import com.study.properties.JwtProperties;
 import com.study.service.AdminUserService;
@@ -51,7 +52,7 @@ public class AdminUserServiceImpl implements AdminUserService {
         Integer level = adminUserMapper.checkById(userId);
 
         if (!Objects.equals(level, AccountConstant.PERMISSION))
-            throw new AccountException(MessageConstant.PERMISSION_ERROR);
+            throw new OperationException(MessageConstant.PERMISSION_ERROR);
 
         AdminUser adminUser = new AdminUser();
         BeanUtils.copyProperties(adminUserDTO, adminUser);
@@ -127,5 +128,30 @@ public class AdminUserServiceImpl implements AdminUserService {
         } catch (Exception ex) {
             throw new AccountException(MessageConstant.JWT_ERROR);
         }
+    }
+
+    /**
+     * 设置B端用户登录权限
+     *
+     * @param adminUserDTO B端用户DTO
+     */
+    @Override
+    public void editStatus(AdminUserDTO adminUserDTO) {
+        Long userId = BaseContext.getCurrentId();
+
+        if (userId.equals(adminUserDTO.getId())) {
+            throw new OperationException(MessageConstant.INVALID_OPERATION);
+        }
+
+        AdminUser adminUserDB = adminUserMapper.getById(userId);
+
+        if (!Objects.equals(adminUserDB.getStatus(), AccountConstant.PERMISSION)) {
+            throw new AccountException(MessageConstant.PERMISSION_ERROR);
+        }
+
+        adminUserMapper.update(AdminUser.builder()
+                .id(adminUserDTO.getId())
+                .status(adminUserDTO.getStatus())
+                .build());
     }
 }
