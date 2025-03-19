@@ -32,4 +32,11 @@ public interface ClientUserService {
      * @param clientUserDTO C端用户DTO
      */
     void editEmail(ClientUserDTO clientUserDTO);
+
+    /**
+     * C端用户修改个人信息
+     *
+     * @param clientUserDTO C端用户DTO
+     */
+    void editInfo(ClientUserDTO clientUserDTO);
 }

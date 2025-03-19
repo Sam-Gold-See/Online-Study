@@ -163,6 +163,22 @@ public class ClientUserServiceImpl implements ClientUserService {
                 .build());
     }
 
+    /**
+     * C端用户修改个人信息
+     *
+     * @param clientUserDTO C端用户DTO
+     */
+    @Override
+    public void editInfo(ClientUserDTO clientUserDTO) {
+        Long userId = BaseContext.getCurrentId();
+
+        ClientUser clientUser = new ClientUser();
+        clientUser.setId(userId);
+        BeanUtils.copyProperties(clientUserDTO, clientUser);
+
+        clientUserMapper.update(clientUser);
+    }
+
     private void checkVerificationCode(ClientUserDTO clientUserDTO, String email) {
         String verificationCode = clientUserDTO.getVerificationCode();
         verificationCode = CodeUtils.upperLetters(verificationCode);
