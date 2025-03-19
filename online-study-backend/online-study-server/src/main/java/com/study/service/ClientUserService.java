@@ -25,4 +25,11 @@ public interface ClientUserService {
      * @param clientUserDTO C端用户DTO
      */
     void editPassword(ClientUserDTO clientUserDTO);
+
+    /**
+     * C端用户重置邮箱
+     *
+     * @param clientUserDTO C端用户DTO
+     */
+    void editEmail(ClientUserDTO clientUserDTO);
 }

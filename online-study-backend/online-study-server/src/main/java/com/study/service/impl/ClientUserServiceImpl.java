@@ -4,6 +4,7 @@ import com.study.constant.AccountConstant;
 import com.study.constant.IdConstant;
 import com.study.constant.JwtClaimsConstant;
 import com.study.constant.MessageConstant;
+import com.study.context.BaseContext;
 import com.study.dto.ClientUserDTO;
 import com.study.entity.ClientUser;
 import com.study.exception.AccountException;
@@ -40,30 +41,22 @@ public class ClientUserServiceImpl implements ClientUserService {
     /**
      * 新增C端用户
      *
-     * @param clientUserRegistDTO C端用户注册DTO
+     * @param clientUserDTO C端用户DTO
      */
     @Override
-    public void add(ClientUserDTO clientUserRegistDTO) {
+    public void add(ClientUserDTO clientUserDTO) {
         // 获取用户邮箱和验证码
-        String email = clientUserRegistDTO.getEmail();
-        String verificationCodeRedis = stringRedisTemplate.opsForValue().get(email);
-        String verificationCode = clientUserRegistDTO.getVerificationCode();
-        verificationCode = CodeUtils.upperLetters(verificationCode);
+        String email = clientUserDTO.getEmail();
 
-        // 验证码比对
-        if (verificationCodeRedis == null || !Objects.equals(verificationCodeRedis, verificationCode)) {
-            throw new VerificationErrorException(MessageConstant.VERIFICATION_CODE_ERROR);
-        }
-
-        // 验证码正确，删除 Redis 中的验证码
-        stringRedisTemplate.delete(email);
+        // 检验验证码
+        checkVerificationCode(clientUserDTO, email);
 
         // 复制数据
         ClientUser clientUser = new ClientUser();
-        BeanUtils.copyProperties(clientUserRegistDTO, clientUser);
+        BeanUtils.copyProperties(clientUserDTO, clientUser);
 
         // 加密密码
-        clientUser.setPassword(DigestUtils.md5DigestAsHex(clientUserRegistDTO.getPassword().getBytes()));
+        clientUser.setPassword(DigestUtils.md5DigestAsHex(clientUserDTO.getPassword().getBytes()));
 
         // 生成唯一ID并赋值
         clientUser.setId(IdUtil.generateId(IdConstant.CLIENT_SIGNAL));
@@ -127,6 +120,50 @@ public class ClientUserServiceImpl implements ClientUserService {
     public void editPassword(ClientUserDTO clientUserDTO) {
         // 获取用户邮箱和验证码
         String email = clientUserDTO.getEmail();
+        checkVerificationCode(clientUserDTO, email);
+
+        String password = clientUserDTO.getPassword();
+        password = DigestUtils.md5DigestAsHex(password.getBytes());
+
+        clientUserMapper.update(ClientUser.builder()
+                .email(email)
+                .password(password)
+                .build());
+    }
+
+    /**
+     * C端用户重置邮箱
+     *
+     * @param clientUserDTO C端用户DTO
+     */
+    @Override
+    public void editEmail(ClientUserDTO clientUserDTO) {
+        //  获取用户新邮箱和验证码
+        String newEmail = clientUserDTO.getEmail();
+
+        // 检验验证码
+        checkVerificationCode(clientUserDTO, newEmail);
+
+        Long userId = BaseContext.getCurrentId();
+        ClientUser clientUserDB = clientUserMapper.getById(userId);
+
+        // 检查目前账号的邮箱是否为数据库中邮箱（旧邮箱）
+        if (!(Objects.equals(clientUserDB.getEmail(), clientUserDTO.getOldEmail()))) {
+            throw new AccountException(MessageConstant.ACCOUNT_NOT_FOUND);
+        }
+
+        String password = DigestUtils.md5DigestAsHex(clientUserDTO.getPassword().getBytes());
+        if (!password.equals(clientUserDB.getPassword())) {
+            throw new AccountException(MessageConstant.PASSWORD_ERROR);
+        }
+
+        clientUserMapper.update(ClientUser.builder()
+                .id(userId)
+                .email(newEmail)
+                .build());
+    }
+
+    private void checkVerificationCode(ClientUserDTO clientUserDTO, String email) {
         String verificationCode = clientUserDTO.getVerificationCode();
         verificationCode = CodeUtils.upperLetters(verificationCode);
         String verificationCodeRedis = stringRedisTemplate.opsForValue().get(email);
@@ -136,14 +173,7 @@ public class ClientUserServiceImpl implements ClientUserService {
             throw new VerificationErrorException(MessageConstant.VERIFICATION_CODE_ERROR);
         }
 
+        // 验证码正确，删除 Redis 中的验证码
         stringRedisTemplate.delete(email);
-
-        String password = clientUserDTO.getPassword();
-        password = DigestUtils.md5DigestAsHex(password.getBytes());
-
-        clientUserMapper.update(ClientUser.builder()
-                .email(email)
-                .password(password)
-                .build());
     }
 }
