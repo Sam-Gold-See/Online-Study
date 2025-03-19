@@ -18,4 +18,15 @@ public interface AdminUserMapper {
      */
     @Select("SELECT level FROM admin_user WHERE id = #{id}")
     Integer checkById(Long userId);
+
+    /**
+     * 插入新B端用户
+     *
+     * @param adminUser B端用户实体类对象
+     */
+    @AutoFill(operation = OperationType.INSERT, terminal = TerminalType.ADMIN)
+    @Insert("INSERT INTO admin_user " +
+            "(id, name, username, password, phone, gender, create_time, update_time, create_user, update_user) " +
+            "VALUES (#{id}, #{name}, #{username}, #{password}, #{phone}, #{gender}, #{createTime}, #{updateTime}, #{createUser}, #{updateUser})")
+    void insert(AdminUser adminUser);
 }
