@@ -16,7 +16,7 @@ import java.time.LocalDateTime;
 public class AdminUserDTO implements Serializable {
 
     // 用户id
-    private String id;
+    private Long id;
 
     // 用户名
     private String name;
