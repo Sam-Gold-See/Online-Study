@@ -9,8 +9,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 @RestController("ClientUserController")
-@Slf4j
 @RequestMapping("/client/user")
+@Slf4j
 public class UserController {
 
     @Autowired
@@ -73,6 +73,18 @@ public class UserController {
     public Result<String> editInfo(@RequestBody ClientUserDTO clientUserDTO) {
         clientUserService.editInfo(clientUserDTO);
         log.info("C端用户修改个人信息：{}", clientUserDTO);
+        return Result.success();
+    }
+
+    /**
+     * C端用户退出
+     *
+     * @param authentication jwt令牌
+     */
+    @GetMapping("/logout")
+    public Result<String> logout(@RequestHeader String authentication) {
+        long id = clientUserService.logout(authentication);
+        log.info("C端用户退出，用户id：{}", id);
         return Result.success();
     }
 }
