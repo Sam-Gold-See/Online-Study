@@ -10,4 +10,7 @@ public class AccountConstant {
 
     // 验证码字符数组
     public static final char[] VERIFICATION_CODE_CHARS = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ".toCharArray();
+
+    // 账号登录状态正常
+    public static final Integer ENABLED = 1;
 }
