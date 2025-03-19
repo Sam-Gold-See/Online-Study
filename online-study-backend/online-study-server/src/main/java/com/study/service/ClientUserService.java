@@ -18,4 +18,11 @@ public interface ClientUserService {
      * @param clientUserDTO C端用户DTO
      */
     ClientUserLoginVO login(ClientUserDTO clientUserDTO);
+
+    /**
+     * C端用户重置密码
+     *
+     * @param clientUserDTO C端用户DTO
+     */
+    void editPassword(ClientUserDTO clientUserDTO);
 }

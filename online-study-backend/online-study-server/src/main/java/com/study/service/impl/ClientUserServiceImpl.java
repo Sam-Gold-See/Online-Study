@@ -117,4 +117,33 @@ public class ClientUserServiceImpl implements ClientUserService {
                 .authentication(authentication)
                 .build();
     }
+
+    /**
+     * C端用户重置密码
+     *
+     * @param clientUserDTO C端用户DTO
+     */
+    @Override
+    public void editPassword(ClientUserDTO clientUserDTO) {
+        // 获取用户邮箱和验证码
+        String email = clientUserDTO.getEmail();
+        String verificationCode = clientUserDTO.getVerificationCode();
+        verificationCode = CodeUtils.upperLetters(verificationCode);
+        String verificationCodeRedis = stringRedisTemplate.opsForValue().get(email);
+
+        // 验证码比对
+        if (verificationCodeRedis == null || !Objects.equals(verificationCodeRedis, verificationCode)) {
+            throw new VerificationErrorException(MessageConstant.VERIFICATION_CODE_ERROR);
+        }
+
+        stringRedisTemplate.delete(email);
+
+        String password = clientUserDTO.getPassword();
+        password = DigestUtils.md5DigestAsHex(password.getBytes());
+
+        clientUserMapper.update(ClientUser.builder()
+                .email(email)
+                .password(password)
+                .build());
+    }
 }
