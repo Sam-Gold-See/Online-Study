@@ -32,6 +32,6 @@ public class EmailServiceImpl implements EmailService {
         String verificationCode = RandomStringUtils.secure().next(6, AccountConstant.VERIFICATION_CODE_CHARS);
         EmailUtils.sendVerificationCode(email, verificationCode);
 
-        stringRedisTemplate.opsForValue().set(email, verificationCode, AccountConstant.VERIFICATION_CODE_TTL, TimeUnit.MINUTES);
+        stringRedisTemplate.opsForValue().set(AccountConstant.REDIS_KEY + email, verificationCode, AccountConstant.VERIFICATION_CODE_TTL, TimeUnit.MINUTES);
     }
 }

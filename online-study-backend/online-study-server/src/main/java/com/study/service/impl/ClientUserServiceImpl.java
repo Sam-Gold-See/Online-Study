@@ -182,7 +182,7 @@ public class ClientUserServiceImpl implements ClientUserService {
     private void checkVerificationCode(ClientUserDTO clientUserDTO, String email) {
         String verificationCode = clientUserDTO.getVerificationCode();
         verificationCode = CodeUtils.upperLetters(verificationCode);
-        String verificationCodeRedis = stringRedisTemplate.opsForValue().get(email);
+        String verificationCodeRedis = stringRedisTemplate.opsForValue().get(AccountConstant.REDIS_KEY + email);
 
         // 验证码比对
         if (verificationCodeRedis == null || !Objects.equals(verificationCodeRedis, verificationCode)) {
@@ -190,6 +190,6 @@ public class ClientUserServiceImpl implements ClientUserService {
         }
 
         // 验证码正确，删除 Redis 中的验证码
-        stringRedisTemplate.delete(email);
+        stringRedisTemplate.delete(AccountConstant.REDIS_KEY + email);
     }
 }
