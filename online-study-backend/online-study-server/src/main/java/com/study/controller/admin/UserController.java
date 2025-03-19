@@ -6,10 +6,7 @@ import com.study.service.AdminUserService;
 import com.study.vo.AdminUserLoginVO;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController("AdminUserController")
 @RequestMapping("/admin/user")
@@ -41,5 +38,17 @@ public class UserController {
         AdminUserLoginVO adminUserLoginVO = adminUserService.login(adminUserDTO);
         log.info("B端用户登录：{}", adminUserDTO);
         return Result.success(adminUserLoginVO);
+    }
+
+    /**
+     * B端用户退出
+     *
+     * @param token jwt令牌
+     */
+    @GetMapping("/logout")
+    public Result<String> logout(@RequestHeader String token) {
+        long id = adminUserService.logout(token);
+        log.info("B端用户退出，用户id：{}", id);
+        return Result.success();
     }
 }
