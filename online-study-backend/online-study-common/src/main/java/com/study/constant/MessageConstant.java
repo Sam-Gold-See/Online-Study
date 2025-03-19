@@ -11,4 +11,5 @@ public class MessageConstant {
     public static final String ACCOUNT_LOCKED = "账号处于封禁状态";
     public static final String PASSWORD_ERROR = "密码错误";
     public static final String PERMISSION_ERROR = "账号权限不足";
+    public static final String JWT_ERROR = "JWT令牌无效或过期";
 }
