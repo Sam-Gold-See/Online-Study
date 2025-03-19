@@ -5,6 +5,9 @@ package com.study.constant;
  */
 public class AccountConstant {
 
+    // Redis存储验证码键常量
+    public static final String REDIS_KEY = "code:list:";
+
     // 验证码有效时长
     public static final Integer VERIFICATION_CODE_TTL = 5;
 
