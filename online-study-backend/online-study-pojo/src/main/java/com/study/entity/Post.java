@@ -30,11 +30,23 @@ public class Post implements Serializable {
     // 帖子内容
     private String content;
 
-    // 帖子类型，0=普通，1=置顶
-    private Integer type;
+    // 置顶状态，0=普通，1=置顶
+    private Integer top;
 
-    // 帖子状态，0=正常，1=精华，2=隐藏
-    private Integer status;
+    // 加精状态，0=普通，1=加精
+    private Integer pro;
+
+    // 删除状态，0=正常，1=删除
+    private Integer isDeleted;
+
+    // 浏览数
+    private Integer viewCount;
+
+    // 点赞数
+    private Integer likeCount;
+
+    // 评论数
+    private Integer commentCount;
 
     // 创建时间
     private LocalDateTime createTime;
