@@ -1,17 +1,17 @@
-package com.study.dto;
+package com.study.vo;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.io.Serializable;
+import java.time.LocalDateTime;
 
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-public class ClientUserDTO implements Serializable {
+public class ClientUserVO implements java.io.Serializable {
 
     // 时间戳唯一id
     private Long id;
@@ -22,9 +22,6 @@ public class ClientUserDTO implements Serializable {
     // 用户邮箱号
     private String email;
 
-    // 用户登录密码
-    private String password;
-
     // 用户性别（M：男，女：F）
     private Character gender;
 
@@ -34,9 +31,9 @@ public class ClientUserDTO implements Serializable {
     // 头像资源链接
     private String avatar;
 
-    // 验证码
-    private String verificationCode;
+    // 创建时间
+    private LocalDateTime createTime;
 
-    // 旧邮箱
-    private String oldEmail;
+    // 更新时间
+    private LocalDateTime updateTime;
 }

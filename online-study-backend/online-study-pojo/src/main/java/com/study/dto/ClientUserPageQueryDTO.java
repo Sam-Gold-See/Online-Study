@@ -11,7 +11,7 @@ import java.io.Serializable;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-public class ClientUserDTO implements Serializable {
+public class ClientUserPageQueryDTO implements Serializable {
 
     // 时间戳唯一id
     private Long id;
@@ -22,21 +22,15 @@ public class ClientUserDTO implements Serializable {
     // 用户邮箱号
     private String email;
 
-    // 用户登录密码
-    private String password;
-
     // 用户性别（M：男，女：F）
     private Character gender;
 
     // 使用权限（1=正常，0=禁用）
     private Integer status;
 
-    // 头像资源链接
-    private String avatar;
+    // 页码数
+    private Integer page;
 
-    // 验证码
-    private String verificationCode;
-
-    // 旧邮箱
-    private String oldEmail;
+    // 每页显示记录数
+    private Integer pageSize;
 }
