@@ -1,6 +1,8 @@
 package com.study.controller.admin;
 
 import com.study.dto.ClientUserDTO;
+import com.study.dto.ClientUserPageQueryDTO;
+import com.study.result.PageResult;
 import com.study.result.Result;
 import com.study.service.ClientUserService;
 import com.study.vo.ClientUserVO;
@@ -50,5 +52,17 @@ public class UserManagementController {
         clientUserService.setInfo(clientUserDTO);
         log.info("B端设置C端用户信息：{}", clientUserDTO);
         return Result.success();
+    }
+
+    /**
+     * C端用户分页查询
+     *
+     * @param clientUserPageQueryDTO C端用户分页查询DTO
+     */
+    @GetMapping("/query")
+    public Result<PageResult<ClientUserVO>> query(@RequestBody ClientUserPageQueryDTO clientUserPageQueryDTO) {
+        PageResult<ClientUserVO> pageResult = clientUserService.query(clientUserPageQueryDTO);
+        log.info("C端用户分页查询，条件为：{}", clientUserPageQueryDTO);
+        return Result.success(pageResult);
     }
 }
