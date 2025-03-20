@@ -1,16 +1,20 @@
 package com.study.service.impl;
 
+import com.github.pagehelper.Page;
+import com.github.pagehelper.PageHelper;
 import com.study.constant.AccountConstant;
 import com.study.constant.IdConstant;
 import com.study.constant.JwtConstant;
 import com.study.constant.MessageConstant;
 import com.study.context.BaseContext;
 import com.study.dto.AdminUserDTO;
+import com.study.dto.AdminUserPageQueryDTO;
 import com.study.entity.AdminUser;
 import com.study.exception.AccountException;
 import com.study.exception.OperationException;
 import com.study.mapper.AdminUserMapper;
 import com.study.properties.JwtProperties;
+import com.study.result.PageResult;
 import com.study.service.AdminUserService;
 import com.study.utils.IdUtil;
 import com.study.utils.JwtUtil;
@@ -216,5 +220,19 @@ public class AdminUserServiceImpl implements AdminUserService {
     @Override
     public AdminUser getInfo(Long id) {
         return adminUserMapper.getById(id);
+    }
+
+    /**
+     * 分页查询B端用户
+     *
+     * @param adminUserPageQueryDTO B端用户分页查询DTO对象
+     */
+    @Override
+    public PageResult<AdminUser> query(AdminUserPageQueryDTO adminUserPageQueryDTO) {
+        PageHelper.startPage(adminUserPageQueryDTO.getPage(), adminUserPageQueryDTO.getPageSize());
+
+        Page<AdminUser> page = adminUserMapper.query(adminUserPageQueryDTO);
+
+        return new PageResult<>(page.getTotal(), page.getResult());
     }
 }
