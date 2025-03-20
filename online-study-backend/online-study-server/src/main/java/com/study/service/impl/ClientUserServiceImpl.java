@@ -239,6 +239,27 @@ public class ClientUserServiceImpl implements ClientUserService {
         return clientUserVO;
     }
 
+    /**
+     * 设置C端用户信息
+     *
+     * @param clientUserDTO C端用户DTO对象
+     */
+    @Override
+    public void setInfo(ClientUserDTO clientUserDTO) {
+        Long id = clientUserDTO.getId();
+
+        ClientUser clientUserDB = clientUserMapper.getById(id);
+
+        if (clientUserDB == null) {
+            throw new AccountException(MessageConstant.ACCOUNT_NOT_FOUND);
+        }
+
+        ClientUser clientUser = new ClientUser();
+        BeanUtils.copyProperties(clientUserDTO, clientUser);
+
+        clientUserMapper.update(clientUser);
+    }
+
     private void checkVerificationCode(ClientUserDTO clientUserDTO, String email) {
         String verificationCode = clientUserDTO.getVerificationCode();
         verificationCode = CodeUtils.upperLetters(verificationCode);

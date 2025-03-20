@@ -61,4 +61,11 @@ public interface ClientUserService {
      * @param id C端用户id
      */
     ClientUserVO getInfo(Long id);
+
+    /**
+     * 设置C端用户信息
+     *
+     * @param clientUserDTO C端用户DTO对象
+     */
+    void setInfo(ClientUserDTO clientUserDTO);
 }
