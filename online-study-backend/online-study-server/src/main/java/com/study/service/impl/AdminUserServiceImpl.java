@@ -179,4 +179,32 @@ public class AdminUserServiceImpl implements AdminUserService {
                 .level(adminUserDTO.getLevel())
                 .build());
     }
+
+    /**
+     * 设置B端用户信息
+     *
+     * @param adminUserDTO B端用户DTO
+     */
+    @Override
+    public void update(AdminUserDTO adminUserDTO) {
+        Long userId = BaseContext.getCurrentId();
+
+        if(Objects.equals(adminUserDTO.getId(), userId)) {
+            throw new OperationException(MessageConstant.INVALID_OPERATION);
+        }
+
+        AdminUser adminUserDB = adminUserMapper.getById(userId);
+
+        if(!Objects.equals(adminUserDB.getLevel(), AccountConstant.PERMISSION)) {
+            throw new AccountException(MessageConstant.PERMISSION_ERROR);
+        }
+
+        AdminUser adminUser = new AdminUser();
+        BeanUtils.copyProperties(adminUserDTO, adminUser);
+
+        String password = adminUserDTO.getPassword();
+        adminUser.setPassword(DigestUtils.md5DigestAsHex(password.getBytes()));
+
+        adminUserMapper.update(adminUser);
+    }
 }
