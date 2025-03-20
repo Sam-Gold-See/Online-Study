@@ -189,13 +189,13 @@ public class AdminUserServiceImpl implements AdminUserService {
     public void update(AdminUserDTO adminUserDTO) {
         Long userId = BaseContext.getCurrentId();
 
-        if(Objects.equals(adminUserDTO.getId(), userId)) {
+        if (Objects.equals(adminUserDTO.getId(), userId)) {
             throw new OperationException(MessageConstant.INVALID_OPERATION);
         }
 
         AdminUser adminUserDB = adminUserMapper.getById(userId);
 
-        if(!Objects.equals(adminUserDB.getLevel(), AccountConstant.PERMISSION)) {
+        if (!Objects.equals(adminUserDB.getLevel(), AccountConstant.PERMISSION)) {
             throw new AccountException(MessageConstant.PERMISSION_ERROR);
         }
 
@@ -206,5 +206,15 @@ public class AdminUserServiceImpl implements AdminUserService {
         adminUser.setPassword(DigestUtils.md5DigestAsHex(password.getBytes()));
 
         adminUserMapper.update(adminUser);
+    }
+
+    /**
+     * 查询B端用户信息
+     *
+     * @param id B端用户id
+     */
+    @Override
+    public AdminUser getInfo(Long id) {
+        return adminUserMapper.getById(id);
     }
 }

@@ -1,6 +1,7 @@
 package com.study.service;
 
 import com.study.dto.AdminUserDTO;
+import com.study.entity.AdminUser;
 import com.study.vo.AdminUserLoginVO;
 
 public interface AdminUserService {
@@ -46,4 +47,11 @@ public interface AdminUserService {
      * @param adminUserDTO B端用户DTO
      */
     void update(AdminUserDTO adminUserDTO);
+
+    /**
+     * 查询B端用户信息
+     *
+     * @param id B端用户id
+     */
+    AdminUser getInfo(Long id);
 }
