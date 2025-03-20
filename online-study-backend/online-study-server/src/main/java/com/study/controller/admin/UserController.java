@@ -2,6 +2,7 @@ package com.study.controller.admin;
 
 import com.study.context.BaseContext;
 import com.study.dto.AdminUserDTO;
+import com.study.entity.AdminUser;
 import com.study.result.Result;
 import com.study.service.AdminUserService;
 import com.study.vo.AdminUserLoginVO;
@@ -75,6 +76,18 @@ public class UserController {
         adminUserService.update(adminUserDTO);
         log.info("设置B端用户(id：{})信息为：{}", adminUserDTO.getId(), adminUserDTO);
         return Result.success();
+    }
+
+    /**
+     * 查询B端用户信息
+     *
+     * @param id B端用户id
+     */
+    @GetMapping("/getInfo")
+    public Result<AdminUser> getInfo(Long id) {
+        AdminUser adminUser = adminUserService.getInfo(id);
+        log.info("查询B端用户(id：{})信息为：{}", id, adminUser);
+        return Result.success(adminUser);
     }
 
     /**
