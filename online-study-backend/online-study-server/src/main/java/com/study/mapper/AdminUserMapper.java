@@ -6,6 +6,7 @@ import com.study.dto.AdminUserPageQueryDTO;
 import com.study.entity.AdminUser;
 import com.study.enumeration.OperationType;
 import com.study.enumeration.TerminalType;
+import com.study.vo.AdminUserVO;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Select;
@@ -61,5 +62,5 @@ public interface AdminUserMapper {
      *
      * @param adminUserPageQueryDTO B端用户分页查询DTO对象
      */
-    Page<AdminUser> query(AdminUserPageQueryDTO adminUserPageQueryDTO);
+    Page<AdminUserVO> query(AdminUserPageQueryDTO adminUserPageQueryDTO);
 }

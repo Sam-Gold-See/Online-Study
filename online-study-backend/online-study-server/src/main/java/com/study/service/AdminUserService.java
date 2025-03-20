@@ -5,6 +5,7 @@ import com.study.dto.AdminUserPageQueryDTO;
 import com.study.entity.AdminUser;
 import com.study.result.PageResult;
 import com.study.vo.AdminUserLoginVO;
+import com.study.vo.AdminUserVO;
 
 public interface AdminUserService {
 
@@ -62,5 +63,5 @@ public interface AdminUserService {
      *
      * @param adminUserPageQueryDTO B端用户分页查询DTO对象
      */
-    PageResult<AdminUser> query(AdminUserPageQueryDTO adminUserPageQueryDTO);
+    PageResult<AdminUserVO> query(AdminUserPageQueryDTO adminUserPageQueryDTO);
 }

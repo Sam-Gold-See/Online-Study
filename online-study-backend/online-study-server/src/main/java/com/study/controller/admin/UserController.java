@@ -8,6 +8,7 @@ import com.study.result.PageResult;
 import com.study.result.Result;
 import com.study.service.AdminUserService;
 import com.study.vo.AdminUserLoginVO;
+import com.study.vo.AdminUserVO;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -110,8 +111,8 @@ public class UserController {
      * @param adminUserPageQueryDTO B端用户分页查询DTO对象
      */
     @GetMapping("/query")
-    public Result<PageResult<AdminUser>> query(@RequestBody AdminUserPageQueryDTO adminUserPageQueryDTO) {
-        PageResult<AdminUser> pageResult = adminUserService.query(adminUserPageQueryDTO);
+    public Result<PageResult<AdminUserVO>> query(@RequestBody AdminUserPageQueryDTO adminUserPageQueryDTO) {
+        PageResult<AdminUserVO> pageResult = adminUserService.query(adminUserPageQueryDTO);
         log.info("B端用户分页查询，条件为：{}", adminUserPageQueryDTO);
         return Result.success(pageResult);
     }

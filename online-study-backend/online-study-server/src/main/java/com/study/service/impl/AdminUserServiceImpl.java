@@ -19,6 +19,7 @@ import com.study.service.AdminUserService;
 import com.study.utils.IdUtil;
 import com.study.utils.JwtUtil;
 import com.study.vo.AdminUserLoginVO;
+import com.study.vo.AdminUserVO;
 import io.jsonwebtoken.Claims;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -228,10 +229,10 @@ public class AdminUserServiceImpl implements AdminUserService {
      * @param adminUserPageQueryDTO B端用户分页查询DTO对象
      */
     @Override
-    public PageResult<AdminUser> query(AdminUserPageQueryDTO adminUserPageQueryDTO) {
+    public PageResult<AdminUserVO> query(AdminUserPageQueryDTO adminUserPageQueryDTO) {
         PageHelper.startPage(adminUserPageQueryDTO.getPage(), adminUserPageQueryDTO.getPageSize());
 
-        Page<AdminUser> page = adminUserMapper.query(adminUserPageQueryDTO);
+        Page<AdminUserVO> page = adminUserMapper.query(adminUserPageQueryDTO);
 
         return new PageResult<>(page.getTotal(), page.getResult());
     }

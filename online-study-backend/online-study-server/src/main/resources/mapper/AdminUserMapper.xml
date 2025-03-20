@@ -34,7 +34,7 @@
         </set>
         WHERE id = #{id}
     </update>
-    <select id="query" resultType="com.study.entity.AdminUser">
+    <select id="query" resultType="com.study.vo.AdminUserVO">
         SELECT * FROM admin_user
         <where>
             <if test="name != null and name != ''">
