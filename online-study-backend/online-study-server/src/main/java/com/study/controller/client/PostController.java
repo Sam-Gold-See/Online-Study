@@ -4,12 +4,10 @@ import com.study.context.BaseContext;
 import com.study.dto.PostDTO;
 import com.study.result.Result;
 import com.study.service.PostService;
+import com.study.vo.PostVO;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RequestMapping("/client/post")
 @RestController
@@ -29,5 +27,17 @@ public class PostController {
         postService.add(postDTO);
         log.info("C端用户(id：{})新增帖子：{}", BaseContext.getCurrentId(), postDTO);
         return Result.success();
+    }
+
+    /**
+     * 获取帖子信息
+     *
+     * @param id 帖子id
+     */
+    @GetMapping("/get")
+    public Result<PostVO> get(Long id) {
+        PostVO postVO = postService.get(id);
+        log.info("C端用户(id：{})查看帖子：{}", BaseContext.getCurrentId(), id);
+        return Result.success(postVO);
     }
 }
