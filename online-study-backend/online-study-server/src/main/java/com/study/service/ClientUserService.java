@@ -46,4 +46,11 @@ public interface ClientUserService {
      * @param authentication jwt令牌
      */
     void logout(String authentication);
+
+    /**
+     * 设置C端用户登录状态
+     *
+     * @param clientUserDTO 用户管理DTO对象
+     */
+    void editStatus(ClientUserDTO clientUserDTO);
 }

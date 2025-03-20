@@ -201,6 +201,24 @@ public class ClientUserServiceImpl implements ClientUserService {
         }
     }
 
+    /**
+     * 设置C端用户登录状态
+     *
+     * @param clientUserDTO 用户管理DTO对象
+     */
+    @Override
+    public void editStatus(ClientUserDTO clientUserDTO) {
+        ClientUser clientUser = clientUserMapper.getById(clientUserDTO.getId());
+        if (clientUser == null) {
+            throw new AccountException(MessageConstant.ACCOUNT_NOT_FOUND);
+        }
+
+        clientUserMapper.update(ClientUser.builder()
+                .id(clientUserDTO.getId())
+                .status(clientUserDTO.getStatus())
+                .build());
+    }
+
     private void checkVerificationCode(ClientUserDTO clientUserDTO, String email) {
         String verificationCode = clientUserDTO.getVerificationCode();
         verificationCode = CodeUtils.upperLetters(verificationCode);
