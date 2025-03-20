@@ -13,9 +13,6 @@ import java.io.Serializable;
 @Builder
 public class ClientUserPageQueryDTO implements Serializable {
 
-    // 时间戳唯一id
-    private Long id;
-
     // 用户名
     private String name;
 
