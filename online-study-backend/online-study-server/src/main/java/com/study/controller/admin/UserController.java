@@ -66,6 +66,18 @@ public class UserController {
     }
 
     /**
+     * 设置B端用户信息
+     *
+     * @param adminUserDTO B端用户DTO
+     */
+    @PostMapping("/update")
+    public Result<String> update(@RequestBody AdminUserDTO adminUserDTO) {
+        adminUserService.update(adminUserDTO);
+        log.info("设置B端用户(id：{})信息为：{}", adminUserDTO.getId(), adminUserDTO);
+        return Result.success();
+    }
+
+    /**
      * B端用户退出
      *
      * @param token jwt令牌
