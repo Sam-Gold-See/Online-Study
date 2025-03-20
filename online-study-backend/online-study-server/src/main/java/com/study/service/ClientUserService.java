@@ -2,6 +2,7 @@ package com.study.service;
 
 import com.study.dto.ClientUserDTO;
 import com.study.vo.ClientUserLoginVO;
+import com.study.vo.ClientUserVO;
 
 public interface ClientUserService {
 
@@ -53,4 +54,11 @@ public interface ClientUserService {
      * @param clientUserDTO 用户管理DTO对象
      */
     void editStatus(ClientUserDTO clientUserDTO);
+
+    /**
+     * 查询C端用户信息
+     *
+     * @param id C端用户id
+     */
+    ClientUserVO getInfo(Long id);
 }

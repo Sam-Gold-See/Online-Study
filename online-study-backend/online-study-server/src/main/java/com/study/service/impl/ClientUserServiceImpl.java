@@ -16,6 +16,7 @@ import com.study.utils.CodeUtils;
 import com.study.utils.IdUtil;
 import com.study.utils.JwtUtil;
 import com.study.vo.ClientUserLoginVO;
+import com.study.vo.ClientUserVO;
 import io.jsonwebtoken.Claims;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -217,6 +218,25 @@ public class ClientUserServiceImpl implements ClientUserService {
                 .id(clientUserDTO.getId())
                 .status(clientUserDTO.getStatus())
                 .build());
+    }
+
+    /**
+     * 查询C端用户信息
+     *
+     * @param id C端用户id
+     */
+    @Override
+    public ClientUserVO getInfo(Long id) {
+        ClientUser clientUserDB = clientUserMapper.getById(id);
+
+        if (clientUserDB == null) {
+            throw new AccountException(MessageConstant.ACCOUNT_NOT_FOUND);
+        }
+
+        ClientUserVO clientUserVO = new ClientUserVO();
+        BeanUtils.copyProperties(clientUserDB, clientUserVO);
+
+        return clientUserVO;
     }
 
     private void checkVerificationCode(ClientUserDTO clientUserDTO, String email) {
