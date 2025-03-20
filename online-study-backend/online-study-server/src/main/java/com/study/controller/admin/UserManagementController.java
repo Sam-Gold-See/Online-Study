@@ -39,4 +39,16 @@ public class UserManagementController {
         log.info("B端查询C端用户：{}", clientUserVO);
         return Result.success(clientUserVO);
     }
+
+    /**
+     * 设置C端用户信息
+     *
+     * @param clientUserDTO C端用户DTO对象
+     */
+    @PostMapping("/setInfo")
+    public Result<String> setInfo(@RequestBody ClientUserDTO clientUserDTO) {
+        clientUserService.setInfo(clientUserDTO);
+        log.info("B端设置C端用户信息：{}", clientUserDTO);
+        return Result.success();
+    }
 }
