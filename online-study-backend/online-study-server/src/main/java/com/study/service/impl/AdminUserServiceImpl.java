@@ -154,4 +154,29 @@ public class AdminUserServiceImpl implements AdminUserService {
                 .status(adminUserDTO.getStatus())
                 .build());
     }
+
+    /**
+     * 设置B端用户修改权限
+     *
+     * @param adminUserDTO B端用户DTO
+     */
+    @Override
+    public void editLevel(AdminUserDTO adminUserDTO) {
+        Long userId = BaseContext.getCurrentId();
+
+        if (userId.equals(adminUserDTO.getId())) {
+            throw new OperationException(MessageConstant.INVALID_OPERATION);
+        }
+
+        AdminUser adminUserDB = adminUserMapper.getById(userId);
+
+        if (!Objects.equals(adminUserDB.getLevel(), AccountConstant.PERMISSION)) {
+            throw new AccountException(MessageConstant.PERMISSION_ERROR);
+        }
+
+        adminUserMapper.update(AdminUser.builder()
+                .id(adminUserDTO.getId())
+                .level(adminUserDTO.getLevel())
+                .build());
+    }
 }

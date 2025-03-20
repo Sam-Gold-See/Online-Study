@@ -32,4 +32,11 @@ public interface AdminUserService {
      * @param adminUserDTO B端用户DTO
      */
     void editStatus(AdminUserDTO adminUserDTO);
+
+    /**
+     * 设置B端用户修改权限
+     *
+     * @param adminUserDTO B端用户DTO
+     */
+    void editLevel(AdminUserDTO adminUserDTO);
 }
