@@ -54,6 +54,18 @@ public class UserController {
     }
 
     /**
+     * 设置B端用户修改权限
+     *
+     * @param adminUserDTO B端用户DTO
+     */
+    @PutMapping("/editLevel")
+    public Result<String> editLevel(@RequestBody AdminUserDTO adminUserDTO) {
+        adminUserService.editLevel(adminUserDTO);
+        log.info("设置B端用户(id：{})修改权限为：{}", adminUserDTO.getId(), adminUserDTO.getLevel());
+        return Result.success();
+    }
+
+    /**
      * B端用户退出
      *
      * @param token jwt令牌
