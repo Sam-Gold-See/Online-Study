@@ -1,6 +1,8 @@
 package com.study.service;
 
 import com.study.dto.ClientUserDTO;
+import com.study.dto.ClientUserPageQueryDTO;
+import com.study.result.PageResult;
 import com.study.vo.ClientUserLoginVO;
 import com.study.vo.ClientUserVO;
 
@@ -68,4 +70,11 @@ public interface ClientUserService {
      * @param clientUserDTO C端用户DTO对象
      */
     void setInfo(ClientUserDTO clientUserDTO);
+
+    /**
+     * C端用户分页查询
+     *
+     * @param clientUserPageQueryDTO C端用户分页查询DTO
+     */
+    PageResult<ClientUserVO> query(ClientUserPageQueryDTO clientUserPageQueryDTO);
 }

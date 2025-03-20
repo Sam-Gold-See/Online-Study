@@ -1,16 +1,20 @@
 package com.study.service.impl;
 
+import com.github.pagehelper.Page;
+import com.github.pagehelper.PageHelper;
 import com.study.constant.AccountConstant;
 import com.study.constant.IdConstant;
 import com.study.constant.JwtConstant;
 import com.study.constant.MessageConstant;
 import com.study.context.BaseContext;
 import com.study.dto.ClientUserDTO;
+import com.study.dto.ClientUserPageQueryDTO;
 import com.study.entity.ClientUser;
 import com.study.exception.AccountException;
 import com.study.exception.VerificationException;
 import com.study.mapper.ClientUserMapper;
 import com.study.properties.JwtProperties;
+import com.study.result.PageResult;
 import com.study.service.ClientUserService;
 import com.study.utils.CodeUtils;
 import com.study.utils.IdUtil;
@@ -258,6 +262,20 @@ public class ClientUserServiceImpl implements ClientUserService {
         BeanUtils.copyProperties(clientUserDTO, clientUser);
 
         clientUserMapper.update(clientUser);
+    }
+
+    /**
+     * C端用户分页查询
+     *
+     * @param clientUserPageQueryDTO C端用户分页查询DTO
+     */
+    @Override
+    public PageResult<ClientUserVO> query(ClientUserPageQueryDTO clientUserPageQueryDTO) {
+        PageHelper.startPage(clientUserPageQueryDTO.getPage(), clientUserPageQueryDTO.getPageSize());
+
+        Page<ClientUserVO> page = clientUserMapper.query(clientUserPageQueryDTO);
+
+        return new PageResult<>(page.getTotal(), page.getResult());
     }
 
     private void checkVerificationCode(ClientUserDTO clientUserDTO, String email) {
