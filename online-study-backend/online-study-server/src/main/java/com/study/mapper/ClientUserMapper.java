@@ -1,9 +1,12 @@
 package com.study.mapper;
 
+import com.github.pagehelper.Page;
 import com.study.annotation.AutoFill;
+import com.study.dto.ClientUserPageQueryDTO;
 import com.study.entity.ClientUser;
 import com.study.enumeration.OperationType;
 import com.study.enumeration.TerminalType;
+import com.study.vo.ClientUserVO;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Select;
@@ -45,4 +48,11 @@ public interface ClientUserMapper {
      */
     @Select("SELECT * FROM client_user WHERE id = #{id}")
     ClientUser getById(Long id);
+
+    /**
+     * C端用户分页查询
+     *
+     * @param clientUserPageQueryDTO C端用户分页查询DTO
+     */
+    Page<ClientUserVO> query(ClientUserPageQueryDTO clientUserPageQueryDTO);
 }
