@@ -203,7 +203,7 @@ public class ClientUserServiceImpl implements ClientUserService {
     }
 
     /**
-     * 设置C端用户登录状态
+     * 设置C端用户登录权限
      *
      * @param clientUserDTO 用户管理DTO对象
      */

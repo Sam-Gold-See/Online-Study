@@ -49,7 +49,7 @@ public interface ClientUserService {
     void logout(String authentication);
 
     /**
-     * 设置C端用户登录状态
+     * 设置C端用户登录权限
      *
      * @param clientUserDTO 用户管理DTO对象
      */
