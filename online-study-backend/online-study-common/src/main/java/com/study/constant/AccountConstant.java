@@ -8,7 +8,7 @@ public class AccountConstant {
     // Redis存储验证码键常量
     public static final String REDIS_KEY = "code:list:";
 
-    // 验证码有效时长
+    // 验证码有效时长（分钟）
     public static final Integer VERIFICATION_CODE_TTL = 5;
 
     // 验证码字符数组
