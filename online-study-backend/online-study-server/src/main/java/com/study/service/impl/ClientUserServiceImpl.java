@@ -187,8 +187,8 @@ public class ClientUserServiceImpl implements ClientUserService {
         Long userId = BaseContext.getCurrentId();
 
         ClientUser clientUser = new ClientUser();
-        clientUser.setId(userId);
         BeanUtils.copyProperties(clientUserDTO, clientUser);
+        clientUser.setId(userId);
 
         clientUserMapper.update(clientUser);
     }
