@@ -46,4 +46,11 @@ public interface PostMapper {
      * @param postPageQueryDTO 帖子分页查询DTO对象
      */
     Page<PostVO> query(PostPageQueryDTO postPageQueryDTO);
+
+    /**
+     * 分页查询帖子
+     *
+     * @param postPageQueryDTO 帖子分页查询DTO
+     */
+    Page<Post> adminQuery(PostPageQueryDTO postPageQueryDTO);
 }
