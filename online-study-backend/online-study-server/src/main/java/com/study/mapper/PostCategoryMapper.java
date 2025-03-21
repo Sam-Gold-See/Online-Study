@@ -20,5 +20,12 @@ public interface PostCategoryMapper {
      *
      * @param postCategory 帖子种类实体类对象
      */
-    Integer add(PostCategory postCategory);
+    void add(PostCategory postCategory);
+
+    /**
+     * 根据id查询帖子种类
+     *
+     * @param id 帖子种类id*/
+    @Select("SELECT * FROM post_category WHERE id = #{id}")
+    PostCategory getById(Integer id);
 }
