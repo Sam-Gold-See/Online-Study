@@ -40,4 +40,16 @@ public class PostController {
         log.info("C端用户(id：{})查看帖子：{}", BaseContext.getCurrentId(), id);
         return Result.success(postVO);
     }
+
+    /**
+     * 删除帖子
+     *
+     * @param id 帖子id
+     */
+    @DeleteMapping("/delete")
+    public Result<String> delete(Long id) {
+        postService.delete(id);
+        log.info("C端用户(id：{})删除帖子：{}", BaseContext.getCurrentId(), id);
+        return Result.success();
+    }
 }
