@@ -168,4 +168,18 @@ public class PostServiceImpl implements PostService {
                 .build();
         postMapper.update(post);
     }
+
+    /**
+     * 分页查询帖子
+     *
+     * @param postPageQueryDTO 帖子分页查询DTO
+     */
+    @Override
+    public PageResult<Post> adminQuery(PostPageQueryDTO postPageQueryDTO) {
+        PageHelper.startPage(postPageQueryDTO.getPage(), postPageQueryDTO.getPageSize());
+
+        Page<Post> page = postMapper.adminQuery(postPageQueryDTO);
+
+        return new PageResult<>(page.getTotal(), page.getResult());
+    }
 }

@@ -2,6 +2,7 @@ package com.study.service;
 
 import com.study.dto.PostDTO;
 import com.study.dto.PostPageQueryDTO;
+import com.study.entity.Post;
 import com.study.result.PageResult;
 import com.study.vo.PostVO;
 
@@ -69,4 +70,11 @@ public interface PostService {
      * @param postDTO 帖子DTO对象
      */
     void category(PostDTO postDTO);
+
+    /**
+     * 分页查询帖子
+     *
+     * @param postPageQueryDTO 帖子分页查询DTO
+     */
+    PageResult<Post> adminQuery(PostPageQueryDTO postPageQueryDTO);
 }
