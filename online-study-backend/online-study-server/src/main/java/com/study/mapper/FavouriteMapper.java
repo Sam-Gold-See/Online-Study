@@ -1,6 +1,8 @@
 package com.study.mapper;
 
+import com.github.pagehelper.Page;
 import com.study.annotation.AutoFill;
+import com.study.dto.FavouritePageQueryDTO;
 import com.study.entity.Favourite;
 import com.study.enumeration.OperationType;
 import com.study.enumeration.TerminalType;
@@ -28,4 +30,12 @@ public interface FavouriteMapper {
      */
     @Delete("DELETE FROM favourite WHERE user_id = #{userId} AND post_id = #{postId}")
     void delete(Favourite favourite);
+
+
+    /**
+     * 分页查询
+     *
+     * @param favouritePageQueryDTO 收藏分页查询DTO对象
+     */
+    Page<Favourite> query(FavouritePageQueryDTO favouritePageQueryDTO);
 }
