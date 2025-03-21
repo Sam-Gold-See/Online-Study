@@ -2,6 +2,9 @@ package com.study.controller.admin;
 
 import com.study.context.BaseContext;
 import com.study.dto.PostDTO;
+import com.study.dto.PostPageQueryDTO;
+import com.study.entity.Post;
+import com.study.result.PageResult;
 import com.study.result.Result;
 import com.study.service.PostService;
 import lombok.extern.slf4j.Slf4j;
@@ -62,5 +65,17 @@ public class PostManagementController {
         postService.category(postDTO);
         log.info("B端用户(id:{})设置帖子(id:{})的帖子种类为:{}", BaseContext.getCurrentId(), postDTO.getId(), postDTO.getCategoryId());
         return Result.success();
+    }
+
+    /**
+     * 分页查询帖子
+     *
+     * @param postPageQueryDTO 帖子分页查询DTO
+     */
+    @GetMapping("/query")
+    public Result<PageResult<Post>> query(@RequestBody PostPageQueryDTO postPageQueryDTO) {
+        PageResult<Post> pageResult = postService.adminQuery(postPageQueryDTO);
+        log.info("B端用户(id:{})分页查询帖子数据", BaseContext.getCurrentId());
+        return Result.success(pageResult);
     }
 }
