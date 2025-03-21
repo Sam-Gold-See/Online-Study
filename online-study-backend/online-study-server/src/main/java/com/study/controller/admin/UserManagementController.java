@@ -26,7 +26,7 @@ public class UserManagementController {
     @PutMapping("/editStatus")
     public Result<String> editStatus(@RequestBody ClientUserDTO clientUserDTO) {
         clientUserService.editStatus(clientUserDTO);
-        log.info("B端设置C端用户(id：{})的登录状态为：{}", clientUserDTO.getId(), clientUserDTO.getStatus());
+        log.info("B端设置C端用户(id:{})的登录状态为:{}", clientUserDTO.getId(), clientUserDTO.getStatus());
         return Result.success();
     }
 
@@ -38,7 +38,7 @@ public class UserManagementController {
     @GetMapping("/getInfo")
     public Result<ClientUserVO> getInfo(Long id) {
         ClientUserVO clientUserVO = clientUserService.getInfo(id);
-        log.info("B端查询C端用户：{}", clientUserVO);
+        log.info("B端查询C端用户:{}", clientUserVO);
         return Result.success(clientUserVO);
     }
 
@@ -50,7 +50,7 @@ public class UserManagementController {
     @PostMapping("/setInfo")
     public Result<String> setInfo(@RequestBody ClientUserDTO clientUserDTO) {
         clientUserService.setInfo(clientUserDTO);
-        log.info("B端设置C端用户信息：{}", clientUserDTO);
+        log.info("B端设置C端用户信息:{}", clientUserDTO);
         return Result.success();
     }
 
@@ -62,7 +62,7 @@ public class UserManagementController {
     @GetMapping("/query")
     public Result<PageResult<ClientUserVO>> query(@RequestBody ClientUserPageQueryDTO clientUserPageQueryDTO) {
         PageResult<ClientUserVO> pageResult = clientUserService.query(clientUserPageQueryDTO);
-        log.info("C端用户分页查询，条件为：{}", clientUserPageQueryDTO);
+        log.info("C端用户分页查询，条件为:{}", clientUserPageQueryDTO);
         return Result.success(pageResult);
     }
 }

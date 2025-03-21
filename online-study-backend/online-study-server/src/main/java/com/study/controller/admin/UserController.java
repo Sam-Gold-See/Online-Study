@@ -29,7 +29,7 @@ public class UserController {
     @PostMapping("/add")
     public Result<String> add(@RequestBody AdminUserDTO adminUserDTO) {
         adminUserService.add(adminUserDTO);
-        log.info("新增B端用户：{}", adminUserDTO);
+        log.info("新增B端用户:{}", adminUserDTO);
         return Result.success();
     }
 
@@ -41,7 +41,7 @@ public class UserController {
     @PostMapping("/login")
     public Result<AdminUserLoginVO> login(@RequestBody AdminUserDTO adminUserDTO) {
         AdminUserLoginVO adminUserLoginVO = adminUserService.login(adminUserDTO);
-        log.info("B端用户登录：{}", adminUserDTO);
+        log.info("B端用户登录:{}", adminUserDTO);
         return Result.success(adminUserLoginVO);
     }
 
@@ -53,7 +53,7 @@ public class UserController {
     @PutMapping("/editStatus")
     public Result<String> editStatus(@RequestBody AdminUserDTO adminUserDTO) {
         adminUserService.editStatus(adminUserDTO);
-        log.info("设置B端用户(id：{})登录权限为：{}", adminUserDTO.getId(), adminUserDTO.getStatus());
+        log.info("设置B端用户(id:{})登录权限为:{}", adminUserDTO.getId(), adminUserDTO.getStatus());
         return Result.success();
     }
 
@@ -65,7 +65,7 @@ public class UserController {
     @PutMapping("/editLevel")
     public Result<String> editLevel(@RequestBody AdminUserDTO adminUserDTO) {
         adminUserService.editLevel(adminUserDTO);
-        log.info("设置B端用户(id：{})修改权限为：{}", adminUserDTO.getId(), adminUserDTO.getLevel());
+        log.info("设置B端用户(id:{})修改权限为:{}", adminUserDTO.getId(), adminUserDTO.getLevel());
         return Result.success();
     }
 
@@ -77,7 +77,7 @@ public class UserController {
     @PostMapping("/update")
     public Result<String> update(@RequestBody AdminUserDTO adminUserDTO) {
         adminUserService.update(adminUserDTO);
-        log.info("设置B端用户(id：{})信息为：{}", adminUserDTO.getId(), adminUserDTO);
+        log.info("设置B端用户(id:{})信息为:{}", adminUserDTO.getId(), adminUserDTO);
         return Result.success();
     }
 
@@ -89,7 +89,7 @@ public class UserController {
     @GetMapping("/getInfo")
     public Result<AdminUser> getInfo(Long id) {
         AdminUser adminUser = adminUserService.getInfo(id);
-        log.info("查询B端用户(id：{})信息为：{}", id, adminUser);
+        log.info("查询B端用户(id:{})信息为:{}", id, adminUser);
         return Result.success(adminUser);
     }
 
@@ -101,7 +101,7 @@ public class UserController {
     @GetMapping("/logout")
     public Result<String> logout(@RequestHeader String token) {
         adminUserService.logout(token);
-        log.info("B端用户退出，用户id：{}", BaseContext.getCurrentId());
+        log.info("B端用户退出，用户id:{}", BaseContext.getCurrentId());
         return Result.success();
     }
 
@@ -113,7 +113,7 @@ public class UserController {
     @GetMapping("/query")
     public Result<PageResult<AdminUserVO>> query(@RequestBody AdminUserPageQueryDTO adminUserPageQueryDTO) {
         PageResult<AdminUserVO> pageResult = adminUserService.query(adminUserPageQueryDTO);
-        log.info("B端用户分页查询，条件为：{}", adminUserPageQueryDTO);
+        log.info("B端用户分页查询，条件为:{}", adminUserPageQueryDTO);
         return Result.success(pageResult);
     }
 }
