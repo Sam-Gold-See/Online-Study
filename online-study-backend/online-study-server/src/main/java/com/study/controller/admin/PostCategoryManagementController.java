@@ -51,4 +51,16 @@ public class PostCategoryManagementController {
         log.info("B端用户(id:{})删除帖子种类:{}", BaseContext.getCurrentId(), postCategory);
         return Result.success();
     }
+
+    /**
+     * 修改帖子种类
+     *
+     * @param postCategory 帖子种类实体对象
+     */
+    @PostMapping("/edit")
+    public Result<String> edit(@RequestBody PostCategory postCategory) {
+        postCategoryService.edit(postCategory);
+        log.info("B端用户(id:{})修改帖子种类:{}", BaseContext.getCurrentId(), postCategory);
+        return Result.success();
+    }
 }
