@@ -28,4 +28,12 @@ public interface PostMapper {
      */
     @Select("SELECT * FROM post WHERE id = #{id}")
     Post getById(Long id);
+
+    /**
+     * 动态修改帖子信息
+     *
+     * @param post 帖子类实体对象
+     */
+    @AutoFill(operation = OperationType.UPDATE, terminal = TerminalType.CLIENT)
+    void update(Post post);
 }
