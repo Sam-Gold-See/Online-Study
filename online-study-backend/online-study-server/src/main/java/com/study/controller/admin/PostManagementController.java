@@ -30,4 +30,16 @@ public class PostManagementController {
         log.info("B端用户(id:{})设置帖子(id:{})的置顶状态为:{}", BaseContext.getCurrentId(), postDTO.getId(), postDTO.getTop());
         return Result.success();
     }
+
+    /**
+     * 设置帖子加精状态
+     *
+     * @param postDTO 帖子DTO对象
+     */
+    @PutMapping("pro")
+    public Result<String> editPro(@RequestBody PostDTO postDTO) {
+        postService.editPro(postDTO);
+        log.info("B端用户(id:{})设置帖子(id:{})的加精状态为:{}", BaseContext.getCurrentId(), postDTO.getId(), postDTO.getPro());
+        return Result.success();
+    }
 }
