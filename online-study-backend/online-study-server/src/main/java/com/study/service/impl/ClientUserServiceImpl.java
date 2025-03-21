@@ -28,7 +28,6 @@ import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.stereotype.Service;
 import org.springframework.util.DigestUtils;
 
-import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
@@ -104,11 +103,14 @@ public class ClientUserServiceImpl implements ClientUserService {
         // 生成Jwt令牌
         Map<String, Object> claims = new HashMap<>();
         claims.put(JwtConstant.CLIENT_ID, clientUserDB.getId());
+        claims.put(JwtConstant.CLIENT_EMAIL, email);
         String authentication = JwtUtil.createJWT(
                 jwtProperties.getClientSecretKey(),
                 jwtProperties.getClientTtl(),
                 claims
         );
+
+        stringRedisTemplate.opsForValue().set(JwtConstant.AUTHENTICATION_LIST + email, authentication, jwtProperties.getClientTtl(), TimeUnit.SECONDS);
 
         return ClientUserLoginVO.builder()
                 .id(clientUserDB.getId())
@@ -132,6 +134,8 @@ public class ClientUserServiceImpl implements ClientUserService {
 
         String password = clientUserDTO.getPassword();
         password = DigestUtils.md5DigestAsHex(password.getBytes());
+
+        stringRedisTemplate.delete(JwtConstant.AUTHENTICATION_LIST + email);
 
         clientUserMapper.update(ClientUser.builder()
                 .email(email)
@@ -165,6 +169,8 @@ public class ClientUserServiceImpl implements ClientUserService {
             throw new AccountException(MessageConstant.PASSWORD_ERROR);
         }
 
+        stringRedisTemplate.delete(JwtConstant.AUTHENTICATION_LIST + clientUserDTO.getOldEmail());
+
         clientUserMapper.update(ClientUser.builder()
                 .id(userId)
                 .email(newEmail)
@@ -196,11 +202,9 @@ public class ClientUserServiceImpl implements ClientUserService {
     public void logout(String authentication) {
         try {
             Claims claims = JwtUtil.parseJWT(jwtProperties.getClientSecretKey(), authentication);
-            Date expiration = claims.getExpiration();
-            long expireTime = (expiration.getTime() - System.currentTimeMillis()) / 1000;
+            String email = claims.get(JwtConstant.CLIENT_EMAIL).toString();
 
-            if (expireTime > 0)
-                stringRedisTemplate.opsForValue().set(JwtConstant.BLACKLIST_KEY + authentication, "", expireTime, TimeUnit.SECONDS);
+            stringRedisTemplate.delete(JwtConstant.AUTHENTICATION_LIST + email);
         } catch (Exception ex) {
             throw new AccountException(MessageConstant.JWT_ERROR);
         }
@@ -217,6 +221,8 @@ public class ClientUserServiceImpl implements ClientUserService {
         if (clientUser == null) {
             throw new AccountException(MessageConstant.ACCOUNT_NOT_FOUND);
         }
+
+        stringRedisTemplate.delete(JwtConstant.AUTHENTICATION_LIST + clientUserDTO.getEmail());
 
         clientUserMapper.update(ClientUser.builder()
                 .id(clientUserDTO.getId())
