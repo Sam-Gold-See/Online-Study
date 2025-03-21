@@ -51,4 +51,16 @@ public class PostManagementController {
         log.info("B端用户(id:{})设置帖子(id:{})的删除状态为:{}", BaseContext.getCurrentId(), postDTO.getId(), postDTO.getIsDeleted());
         return Result.success();
     }
+
+    /**
+     * 设置帖子的帖子种类
+     *
+     * @param postDTO 帖子DTO对象
+     */
+    @PutMapping("/category")
+    public Result<String> category(@RequestBody PostDTO postDTO) {
+        postService.category(postDTO);
+        log.info("B端用户(id:{})设置帖子(id:{})的帖子种类为:{}", BaseContext.getCurrentId(), postDTO.getId(), postDTO.getCategoryId());
+        return Result.success();
+    }
 }
