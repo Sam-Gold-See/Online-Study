@@ -4,6 +4,7 @@ import com.study.annotation.AutoFill;
 import com.study.entity.Favourite;
 import com.study.enumeration.OperationType;
 import com.study.enumeration.TerminalType;
+import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
 
@@ -19,4 +20,7 @@ public interface FavouriteMapper {
     @Insert("INSERT INTO favourite (user_id, post_id, create_time, update_time) " +
             "VALUES (#{userId}, #{postId}, #{createTime}, #{updateTime})")
     void insert(Favourite favourite);
+
+    @Delete("DELETE FROM favourite WHERE user_id = #{userId} AND post_id = #{postId}")
+    void delete(Favourite favourite);
 }
