@@ -2,6 +2,8 @@ package com.study.controller.client;
 
 import com.study.context.BaseContext;
 import com.study.dto.PostDTO;
+import com.study.dto.PostPageQueryDTO;
+import com.study.result.PageResult;
 import com.study.result.Result;
 import com.study.service.PostService;
 import com.study.vo.PostVO;
@@ -63,5 +65,17 @@ public class PostController {
         postService.editPost(postDTO);
         log.info("C端用户(id:{})修改帖子:{}", BaseContext.getCurrentId(), postDTO);
         return Result.success();
+    }
+
+    /**
+     * 帖子分页查询
+     *
+     * @param postPageQueryDTO 帖子分页查询DTO
+     */
+    @GetMapping("/query")
+    public Result<PageResult<PostVO>> query(@RequestBody PostPageQueryDTO postPageQueryDTO) {
+        PageResult<PostVO> pageResult = postService.query(postPageQueryDTO);
+        log.info("帖子分页查询，条件为:{}", postPageQueryDTO);
+        return Result.success(pageResult);
     }
 }
