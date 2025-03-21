@@ -24,4 +24,11 @@ public interface PostCategoryService {
      * @param id 帖子种类id
      */
     PostCategory delete(Integer id);
+
+    /**
+     * 修改帖子种类
+     *
+     * @param postCategory 帖子种类实体对象
+     */
+    void edit(PostCategory postCategory);
 }

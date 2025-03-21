@@ -47,4 +47,14 @@ public class PostCategoryServiceImpl implements PostCategoryService {
         postCategoryMapper.delete(postCategory);
         return postCategory;
     }
+
+    /**
+     * 修改帖子种类
+     *
+     * @param postCategory 帖子种类实体对象
+     */
+    @Override
+    public void edit(PostCategory postCategory) {
+        postCategoryMapper.update(postCategory);
+    }
 }
