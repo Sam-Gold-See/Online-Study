@@ -39,4 +39,16 @@ public class PostCategoryManagementController {
         log.info("B端用户(id:{})新增帖子种类:{}", BaseContext.getCurrentId(), postCategory);
         return Result.success();
     }
+
+    /**
+     * 删除帖子种类
+     *
+     * @param id 帖子种类id
+     */
+    @DeleteMapping("/delete")
+    public Result<String> delete(Integer id) {
+        PostCategory postCategory = postCategoryService.delete(id);
+        log.info("B端用户(id:{})删除帖子种类:{}", BaseContext.getCurrentId(), postCategory);
+        return Result.success();
+    }
 }
