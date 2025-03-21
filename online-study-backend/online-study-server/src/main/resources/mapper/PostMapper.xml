@@ -43,4 +43,32 @@
         </set>
         WHERE id = #{id}
     </update>
+    <select id="query" resultType="com.study.vo.PostVO">
+        SELECT * FROM post
+        <where>
+            <if test="title != null and title != ''">
+                AND `title` LIKE CONCAT('%',#{title},'%')
+            </if>
+            <if test="pro != null">
+                AND pro = #{pro}
+            </if>
+            <if test="isDeleted != null">
+                AND is_deleted = #{isDeleted}
+            </if>
+            <if test="categoryId != null">
+                AND category_id = #{categoryId}
+            </if>
+        </where>
+        ORDER BY top DESC
+        <if test="viewTop != null">
+            , view_count DESC
+        </if>
+        <if test="likeTop != null">
+            , `like_count` DESC
+        </if>
+        <if test="commentTop != null">
+            , comment_count DESC
+        </if>
+        , update_time DESC
+    </select>
 </mapper>
