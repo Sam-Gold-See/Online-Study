@@ -28,4 +28,18 @@ public class FavouriteServiceImpl implements FavouriteService {
 
         favouriteMapper.insert(favourite);
     }
+
+    /**
+     * 新增收藏
+     *
+     * @param favouriteDTO 收藏DTO对象
+     */
+    @Override
+    public void delete(FavouriteDTO favouriteDTO) {
+        Favourite favourite = new Favourite();
+        BeanUtils.copyProperties(favouriteDTO, favourite);
+        favourite.setUserId(BaseContext.getCurrentId());
+
+        favouriteMapper.delete(favourite);
+    }
 }

@@ -10,4 +10,11 @@ public interface FavouriteService {
      * @param favouriteDTO 收藏DTO对象
      */
     void add(FavouriteDTO favouriteDTO);
+
+    /**
+     * 新增收藏
+     *
+     * @param favouriteDTO 收藏DTO对象
+     */
+    void delete(FavouriteDTO favouriteDTO);
 }
