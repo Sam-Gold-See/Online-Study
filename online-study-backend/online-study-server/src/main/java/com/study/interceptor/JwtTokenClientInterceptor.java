@@ -53,16 +53,16 @@ public class JwtTokenClientInterceptor implements HandlerInterceptor {
             Claims claims = JwtUtil.parseJWT(jwtProperties.getClientSecretKey(), token);
             String email = claims.get(JwtConstant.CLIENT_EMAIL).toString();
 
-            log.info("jwt校验：{}", token);
+            log.info("jwt校验:{}", token);
             if (!Objects.equals(stringRedisTemplate.opsForValue().get(JwtConstant.AUTHENTICATION_LIST + email), token)) {
-                log.warn("jwt令牌已失效：{}", token);
+                log.warn("jwt令牌已失效:{}", token);
                 response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
                 return false;
             }
 
             // 解析用户id
             Long clientUserId = Long.valueOf(claims.get(JwtConstant.CLIENT_ID).toString());
-            log.info("当前C端用户id：{}", clientUserId);
+            log.info("当前C端用户id:{}", clientUserId);
 
             // 设置当前用户id
             BaseContext.setCurrentId(clientUserId);

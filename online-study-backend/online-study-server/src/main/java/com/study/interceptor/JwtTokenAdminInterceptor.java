@@ -53,16 +53,16 @@ public class JwtTokenAdminInterceptor implements HandlerInterceptor {
             Claims claims = JwtUtil.parseJWT(jwtProperties.getAdminSecretKey(),token);
             String username = claims.get(JwtConstant.ADMIN_USERNAME).toString();
 
-            log.info("jwt校验：{}",token);
+            log.info("jwt校验:{}",token);
             if(!Objects.equals(stringRedisTemplate.opsForValue().get(JwtConstant.TOKEN_LIST + username),token)){
-                log.warn("jwt令牌已失效：{}", token);
+                log.warn("jwt令牌已失效:{}", token);
                 response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
                 return false;
             }
 
             // 解析用户id
             Long adminUserId = Long.valueOf(claims.get(JwtConstant.ADMIN_ID).toString());
-            log.info("当前B端用户id：{}", adminUserId);
+            log.info("当前B端用户id:{}", adminUserId);
 
             // 设置当前用户id
             BaseContext.setCurrentId(adminUserId);

@@ -21,7 +21,7 @@ public class GlobalExceptionHandler {
      */
     @ExceptionHandler
     public Result<String> exceptionHandler(BusinessException e) {
-        log.error("异常信息：{}", e.getMessage());
+        log.error("异常信息:{}", e.getMessage());
         return Result.error(e.getMessage());
     }
 }
