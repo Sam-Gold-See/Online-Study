@@ -55,4 +55,11 @@ public interface PostService {
      * @param postDTO 帖子DTO对象
      */
     void editPro(PostDTO postDTO);
+
+    /**
+     * 设置帖子删除状态
+     *
+     * @param postDTO 帖子DTO对象
+     */
+    void isDeleted(PostDTO postDTO);
 }

@@ -140,4 +140,18 @@ public class PostServiceImpl implements PostService {
                 .build();
         postMapper.update(post);
     }
+
+    /**
+     * 设置帖子删除状态
+     *
+     * @param postDTO 帖子DTO对象
+     */
+    @Override
+    public void isDeleted(PostDTO postDTO) {
+        Post post = Post.builder()
+                .id(postDTO.getId())
+                .isDeleted(postDTO.getIsDeleted())
+                .build();
+        postMapper.update(post);
+    }
 }
