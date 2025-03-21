@@ -62,4 +62,11 @@ public interface PostService {
      * @param postDTO 帖子DTO对象
      */
     void isDeleted(PostDTO postDTO);
+
+    /**
+     * 设置帖子的帖子种类
+     *
+     * @param postDTO 帖子DTO对象
+     */
+    void category(PostDTO postDTO);
 }

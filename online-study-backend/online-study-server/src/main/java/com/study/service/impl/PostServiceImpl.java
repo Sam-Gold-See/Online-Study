@@ -154,4 +154,18 @@ public class PostServiceImpl implements PostService {
                 .build();
         postMapper.update(post);
     }
+
+    /**
+     * 设置帖子的帖子种类
+     *
+     * @param postDTO 帖子DTO对象
+     */
+    @Override
+    public void category(PostDTO postDTO) {
+        Post post = Post.builder()
+                .id(postDTO.getId())
+                .categoryId(postDTO.getCategoryId())
+                .build();
+        postMapper.update(post);
+    }
 }
