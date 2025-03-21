@@ -112,4 +112,18 @@ public class PostServiceImpl implements PostService {
 
         return new PageResult<>(page.getTotal(), page.getResult());
     }
+
+    /**
+     * 设置帖子置顶状态
+     *
+     * @param postDTO 帖子DTO对象
+     */
+    @Override
+    public void editTop(PostDTO postDTO) {
+        Post post = Post.builder()
+                .id(postDTO.getId())
+                .top(postDTO.getTop())
+                .build();
+        postMapper.update(post);
+    }
 }
