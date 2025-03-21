@@ -4,6 +4,7 @@ import com.study.entity.PostCategory;
 import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.Update;
 
 import java.util.List;
 
@@ -37,4 +38,12 @@ public interface PostCategoryMapper {
      */
     @Delete("DELETE FROM post_category WHERE id = #{id}")
     void delete(PostCategory postCategory);
+
+    /**
+     * 修改帖子种类
+     *
+     * @param postCategory 帖子种类实体对象
+     */
+    @Update("UPDATE post_category SET name = #{name} WHERE id = #{id}")
+    void update(PostCategory postCategory);
 }
