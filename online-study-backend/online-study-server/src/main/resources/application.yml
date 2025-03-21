@@ -16,7 +16,6 @@ spring:
     redis:
       host: ${online-study.redis.host}
       port: ${online-study.redis.port}
-      password: ${online-study.redis.password}
       database: ${online-study.redis.database}
   mail:
     host: smtp.163.com
