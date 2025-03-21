@@ -110,7 +110,7 @@ public class ClientUserServiceImpl implements ClientUserService {
                 claims
         );
 
-        stringRedisTemplate.opsForValue().set(JwtConstant.AUTHENTICATION_LIST + email, authentication, jwtProperties.getClientTtl(), TimeUnit.SECONDS);
+        stringRedisTemplate.opsForValue().set(JwtConstant.AUTHENTICATION_LIST + email, authentication, jwtProperties.getClientTtl(), TimeUnit.MILLISECONDS);
 
         return ClientUserLoginVO.builder()
                 .id(clientUserDB.getId())

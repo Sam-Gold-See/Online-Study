@@ -109,7 +109,7 @@ public class AdminUserServiceImpl implements AdminUserService {
                 claims
         );
 
-        stringRedisTemplate.opsForValue().set(JwtConstant.TOKEN_LIST + username, token, jwtProperties.getAdminTtl(), TimeUnit.SECONDS);
+        stringRedisTemplate.opsForValue().set(JwtConstant.TOKEN_LIST + username, token, jwtProperties.getAdminTtl(), TimeUnit.MILLISECONDS);
 
         AdminUserLoginVO adminUserLoginVO = new AdminUserLoginVO();
         BeanUtils.copyProperties(adminUserDB, adminUserLoginVO);
