@@ -16,6 +16,9 @@ public class PostPageQueryDTO implements Serializable {
     // 帖子标题
     private String title;
 
+    // 置顶状态，0=普通，1=置顶
+    private Integer top;
+
     // 加精状态，0=普通，1=加精
     private Integer pro;
 
