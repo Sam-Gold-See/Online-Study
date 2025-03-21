@@ -17,4 +17,11 @@ public interface PostCategoryService {
      * @param name 帖子种类名称
      */
     PostCategory add(String name);
+
+    /**
+     * 删除帖子种类
+     *
+     * @param id 帖子种类id
+     */
+    PostCategory delete(Integer id);
 }

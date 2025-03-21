@@ -35,4 +35,16 @@ public class PostCategoryServiceImpl implements PostCategoryService {
         postCategoryMapper.add(postCategory);
         return postCategory;
     }
+
+    /**
+     * 删除帖子种类
+     *
+     * @param id 帖子种类id
+     */
+    @Override
+    public PostCategory delete(Integer id) {
+        PostCategory postCategory = postCategoryMapper.getById(id);
+        postCategoryMapper.delete(postCategory);
+        return postCategory;
+    }
 }
