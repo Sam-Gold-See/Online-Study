@@ -14,7 +14,7 @@ import java.io.Serializable;
 public class FavouritePageQueryDTO implements Serializable {
 
     // 用户id
-    private Integer userId;
+    private Long userId;
 
     // 页码数
     private Integer page;
