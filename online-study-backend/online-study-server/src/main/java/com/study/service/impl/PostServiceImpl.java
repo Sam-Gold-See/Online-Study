@@ -126,4 +126,18 @@ public class PostServiceImpl implements PostService {
                 .build();
         postMapper.update(post);
     }
+
+    /**
+     * 设置帖子加精状态
+     *
+     * @param postDTO 帖子DTO对象
+     */
+    @Override
+    public void editPro(PostDTO postDTO) {
+        Post post = Post.builder()
+                .id(postDTO.getId())
+                .pro(postDTO.getPro())
+                .build();
+        postMapper.update(post);
+    }
 }
