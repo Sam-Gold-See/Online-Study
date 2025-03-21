@@ -20,7 +20,7 @@
                 pro = #{pro},
             </if>
             <if test="isDeleted != null">
-                id_deleted = #{isDeleted},
+                is_deleted = #{isDeleted},
             </if>
             <if test="viewCount != null">
                 view_count = #{viewCount},
