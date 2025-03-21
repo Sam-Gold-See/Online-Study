@@ -21,4 +21,18 @@ public class PostCategoryServiceImpl implements PostCategoryService {
     public List<PostCategory> getList() {
         return postCategoryMapper.getList();
     }
+
+    /**
+     * 新增帖子种类
+     *
+     * @param name 帖子种类名称
+     */
+    @Override
+    public PostCategory add(String name) {
+        PostCategory postCategory = PostCategory.builder()
+                .name(name)
+                .build();
+        postCategoryMapper.add(postCategory);
+        return postCategory;
+    }
 }
