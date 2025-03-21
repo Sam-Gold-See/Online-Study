@@ -48,7 +48,7 @@ public class GlobalExceptionHandler {
         // 'Duplicate entry 'admin' for key 'admin_user.username'
         if (message.contains("Duplicate entry")) {
             // 使用正则表达式提取冲突值，如 `admin`
-            Pattern pattern = Pattern.compile("Duplicate entry '(.*?)' for key");
+            Pattern pattern = Pattern.compile("Duplicate entry '(.*?)' for key '(.*?)'");
             Matcher matcher = pattern.matcher(message);
             if (matcher.find()) {
                 String conflictValue = matcher.group(1); // 获取冲突字段的值
@@ -59,7 +59,7 @@ public class GlobalExceptionHandler {
                     return Result.error("手机号 '" + conflictValue + "' 已被注册！");
                 else if (conflictKey.contains("client_user.email"))
                     return Result.error("邮箱 '" + conflictValue + "' 已被注册！");
-                else if (conflictKey.contains("unique_favourite"))
+                else if (conflictKey.contains("favourite.unique_favourite"))
                     return Result.error("已收藏，无法重复收藏");
             }
         }
