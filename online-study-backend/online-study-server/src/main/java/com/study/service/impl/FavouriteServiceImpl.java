@@ -46,4 +46,19 @@ public class FavouriteServiceImpl implements FavouriteService {
 
         favouriteMapper.delete(favourite);
     }
+
+    /**
+     * 分页查询
+     *
+     * @param favouritePageQueryDTO 收藏分页查询DTO对象
+     */
+    @Override
+    public PageResult<Favourite> query(FavouritePageQueryDTO favouritePageQueryDTO) {
+        PageHelper.startPage(favouritePageQueryDTO.getPage(), favouritePageQueryDTO.getPageSize());
+
+        favouritePageQueryDTO.setUserId(BaseContext.getCurrentId());
+        Page<Favourite> page = favouriteMapper.query(favouritePageQueryDTO);
+
+        return new PageResult<>(page.getTotal(), page.getResult());
+    }
 }
