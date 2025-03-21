@@ -21,6 +21,11 @@ public interface FavouriteMapper {
             "VALUES (#{userId}, #{postId}, #{createTime}, #{updateTime})")
     void insert(Favourite favourite);
 
+    /**
+     * 删除收藏
+     *
+     * @param favourite 收藏实体类对象
+     */
     @Delete("DELETE FROM favourite WHERE user_id = #{userId} AND post_id = #{postId}")
     void delete(Favourite favourite);
 }

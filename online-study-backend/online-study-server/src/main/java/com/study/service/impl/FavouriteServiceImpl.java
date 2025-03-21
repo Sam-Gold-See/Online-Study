@@ -1,9 +1,13 @@
 package com.study.service.impl;
 
+import com.github.pagehelper.Page;
+import com.github.pagehelper.PageHelper;
 import com.study.context.BaseContext;
 import com.study.dto.FavouriteDTO;
+import com.study.dto.FavouritePageQueryDTO;
 import com.study.entity.Favourite;
 import com.study.mapper.FavouriteMapper;
+import com.study.result.PageResult;
 import com.study.service.FavouriteService;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,7 +34,7 @@ public class FavouriteServiceImpl implements FavouriteService {
     }
 
     /**
-     * 新增收藏
+     * 删除收藏
      *
      * @param favouriteDTO 收藏DTO对象
      */
