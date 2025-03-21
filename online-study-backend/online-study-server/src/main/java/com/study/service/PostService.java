@@ -1,6 +1,8 @@
 package com.study.service;
 
 import com.study.dto.PostDTO;
+import com.study.dto.PostPageQueryDTO;
+import com.study.result.PageResult;
 import com.study.vo.PostVO;
 
 public interface PostService {
@@ -32,4 +34,11 @@ public interface PostService {
      * @param postDTO 帖子DTO对象
      */
     void editPost(PostDTO postDTO);
+
+    /**
+     * 帖子分页查询
+     *
+     * @param postPageQueryDTO 帖子分页查询DTO
+     */
+    PageResult<PostVO> query(PostPageQueryDTO postPageQueryDTO);
 }
