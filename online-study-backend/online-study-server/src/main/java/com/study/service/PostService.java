@@ -18,4 +18,11 @@ public interface PostService {
      * @param id 帖子id
      */
     PostVO get(Long id);
+
+    /**
+     * 删除帖子
+     *
+     * @param id 帖子id
+     */
+    void delete(Long id);
 }

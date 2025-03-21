@@ -1,14 +1,20 @@
 package com.study.service.impl;
 
+import com.study.constant.MessageConstant;
+import com.study.constant.PostConstant;
 import com.study.context.BaseContext;
 import com.study.dto.PostDTO;
 import com.study.entity.Post;
+import com.study.exception.OperationException;
 import com.study.mapper.PostMapper;
 import com.study.service.PostService;
+import com.study.utils.IdUtil;
 import com.study.vo.PostVO;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.Objects;
 
 @Service
 public class PostServiceImpl implements PostService {
@@ -45,5 +51,25 @@ public class PostServiceImpl implements PostService {
         BeanUtils.copyProperties(post, postVO);
 
         return postVO;
+    }
+
+    /**
+     * 删除帖子
+     *
+     * @param id 帖子id
+     */
+    @Override
+    public void delete(Long id) {
+        Post post = postMapper.getById(id);
+        Long userId = BaseContext.getCurrentId();
+
+        if (!Objects.equals(post.getUserId(), userId) && !IdUtil.isAdmin(post.getUserId())) {
+            throw new OperationException(MessageConstant.PERMISSION_ERROR);
+        }
+
+        postMapper.update(Post.builder()
+                .id(id)
+                .isDeleted(PostConstant.DELETED)
+                .build());
     }
 }
