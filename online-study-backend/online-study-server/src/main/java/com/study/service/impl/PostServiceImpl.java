@@ -72,4 +72,26 @@ public class PostServiceImpl implements PostService {
                 .isDeleted(PostConstant.DELETED)
                 .build());
     }
+
+    /**
+     * 修改帖子
+     *
+     * @param postDTO 帖子DTO对象
+     */
+    @Override
+    public void editPost(PostDTO postDTO) {
+        Post post = postMapper.getById(postDTO.getId());
+        Long userId = BaseContext.getCurrentId();
+
+        if (!Objects.equals(post.getUserId(), userId) && !IdUtil.isAdmin(post.getUserId())) {
+            throw new OperationException(MessageConstant.PERMISSION_ERROR);
+        }
+
+        postMapper.update(Post.builder()
+                .id(postDTO.getId())
+                .title(postDTO.getTitle())
+                .content(postDTO.getContent())
+                .categoryId(postDTO.getCategoryId())
+                .build());
+    }
 }
