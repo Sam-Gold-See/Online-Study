@@ -1,6 +1,7 @@
 package com.study.mapper;
 
 import com.study.entity.PostCategory;
+import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Select;
 
@@ -28,4 +29,12 @@ public interface PostCategoryMapper {
      * @param id 帖子种类id*/
     @Select("SELECT * FROM post_category WHERE id = #{id}")
     PostCategory getById(Integer id);
+
+    /**
+     * 删除帖子种类
+     *
+     * @param postCategory 帖子种类实体类对象
+     */
+    @Delete("DELETE FROM post_category WHERE id = #{id}")
+    void delete(PostCategory postCategory);
 }
