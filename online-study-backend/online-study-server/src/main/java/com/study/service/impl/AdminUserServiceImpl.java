@@ -27,7 +27,6 @@ import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.stereotype.Service;
 import org.springframework.util.DigestUtils;
 
-import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
@@ -103,11 +102,14 @@ public class AdminUserServiceImpl implements AdminUserService {
         // 生成Jwt令牌
         Map<String, Object> claims = new HashMap<>();
         claims.put(JwtConstant.ADMIN_ID, adminUserDB.getId());
+        claims.put(JwtConstant.ADMIN_USERNAME, username);
         String token = JwtUtil.createJWT(
                 jwtProperties.getAdminSecretKey(),
                 jwtProperties.getAdminTtl(),
                 claims
         );
+
+        stringRedisTemplate.opsForValue().set(JwtConstant.TOKEN_LIST + username, token, jwtProperties.getAdminTtl(), TimeUnit.SECONDS);
 
         AdminUserLoginVO adminUserLoginVO = new AdminUserLoginVO();
         BeanUtils.copyProperties(adminUserDB, adminUserLoginVO);
@@ -125,11 +127,9 @@ public class AdminUserServiceImpl implements AdminUserService {
     public void logout(String token) {
         try {
             Claims claims = JwtUtil.parseJWT(jwtProperties.getAdminSecretKey(), token);
-            Date expiration = claims.getExpiration();
-            long expireTime = (expiration.getTime() - System.currentTimeMillis()) / 1000;
+            String username = claims.get(JwtConstant.ADMIN_USERNAME).toString();
 
-            if (expireTime > 0)
-                stringRedisTemplate.opsForValue().set(JwtConstant.BLACKLIST_KEY + token, "", expireTime, TimeUnit.SECONDS);
+            stringRedisTemplate.delete(JwtConstant.TOKEN_LIST + username);
         } catch (Exception ex) {
             throw new AccountException(MessageConstant.JWT_ERROR);
         }
@@ -153,6 +153,8 @@ public class AdminUserServiceImpl implements AdminUserService {
         if (!Objects.equals(adminUserDB.getStatus(), AccountConstant.PERMISSION)) {
             throw new AccountException(MessageConstant.PERMISSION_ERROR);
         }
+
+        stringRedisTemplate.delete(JwtConstant.TOKEN_LIST + adminUserDTO.getUsername());
 
         adminUserMapper.update(AdminUser.builder()
                 .id(adminUserDTO.getId())

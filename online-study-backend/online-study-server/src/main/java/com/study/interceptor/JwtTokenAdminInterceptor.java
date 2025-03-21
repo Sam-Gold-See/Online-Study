@@ -14,6 +14,8 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.method.HandlerMethod;
 import org.springframework.web.servlet.HandlerInterceptor;
 
+import java.util.Objects;
+
 /**
  * B端jwt令牌校验拦截器
  */
@@ -48,13 +50,12 @@ public class JwtTokenAdminInterceptor implements HandlerInterceptor {
 
         //2. 校验令牌
         try {
-            log.info("jwt校验：{}", token);
-            Claims claims = JwtUtil.parseJWT(jwtProperties.getAdminSecretKey(), token);
+            Claims claims = JwtUtil.parseJWT(jwtProperties.getAdminSecretKey(),token);
+            String username = claims.get(JwtConstant.ADMIN_USERNAME).toString();
 
-            // 检查 Redis 黑名单
-            boolean isBlack = stringRedisTemplate.opsForValue().get(JwtConstant.BLACKLIST_KEY + token) != null;
-            if(isBlack){
-                log.warn("jwt令牌已被加入黑名单：{}", token);
+            log.info("jwt校验：{}",token);
+            if(!Objects.equals(stringRedisTemplate.opsForValue().get(JwtConstant.TOKEN_LIST + username),token)){
+                log.warn("jwt令牌已失效：{}", token);
                 response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
                 return false;
             }
