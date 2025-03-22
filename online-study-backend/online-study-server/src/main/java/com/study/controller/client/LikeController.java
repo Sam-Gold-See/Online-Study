@@ -31,12 +31,12 @@ public class LikeController {
     /**
      * 删除点赞
      *
-     * @param id 点赞id
+     * @param likeDTO 点赞DTO对象
      */
     @DeleteMapping("/delete")
-    public Result<String> delete(Long id) {
-        likeService.delete(id);
-        log.info("C端用户(id:{})删除点赞(id:{})", BaseContext.getCurrentId(), id);
+    public Result<String> delete(@RequestBody LikeDTO likeDTO) {
+        likeService.delete(likeDTO);
+        log.info("C端用户(id:{})删除点赞{}", BaseContext.getCurrentId(), likeDTO);
         return Result.success();
     }
 
