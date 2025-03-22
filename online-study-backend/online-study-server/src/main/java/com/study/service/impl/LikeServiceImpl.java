@@ -52,4 +52,18 @@ public class LikeServiceImpl implements LikeService {
 
         likeMapper.delete(id);
     }
+
+    /**
+     * 查询点赞情况
+     *
+     * @param likeDTO 点赞DTO对象
+     */
+    @Override
+    public Integer get(LikeDTO likeDTO) {
+        Like like = new Like();
+        BeanUtils.copyProperties(likeDTO, like);
+        like.setUserId(BaseContext.getCurrentId());
+
+        return likeMapper.checkById(like);
+    }
 }

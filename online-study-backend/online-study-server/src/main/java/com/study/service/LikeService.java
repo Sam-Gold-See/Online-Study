@@ -17,4 +17,11 @@ public interface LikeService {
      * @param id 点赞id
      */
     void delete(Long id);
+
+    /**
+     * 查询点赞情况
+     *
+     * @param likeDTO 点赞DTO对象
+     */
+    Integer get(LikeDTO likeDTO);
 }
