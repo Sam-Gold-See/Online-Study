@@ -28,4 +28,12 @@ public interface CommentMapper {
      */
     @Select("SELECT * FROM comment WHERE id = #{id}")
     Comment getById(Long id);
+
+    /**
+     * 动态更新评论
+     *
+     * @param comment 评论实体类对象
+     */
+    @AutoFill(operation = OperationType.UPDATE, terminal = TerminalType.CLIENT)
+    void update(Comment comment);
 }
