@@ -58,5 +58,5 @@ public class Post implements Serializable {
     private Double score;
 
     // 帖子种类Id
-    private Integer categoryId;
+    private Long categoryId;
 }

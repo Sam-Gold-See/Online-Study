@@ -35,7 +35,7 @@ public class PostPageQueryDTO implements Serializable {
     private Integer commentTop;
 
     // 帖子种类Id
-    private Integer categoryId;
+    private Long categoryId;
 
     // 页码数
     private Integer page;

@@ -18,7 +18,7 @@ public class PostCategory implements Serializable {
     private static final long serialVersionUID = 1L;
 
     // 种类id
-    private Integer id;
+    private Long id;
 
     // 种类名称
     private String name;

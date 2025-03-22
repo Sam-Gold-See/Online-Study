@@ -20,5 +20,5 @@ public class FavouriteDTO implements Serializable {
     private Long userId;
 
     // 帖子id
-    private Integer postId;
+    private Long postId;
 }

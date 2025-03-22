@@ -42,5 +42,5 @@ public class PostVO implements Serializable {
     private LocalDateTime updateTime;
 
     // 帖子种类Id
-    private Integer categoryId;
+    private Long categoryId;
 }

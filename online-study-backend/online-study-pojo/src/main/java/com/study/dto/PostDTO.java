@@ -35,5 +35,5 @@ public class PostDTO implements Serializable {
     private Integer isDeleted;
 
     // 帖子种类Id
-    private Integer categoryId;
+    private Long categoryId;
 }

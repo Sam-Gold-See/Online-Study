@@ -21,11 +21,11 @@ CREATE TABLE `admin_user`
     `phone`       VARCHAR(15) UNIQUE COMMENT '用户手机',
     `gender`      CHAR(1) COMMENT '用户性别（M: 男，F: 女）',
     `status`      TINYINT DEFAULT 1 COMMENT '登录权限（1=可登录, 0=禁用）',
-    `level`       TINYINT DEFAULT 0 COMMENT '修改权限（1=有权限, 0=无权限）'
+    `level`       TINYINT DEFAULT 0 COMMENT '修改权限（1=有权限, 0=无权限）',
     `create_time` DATETIME COMMENT '创建时间',
     `update_time` DATETIME COMMENT '更新时间',
     `create_user` BIGINT COMMENT '创建用户ID',
-    `update_user` BIGINT COMMENT '更新用户ID',
+    `update_user` BIGINT COMMENT '更新用户ID'
 ) COMMENT='管理端用户表';
 
 INSERT INTO `admin_user` (id, name, username, password, phone, gender, status, create_time, update_time, create_user,
@@ -52,7 +52,7 @@ VALUES (2174169369495300, 'SamGoldSee', 'chunxin.huang@m.scnu.edu.cn', 'e10adc39
 
 CREATE TABLE `post_category`
 (
-    `id`   INT         NOT NULL PRIMARY KEY AUTO_INCREMENT COMMENT '帖子种类自增id',
+    `id`   BIGINT      NOT NULL PRIMARY KEY AUTO_INCREMENT COMMENT '帖子种类自增id',
     `name` VARCHAR(50) NOT NULL COMMENT '帖子种类'
 )COMMENT = '帖子分类表';
 
@@ -80,7 +80,7 @@ CREATE TABLE `post`
     `create_time`   DATETIME COMMENT '创建时间',
     `update_time`   DATETIME COMMENT '更新时间',
     `score` DOUBLE DEFAULT NULL COMMENT '热度系数',
-    `category_id`   INT     DEFAULT 1 COMMENT '帖子种类id',
+    `category_id`   BIGINT     DEFAULT 1 COMMENT '帖子种类id',
     FOREIGN KEY (user_id) REFERENCES `client_user` (id) ON DELETE CASCADE,
     FOREIGN KEY (category_id) REFERENCES `post_category` (id) ON DELETE SET NULL
 ) COMMENT ='帖子表';

@@ -13,12 +13,12 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-public class Favourite implements Serializable {
+public class Like implements Serializable {
 
     @Serial
     private static final long serialVersionUID = 1L;
 
-    // 收藏id
+    // 点赞id
     private Long id;
 
     // 用户id
@@ -27,9 +27,9 @@ public class Favourite implements Serializable {
     // 帖子id
     private Long postId;
 
+    // 评论id
+    private Long commentId;
+
     // 创建时间
     private LocalDateTime createTime;
-
-    // 更新时间
-    private LocalDateTime updateTime;
 }
