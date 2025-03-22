@@ -14,9 +14,9 @@ public interface LikeService {
     /**
      * 删除点赞
      *
-     * @param id 点赞id
+     * @param likeDTO 点赞DTO对象
      */
-    void delete(Long id);
+    void delete(LikeDTO likeDTO);
 
     /**
      * 查询点赞情况
