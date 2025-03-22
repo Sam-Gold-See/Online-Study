@@ -10,4 +10,11 @@ public interface CommentService {
      * @param commentDTO 评论DTO对象
      */
     void add(CommentDTO commentDTO);
+
+    /**
+     * 删除评论
+     *
+     * @param commentDTO 评论DTO对象
+     */
+    void delete(CommentDTO commentDTO);
 }
