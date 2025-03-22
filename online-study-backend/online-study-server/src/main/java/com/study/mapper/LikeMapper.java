@@ -6,6 +6,7 @@ import com.study.enumeration.OperationType;
 import com.study.enumeration.TerminalType;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Select;
 
 @Mapper
 public interface LikeMapper {
@@ -19,4 +20,12 @@ public interface LikeMapper {
     @Insert("INSERT INTO `like` (user_id, post_id, comment_id, create_time) " +
             "VALUES (#{userId}, #{postId}, #{commentId}, #{createTime})")
     void insert(Like like);
+
+    /**
+     * 根据点赞id查询点赞
+     *
+     * @param id 点赞id
+     */
+    @Select("SELECT * FROM `like` WHERE id = #{id}")
+    Like getById(Long id);
 }
