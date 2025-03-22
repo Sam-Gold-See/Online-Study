@@ -10,4 +10,11 @@ public interface LikeService {
      * @param likeDTO 点赞DTO对象
      */
     void add(LikeDTO likeDTO);
+
+    /**
+     * 删除点赞
+     *
+     * @param id 点赞id
+     */
+    void delete(Long id);
 }
