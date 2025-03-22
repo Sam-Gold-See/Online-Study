@@ -6,10 +6,7 @@ import com.study.result.Result;
 import com.study.service.LikeService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/client/like")
@@ -27,7 +24,19 @@ public class LikeController {
     @PutMapping("/add")
     public Result<String> add(@RequestBody LikeDTO likeDTO) {
         likeService.add(likeDTO);
-        log.info("C端用户(id:{})新增收藏:{}", BaseContext.getCurrentId(), likeDTO);
+        log.info("C端用户(id:{})新增点赞:{}", BaseContext.getCurrentId(), likeDTO);
+        return Result.success();
+    }
+
+    /**
+     * 删除点赞
+     *
+     * @param id 点赞id
+     */
+    @DeleteMapping("/delete")
+    public Result<String> delete(Long id) {
+        likeService.delete(id);
+        log.info("C端用户(id:{})删除点赞(id:{})", BaseContext.getCurrentId(), id);
         return Result.success();
     }
 }
