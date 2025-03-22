@@ -37,4 +37,11 @@ public interface LikeMapper {
      */
     @Delete("DELETE FROM `like` WHERE id = #{id}")
     void delete(Long id);
+
+    /**
+     * 查询点赞情况
+     *
+     * @param like 点赞实体类对象
+     */
+    Integer checkById(Like like);
 }
