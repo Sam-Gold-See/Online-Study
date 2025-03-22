@@ -39,4 +39,16 @@ public class LikeController {
         log.info("C端用户(id:{})删除点赞(id:{})", BaseContext.getCurrentId(), id);
         return Result.success();
     }
+
+    /**
+     * 查询帖子点赞情况
+     *
+     * @param likeDTO 点赞DTO对象
+     */
+    @GetMapping
+    public Result<String> get(@RequestBody LikeDTO likeDTO) {
+        Integer result = likeService.get(likeDTO);
+        log.info("C端用户(id:{})正在查询{}点赞情况", BaseContext.getCurrentId(), likeDTO);
+        return Result.success(result.toString());
+    }
 }
