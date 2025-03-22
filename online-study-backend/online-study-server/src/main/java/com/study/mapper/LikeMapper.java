@@ -4,6 +4,7 @@ import com.study.annotation.AutoFill;
 import com.study.entity.Like;
 import com.study.enumeration.OperationType;
 import com.study.enumeration.TerminalType;
+import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Select;
@@ -28,4 +29,12 @@ public interface LikeMapper {
      */
     @Select("SELECT * FROM `like` WHERE id = #{id}")
     Like getById(Long id);
+
+    /**
+     * 根据点赞id删除点赞
+     *
+     * @param id 点赞id
+     */
+    @Delete("DELETE FROM `like` WHERE id = #{id}")
+    void delete(Long id);
 }
