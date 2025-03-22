@@ -28,11 +28,6 @@ CREATE TABLE `admin_user`
     `update_user` BIGINT COMMENT '更新用户ID'
 ) COMMENT='管理端用户表';
 
-INSERT INTO `admin_user` (id, name, username, password, phone, gender, status, create_time, update_time, create_user,
-                          update_user, level)
-VALUES (11741666652149400, 'Admin', 'admin', 'e10adc3949ba59abbe56e057f20f883e', '15889925075', 'F', 1,
-        '2025-03-11 12:15:21', '2025-03-11 12:15:21', 11741666213042300, 11741666213042300, 1);
-
 CREATE TABLE `client_user`
 (
     `id`          BIGINT      NOT NULL PRIMARY KEY COMMENT '时间戳唯一id',
@@ -46,24 +41,11 @@ CREATE TABLE `client_user`
     `update_time` DATETIME COMMENT '更新时间'
 ) COMMENT='客户端用户表';
 
-INSERT INTO `client_user` (id, name, email, password, gender, status, avatar, create_time, update_time)
-VALUES (2174169369495300, 'SamGoldSee', 'chunxin.huang@m.scnu.edu.cn', 'e10adc3949ba59abbe56e057f20f883e', 'M', 1, '',
-        '2025-03-11 19:48:14', '2025-03-11 19:48:14');
-
 CREATE TABLE `post_category`
 (
     `id`   BIGINT      NOT NULL PRIMARY KEY AUTO_INCREMENT COMMENT '帖子种类自增id',
     `name` VARCHAR(50) NOT NULL COMMENT '帖子种类'
 )COMMENT = '帖子分类表';
-
-INSERT INTO `post_category` (name)
-VALUES ('其他'),
-       ('组队'),
-       ('教程'),
-       ('笔记'),
-       ('经验'),
-       ('资源'),
-       ('求助');
 
 CREATE TABLE `post`
 (
@@ -84,9 +66,6 @@ CREATE TABLE `post`
     FOREIGN KEY (user_id) REFERENCES `client_user` (id) ON DELETE CASCADE,
     FOREIGN KEY (category_id) REFERENCES `post_category` (id) ON DELETE SET NULL
 ) COMMENT ='帖子表';
-
-INSERT INTO `post` (user_id, title, content, create_time, update_time)
-VALUES (2174169369495300, '测试帖子', '测试内容', '2025-03-18 09:00:00', '2025-03-18 09:00:00');
 
 CREATE TABLE `favourite`
 (
@@ -122,6 +101,7 @@ CREATE TABLE `like`
     `post_id`     BIGINT DEFAULT NULL COMMENT '帖子id（点赞帖子时非空）',
     `comment_id`  BIGINT DEFAULT NULL COMMENT '评论id（点赞评论时非空）',
     `create_time` DATETIME COMMENT '创建时间',
+    `update_time` DATETIME COMMENT '更新时间',
     FOREIGN KEY (user_id) REFERENCES client_user (id) ON DELETE CASCADE,
     FOREIGN KEY (post_id) REFERENCES post (id) ON DELETE CASCADE,
     FOREIGN KEY (comment_id) REFERENCES comment (id) ON DELETE CASCADE,
