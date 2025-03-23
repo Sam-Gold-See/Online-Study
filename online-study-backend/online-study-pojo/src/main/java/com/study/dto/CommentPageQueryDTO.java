@@ -11,10 +11,7 @@ import java.io.Serializable;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-public class CommentDTO implements Serializable {
-
-    // 评论id
-    private Long id;
+public class CommentPageQueryDTO implements Serializable {
 
     // 帖子id
     private Long postId;
@@ -25,9 +22,12 @@ public class CommentDTO implements Serializable {
     // 用户id
     private Long userId;
 
-    // 评论内容
-    private String content;
-
     // 评论状态（0=正常，1=删除）
     private Integer status;
+
+    // 页码数
+    private Integer page;
+
+    // 每页记录数
+    private Integer pageSize;
 }
