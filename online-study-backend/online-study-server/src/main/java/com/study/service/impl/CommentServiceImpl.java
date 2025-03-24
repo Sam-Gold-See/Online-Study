@@ -1,12 +1,16 @@
 package com.study.service.impl;
 
+import com.github.pagehelper.Page;
+import com.github.pagehelper.PageHelper;
 import com.study.constant.CommentConstant;
 import com.study.constant.MessageConstant;
 import com.study.context.BaseContext;
 import com.study.dto.CommentDTO;
+import com.study.dto.CommentPageQueryDTO;
 import com.study.entity.Comment;
 import com.study.exception.OperationException;
 import com.study.mapper.CommentMapper;
+import com.study.result.PageResult;
 import com.study.service.CommentService;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -50,5 +54,19 @@ public class CommentServiceImpl implements CommentService {
                 .id(commentDB.getId())
                 .status(CommentConstant.DELETED)
                 .build());
+    }
+
+    /**
+     * 分页查询帖子评论
+     *
+     * @param commentPageQueryDTO 评论分页查询DTO
+     */
+    @Override
+    public PageResult<Comment> postQuery(CommentPageQueryDTO commentPageQueryDTO) {
+        PageHelper.startPage(commentPageQueryDTO.getPage(), commentPageQueryDTO.getPageSize());
+
+        Page<Comment> page = commentMapper.query(commentPageQueryDTO);
+
+        return new PageResult<>(page.getTotal(), page.getResult());
     }
 }
