@@ -54,4 +54,16 @@ public class CommentController {
         log.info("C端用户(id:{})查询帖子评论:{}", BaseContext.getCurrentId(), commentPageQueryDTO);
         return Result.success(pageResult);
     }
+
+    /**
+     * 分页查询评论回复
+     *
+     * @param commentPageQueryDTO 评论分页查询DTO
+     */
+    @GetMapping("/commentQuery")
+    public Result<PageResult<Comment>> commentQuery(@RequestBody CommentPageQueryDTO commentPageQueryDTO) {
+        PageResult<Comment> pageResult = commentService.postQuery(commentPageQueryDTO);
+        log.info("C端用户(id:{})查询评论回复:{}", BaseContext.getCurrentId(), commentPageQueryDTO);
+        return Result.success(pageResult);
+    }
 }
