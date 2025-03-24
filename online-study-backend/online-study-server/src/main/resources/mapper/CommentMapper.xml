@@ -24,4 +24,22 @@
             </if>
         </set>
     </update>
+    <select id="query" resultType="com.study.entity.Comment">
+        SELECT * FROM comment
+        <where>
+            <if test="postId != null">
+                AND post_id = #{postId}
+            </if>
+            <if test="parentId != null">
+                AND parent_id = #{parentId}
+            </if>
+            <if test="userId != null">
+                AND user_id = #{userId}
+            </if>
+            <if test="status != null">
+                AND status = #{status}
+            </if>
+        </where>
+        ORDER BY update_time DESC
+    </select>
 </mapper>

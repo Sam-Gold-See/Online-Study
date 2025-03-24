@@ -1,6 +1,8 @@
 package com.study.mapper;
 
+import com.github.pagehelper.Page;
 import com.study.annotation.AutoFill;
+import com.study.dto.CommentPageQueryDTO;
 import com.study.entity.Comment;
 import com.study.enumeration.OperationType;
 import com.study.enumeration.TerminalType;
@@ -36,4 +38,11 @@ public interface CommentMapper {
      */
     @AutoFill(operation = OperationType.UPDATE, terminal = TerminalType.CLIENT)
     void update(Comment comment);
+
+    /**
+     * 评论分页查询
+     *
+     * @param commentPageQueryDTO 评论分页查询DTO对象
+     */
+    Page<Comment> query(CommentPageQueryDTO commentPageQueryDTO);
 }
