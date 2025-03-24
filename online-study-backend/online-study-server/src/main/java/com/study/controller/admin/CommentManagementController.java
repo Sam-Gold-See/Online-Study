@@ -1,6 +1,7 @@
 package com.study.controller.admin;
 
 import com.study.context.BaseContext;
+import com.study.dto.CommentDTO;
 import com.study.dto.CommentPageQueryDTO;
 import com.study.entity.Comment;
 import com.study.result.PageResult;
@@ -8,10 +9,7 @@ import com.study.result.Result;
 import com.study.service.CommentService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/admin/comment")
@@ -43,5 +41,17 @@ public class CommentManagementController {
         PageResult<Comment> pageResult = commentService.query(commentPageQueryDTO);
         log.info("B端用户(id:{})分页查询评论", BaseContext.getCurrentId());
         return Result.success(pageResult);
+    }
+
+    /**
+     * 设置评论可见状态
+     *
+     * @param commentDTO 评论DTO对象
+     */
+    @PutMapping("/setDeleted")
+    public Result<String> delete(@RequestBody CommentDTO commentDTO) {
+        commentService.setDeleted(commentDTO);
+        log.info("B端用户(id:{})设置评论可见状态:{}", BaseContext.getCurrentId(), commentDTO);
+        return Result.success();
     }
 }
