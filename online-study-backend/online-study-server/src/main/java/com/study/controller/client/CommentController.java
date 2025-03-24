@@ -2,6 +2,9 @@ package com.study.controller.client;
 
 import com.study.context.BaseContext;
 import com.study.dto.CommentDTO;
+import com.study.dto.CommentPageQueryDTO;
+import com.study.entity.Comment;
+import com.study.result.PageResult;
 import com.study.result.Result;
 import com.study.service.CommentService;
 import lombok.extern.slf4j.Slf4j;
@@ -36,7 +39,19 @@ public class CommentController {
     @DeleteMapping("/delete")
     public Result<String> delete(@RequestBody CommentDTO commentDTO) {
         commentService.delete(commentDTO);
-        log.info("C端用户(id:{})删除评论：{}", BaseContext.getCurrentId(), commentDTO);
+        log.info("C端用户(id:{})删除评论:{}", BaseContext.getCurrentId(), commentDTO);
         return Result.success();
+    }
+
+    /**
+     * 分页查询帖子评论
+     *
+     * @param commentPageQueryDTO 评论分页查询DTO
+     */
+    @GetMapping("/postQuery")
+    public Result<PageResult<Comment>> postQuery(@RequestBody CommentPageQueryDTO commentPageQueryDTO) {
+        PageResult<Comment> pageResult = commentService.postQuery(commentPageQueryDTO);
+        log.info("C端用户(id:{})查询帖子评论:{}", BaseContext.getCurrentId(), commentPageQueryDTO);
+        return Result.success(pageResult);
     }
 }
