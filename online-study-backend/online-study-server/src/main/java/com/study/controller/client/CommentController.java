@@ -50,7 +50,7 @@ public class CommentController {
      */
     @GetMapping("/postQuery")
     public Result<PageResult<Comment>> postQuery(@RequestBody CommentPageQueryDTO commentPageQueryDTO) {
-        PageResult<Comment> pageResult = commentService.postQuery(commentPageQueryDTO);
+        PageResult<Comment> pageResult = commentService.query(commentPageQueryDTO);
         log.info("C端用户(id:{})查询帖子评论:{}", BaseContext.getCurrentId(), commentPageQueryDTO);
         return Result.success(pageResult);
     }
@@ -62,7 +62,7 @@ public class CommentController {
      */
     @GetMapping("/commentQuery")
     public Result<PageResult<Comment>> commentQuery(@RequestBody CommentPageQueryDTO commentPageQueryDTO) {
-        PageResult<Comment> pageResult = commentService.postQuery(commentPageQueryDTO);
+        PageResult<Comment> pageResult = commentService.query(commentPageQueryDTO);
         log.info("C端用户(id:{})查询评论回复:{}", BaseContext.getCurrentId(), commentPageQueryDTO);
         return Result.success(pageResult);
     }

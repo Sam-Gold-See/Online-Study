@@ -57,12 +57,12 @@ public class CommentServiceImpl implements CommentService {
     }
 
     /**
-     * 分页查询帖子评论
+     * 分页查询评论
      *
      * @param commentPageQueryDTO 评论分页查询DTO
      */
     @Override
-    public PageResult<Comment> postQuery(CommentPageQueryDTO commentPageQueryDTO) {
+    public PageResult<Comment> query(CommentPageQueryDTO commentPageQueryDTO) {
         PageHelper.startPage(commentPageQueryDTO.getPage(), commentPageQueryDTO.getPageSize());
 
         Page<Comment> page = commentMapper.query(commentPageQueryDTO);

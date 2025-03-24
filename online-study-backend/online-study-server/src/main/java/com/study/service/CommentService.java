@@ -22,11 +22,11 @@ public interface CommentService {
     void delete(CommentDTO commentDTO);
 
     /**
-     * 分页查询帖子评论
+     * 分页查询评论
      *
      * @param commentPageQueryDTO 评论分页查询DTO
      */
-    PageResult<Comment> postQuery(CommentPageQueryDTO commentPageQueryDTO);
+    PageResult<Comment> query(CommentPageQueryDTO commentPageQueryDTO);
 
     /**
      * 修改评论
