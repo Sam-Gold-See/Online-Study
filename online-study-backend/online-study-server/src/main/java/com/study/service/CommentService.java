@@ -41,4 +41,11 @@ public interface CommentService {
      * @param id 评论id
      */
     Comment get(Long id);
+
+    /**
+     * 设置评论可见状态
+     *
+     * @param commentDTO 评论DTO对象
+     */
+    void setDeleted(CommentDTO commentDTO);
 }

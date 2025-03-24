@@ -98,4 +98,17 @@ public class CommentServiceImpl implements CommentService {
     public Comment get(Long id) {
         return commentMapper.getById(id);
     }
+
+    /**
+     * 设置评论可见状态
+     *
+     * @param commentDTO 评论DTO对象
+     */
+    @Override
+    public void setDeleted(CommentDTO commentDTO) {
+        commentMapper.update(Comment.builder()
+                .id(commentDTO.getId())
+                .status(commentDTO.getStatus())
+                .build());
+    }
 }
