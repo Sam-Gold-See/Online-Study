@@ -23,6 +23,7 @@
                 update_time = #{updateTime},
             </if>
         </set>
+        WHERE id = #{id}
     </update>
     <select id="query" resultType="com.study.entity.Comment">
         SELECT * FROM comment
