@@ -88,4 +88,14 @@ public class CommentServiceImpl implements CommentService {
                 .content(commentDTO.getContent())
                 .build());
     }
+
+    /**
+     * 查询评论详情
+     *
+     * @param id 评论id
+     */
+    @Override
+    public Comment get(Long id) {
+        return commentMapper.getById(id);
+    }
 }

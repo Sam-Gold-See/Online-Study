@@ -34,4 +34,11 @@ public interface CommentService {
      * @param commentDTO 评论DTO对象
      */
     void edit(CommentDTO commentDTO);
+
+    /**
+     * 查询评论详情
+     *
+     * @param id 评论id
+     */
+    Comment get(Long id);
 }
