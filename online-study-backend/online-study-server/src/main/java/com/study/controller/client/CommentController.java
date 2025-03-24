@@ -66,4 +66,16 @@ public class CommentController {
         log.info("C端用户(id:{})查询评论回复:{}", BaseContext.getCurrentId(), commentPageQueryDTO);
         return Result.success(pageResult);
     }
+
+    /**
+     * 修改评论
+     *
+     * @param commentDTO 评论DTO对象
+     */
+    @PutMapping("/edit")
+    public Result<String> edit(@RequestBody CommentDTO commentDTO) {
+        commentService.edit(commentDTO);
+        log.info("C端用户(id:{})修改评论:{}", BaseContext.getCurrentId(), commentDTO);
+        return Result.success();
+    }
 }
