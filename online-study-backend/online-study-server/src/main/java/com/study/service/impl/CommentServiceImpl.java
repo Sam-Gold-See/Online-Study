@@ -69,4 +69,23 @@ public class CommentServiceImpl implements CommentService {
 
         return new PageResult<>(page.getTotal(), page.getResult());
     }
+
+    /**
+     * 修改评论
+     *
+     * @param commentDTO 评论DTO对象
+     */
+    @Override
+    public void edit(CommentDTO commentDTO) {
+        Comment commentDB = commentMapper.getById(commentDTO.getId());
+
+        if (!Objects.equals(BaseContext.getCurrentId(), commentDB.getUserId())) {
+            throw new OperationException(MessageConstant.INVALID_OPERATION);
+        }
+
+        commentMapper.update(Comment.builder()
+                .id(commentDTO.getId())
+                .content(commentDTO.getContent())
+                .build());
+    }
 }
