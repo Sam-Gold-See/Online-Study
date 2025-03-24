@@ -24,7 +24,7 @@ public class CommentController {
      *
      * @param commentDTO 评论DTO对象
      */
-    @PutMapping("/add")
+    @PostMapping("/add")
     public Result<String> add(@RequestBody CommentDTO commentDTO) {
         commentService.add(commentDTO);
         log.info("C端用户(id:{})新增评论:{}", BaseContext.getCurrentId(), commentDTO);
