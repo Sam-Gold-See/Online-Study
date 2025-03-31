@@ -45,10 +45,10 @@ const register = async (formEl:any) => {
 <template>
 
 <div class="container">
-    <div style="margin-left:130px;margin-top:60px;">
+    <div class="box">
         <el-form
             ref="ruleFormRef"
-            style="max-width: 300px"
+            class="elform"
             :model="ruleForm"
             :rules="rules"
             label-width="auto"
@@ -74,7 +74,7 @@ const register = async (formEl:any) => {
 
             <el-form-item>
                 <el-button style='margin-left:105px;margin-top:20px' type="primary" @click.prevent="register(ruleFormRef)">
-                    保存信息
+                    确认修改
                 </el-button>
             </el-form-item>
         </el-form>
@@ -86,13 +86,27 @@ const register = async (formEl:any) => {
 <style scoped>
 .container{
     position: absolute;
-    left:500px;
+    left:0px;
     top:170px;
     width:1195px;
-    height:600px;
-    border:1px solid black;
+    height:628px;
     font-size:25px;
     font-weight:300;
 
+}
+
+.box{
+  width:700px;
+  height:400px;
+  margin-left:260px;
+  margin-top:90px;
+  border-radius:15px;
+  background-color: white;
+  padding-top:30px;
+}
+
+.elform{
+    max-width: 300px;
+    margin-left:200px;
 }
 </style>

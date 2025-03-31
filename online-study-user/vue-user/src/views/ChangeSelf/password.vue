@@ -1,93 +1,85 @@
 <script setup lang="ts">
-import { reactive, ref } from 'vue'
-import type { FormInstance, FormRules } from 'element-plus'
-import { registerApi } from '@/apis/user.js' 
-
-interface Form {
-  newpassword: string
-  confirmpassword: string
-}
-
-const ruleFormRef = ref<FormInstance>()
-const ruleForm = reactive<Form>({
-    newpassword: '' ,
-    confirmpassword: ''
-})
-
-const rules = reactive<FormRules<Form>>({
-  newpassword: [
-    { required: true, message: '请输入用户名',trigger: 'blur'},
-    { min: 3, max: 5, message: '用户名长度限制',trigger: 'blur'},
-  ],
-
-  confirmpassword: [
-    {required: true, message: '请再次输入密码',trigger: 'blur'},
-
-    {validator:(rule,value,callback)=>{
-        if(value!=ruleForm.newpassword)
-            callback(new Error('两次密码输入不一致'))
-        else
-          callback()
-    }}
-  ],
-})
+import { ref } from 'vue'
+import emailbox from '@/views/ChangeSelf/changeemail.vue'
+import passwordbox from '@/views/ChangeSelf/changepass.vue'
+import { useRouter } from 'vue-router'
+const changeemail=ref(false)
+const changepass=ref(false)
 
 
-const register = async (formEl:any) => {
-  await formEl.validate((valid:any, fields:any) => {
-    if (valid) {
-      registerApi(ruleForm)
-    }
-  })
-}
 </script>
 
 
 <template>
 
-<div class="container">
-    <div style="margin-left:130px;margin-top:60px;">
-        <el-form
-            ref="ruleFormRef"
-            style="max-width: 300px"
-            :model="ruleForm"
-            :rules="rules"
-            label-width="auto"
-            label-position="top"
-            size="large"
-            status-icon
-            
-        >
-            <el-form-item label="新密码" prop="newpassword">
-                <el-input v-model="ruleForm.newpassword" :validate-event='false'/>
-            </el-form-item>
-
-            <el-form-item label="再次确认密码" prop="confirmpassword">
-                <el-input v-model="ruleForm.confirmpassword" :validate-event='false'/>
-            </el-form-item>
-
-
-            <el-form-item>
-                <el-button style='margin-left:105px;margin-top:20px' type="primary" @click.prevent="register(ruleFormRef)">
-                    立即修改
-                </el-button>
-            </el-form-item>
-        </el-form>
+    <div class="container">
+        <div class="box">
+          <div class="function">
+              <img src="@/assets/email.png">
+              <div @click="changeemail=true">修改邮箱</div>
+          </div>
+          <div class="function">
+              <img src="@/assets/editpass.png">
+              <div @click="changepass=true">修改密码</div>
+          </div>
+        </div>
     </div>
-</div>
+
+    <emailbox v-if="changeemail" @close="changeemail=false"/>
+    <passwordbox v-if="changepass" @close="changepass=false"/>
+
+
 
 </template>
 
 <style scoped>
 .container{
     position: absolute;
-    left:500px;
+    left:0px;
     top:170px;
     width:1195px;
-    height:600px;
-    border:1px solid black;
+    height:628px;
     font-size:25px;
     font-weight:300;
 
 }
+
+.box{
+    width:700px;
+    height:300px;
+    margin-left:260px;
+    margin-top:120px;
+    padding-top:0px;
+    background-color: white;
+}
+
+.function{
+    width:350px;
+    height:200px;
+    margin-top:50px;
+    float:left;
+}
+
+img{
+  width:100px;
+  height:100px;
+  margin-top:50px;
+  margin-left:50px;
+  float:left;
+}
+
+.function div{
+  width:100px;
+  height:40px;
+  margin-top:80px;
+  margin-left:15px;
+  float:left;
+  cursor:pointer;
+}
+
+.function div:hover{
+  color:deepskyblue;
+}
+
+
 </style>

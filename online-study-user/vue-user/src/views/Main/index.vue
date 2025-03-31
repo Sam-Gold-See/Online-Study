@@ -1,10 +1,17 @@
 <script setup lang="ts">
+import { ref } from 'vue'
+import { useRouter } from 'vue-router'
 import { useScheduleStore } from '@/stores/schedule' 
 
 const schedulStore=useScheduleStore()
+const router=useRouter()
 
-const functionBox=['Blog','社区','招募']
-const userBox=['个人中心','消息','历史']
+const functionBox=['首页','Blog','社区','招募']
+const routerBox=['/','/','','/recruit']
+
+const userBox=['个人中心','消息','收藏']
+const routerBox2=['/self','/','/']
+const firstLevel=ref(0)
 
 
 </script>
@@ -15,47 +22,32 @@ const userBox=['个人中心','消息','历史']
             <div class="title">
                 在线学习平台
             </div>
+
             <div class="function">
-                <div v-for="fun in functionBox" class="box">{{ fun }}</div>
+                <div v-for="(fun,index) in functionBox" class="box" :class="{'firstActive':firstLevel===index}"
+                    @click="firstLevel=index,router.push({path:routerBox[index]})"
+                >
+                    {{ fun }}
+                </div>
             </div>
+
             <div class="user">
-                <div style="float: left;margin-right:5px;"><img src="@/assets/logo.svg" style="width:50px;height:40px;"></div>
-                <div v-for="u in userBox" class="box">{{ u }}</div>
+                <div style="float: left;margin-right:5px;">
+                    <img src="@/assets/Avatar.png" style="width:50px;height:50px;margin-top:16px;">
+                </div>
+                <div v-for="(u,index) in userBox" class="box" style="margin-right:40px;" 
+                    @click="router.push({path:routerBox2[index]})"
+                >
+                    {{ u }}
+                </div>
             </div>    
         </div>
 
-        <div>
-            <RouterView />
-        </div>
-        <div class="schedule">
-            <el-scrollbar class="detailbox">
-                <div class="detail">
-                    123111111111111111111111111111111111111111111111111111111111111111111111111111111111
-                    123111111111111111111111111111111111111111111111111111111111111111111111111111111111
-                    123111111111111111111111111111111111111111111111111111111111111111111111111111111111
-                    123111111111111111111111111111111111111111111111111111111111111111111111111111111111
-                    123111111111111111111111111111111111111111111111111111111111111111111111111111111111
-                    123111111111111111111111111111111111111111111111111111111111111111111111111111111111
-                    123111111111111111111111111111111111111111111111111111111111111111111111111111111111
-                    123111111111111111111111111111111111111111111111111111111111111111111111111111111111
-                </div>
-                <div class="detail">
-                    123
-                </div>
-                <div class="detail">
-                    123
-                </div>
-                <!--
-                <div v-for="d in schedulStore.details" class="detail">
-                    {{ d }}
-                </div>
-                -->
-            </el-scrollbar>
-
-            <div style="text-align: center;margin-top:30px;">
-                <span style="font-size:25px;font-weight:400" >日程安排</span>
+        
+        <div class="content">       <!--背景图片-->
+            <div>
+                <RouterView />
             </div>
-
         </div>
     </div>
 </template>
@@ -65,8 +57,18 @@ const userBox=['个人中心','消息','历史']
 <style scoped>
 .box{
     float:left;
-    margin-right: 60px;
+    margin-right: 80px;
+    cursor: pointer;
+    color:#61666D;
+    font-weight:300;
 }
+
+.firstActive,
+.box:hover{
+    color:black;
+    font-weight:500;
+}
+
 
 .top{
     left:0px;
@@ -74,77 +76,52 @@ const userBox=['个人中心','消息','历史']
     position: absolute;
     width:1690px;
     height:80px;
-    border: 1px solid black;
     
 }
 
+
 .title{
-    width:380px;
+    width:400px;
     height:80px;
     font-weight:700;
     font-size:50px;
     text-align: right;   
-    border: 1px solid black;
+    padding-top:5px;
     
 }
 
 .function{
-    left:450px;
-    top:30px;
+    left:480px;
+    top:0px;
     position: absolute; 
     width:680px;
-    height:50px;
-    font-weight:200;
+    height:80px;
+    line-height:80px;
+    font-weight:300;
     font-size:30px;
-    border: 1px solid black;
 }
 
-img{
-    width:50px;
-    height:40px;
-}
 
 .user{
     right:0px;
-    top:40px;
+    top:0px;
     position: absolute;
-    width:480px;
-    height:40px;
-    font-weight:200;
+    width:340px;
+    height:80px;
+    line-height:80px;
+    font-weight:300;
     font-size:20px;
-    border: 1px solid black;
 }
 
-.schedule{
-    right:20px;
-    top:90px;
+
+.content{
     position: absolute;
-    width:650px;
-    height:680px;
-    border: 1px solid black;
+    top:100px;
+    left:0px;
+    width:1697px;
+    height:699px;
+    background-image: url('@/assets/background1.png');
 }
 
-.detailbox{
-    width:500px;
-    height:550px;
-    margin-top:30px;
-    padding-top:1px;
-    margin-left:75px;
-    background-color: rgba(0, 0, 0, 0.288);
-    text-align: center;
-}
-
-.detail{
-    width:440px;
-    line-height:30px;
-    margin-top:30px;
-    margin-bottom:20px;
-    margin-left:30px;
-    border: 1px solid white;
-    text-align: center;
-    font-size:18px;
-    color:blue;
-    word-wrap: break-word;
-}
 
 </style>

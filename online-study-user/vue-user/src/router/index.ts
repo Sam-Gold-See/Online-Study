@@ -3,15 +3,14 @@ import login from '@/views/Login/index.vue'
 import main from '@/views/Main/index.vue'
 import register from '@/views/Register/index.vue'
 import findpass from '@/views/findPassword/index.vue'
-import success from '@/views/findPassword/success.vue'
-import apply from '@/views/findPassword/apply.vue'
-import def from '@/views/Main/default.vue'
+import home from '@/views/Main/home.vue'
 import plan from '@/views/Main/plan.vue'
-import dynamic from '@/views/Main/dynamic.vue'
+import note from '@/views/Main/note.vue'
 import self from '@/views/Self/index.vue'
 import changeself from '@/views/ChangeSelf/index.vue'
 import edit from '@/views/ChangeSelf/edit.vue'
 import cgpass from '@/views/ChangeSelf/password.vue'
+import recruit from '@/views/recruit/index.vue'
 
 
 const router = createRouter({
@@ -20,21 +19,34 @@ const router = createRouter({
     {
       path:'/',
       component:main,  //主页
+
       children:[
         {
           path:'',
-          component:def
+          component:home,     //主页中的首页
+
+          children:[
+            {
+              path:'',
+              component:plan,
+            },
+
+            {
+              path:'note',
+              component:note,
+            }
+
+
+          ],
         },
 
         {
-          path:'plan',
-          component:plan
+          path:'/recruit',
+          component: recruit,   //主页中的招募页
         },
 
-        {
-          path:'dynamic',
-          component:dynamic
-        },
+
+        
       ]
     },
 
@@ -51,18 +63,6 @@ const router = createRouter({
     {
       path:'/findpass',
       component: findpass,   //重置密码页
-      
-      children:[
-        {
-          path:'',
-          component: apply
-        },
-
-        {
-          path:'success',
-          component: success
-        }
-      ]
     },
 
     {
@@ -75,6 +75,7 @@ const router = createRouter({
     {
       path:'/changeself',
       component: changeself,   //更改个人信息页
+      
       children:[
         {
           path:'',
@@ -88,7 +89,9 @@ const router = createRouter({
       ]
 
 
-    }
+    },
+
+    
 
 
     
