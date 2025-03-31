@@ -2,10 +2,11 @@ package com.study.mapper;
 
 import com.github.pagehelper.Page;
 import com.study.annotation.AutoFill;
-import com.study.dto.adminuser.AdminUserPageQueryDTO;
+import com.study.dto.AdminUserPageQueryDTO;
 import com.study.entity.AdminUser;
 import com.study.enumeration.OperationType;
 import com.study.enumeration.TerminalType;
+import com.study.vo.AdminUserVO;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Select;
@@ -14,55 +15,52 @@ import org.apache.ibatis.annotations.Select;
 public interface AdminUserMapper {
 
     /**
-     * 根据id查询管理员是否有权限
+     * 根据id查询B端用户修改权限
      *
-     * @param id 管理员Id
+     * @param userId B端用户id
      */
-    @Select("SELECT status FROM admin_user WHERE id = #{id}")
-    Integer checkById(Long id);
+    @Select("SELECT level FROM admin_user WHERE id = #{id}")
+    Integer checkById(Long userId);
 
     /**
-     * 插入数据
+     * 插入新B端用户
      *
-     * @param adminUser 管理员用户实体类
+     * @param adminUser B端用户实体类对象
      */
     @AutoFill(operation = OperationType.INSERT, terminal = TerminalType.ADMIN)
     @Insert("INSERT INTO admin_user " +
             "(id, name, username, password, phone, gender, create_time, update_time, create_user, update_user) " +
-            "VALUES(#{id}, #{name}, #{username}, #{password}, #{phone}, #{gender}, #{createTime}, #{updateTime}, #{createUser}, #{updateUser})")
+            "VALUES (#{id}, #{name}, #{username}, #{password}, #{phone}, #{gender}, #{createTime}, #{updateTime}, #{createUser}, #{updateUser})")
     void insert(AdminUser adminUser);
 
     /**
-     * 根据用户账号查询数据
+     * 根据账号查询B端用户
      *
-     * @param username 登录账号
-     * @return AdminUser 管理员用户对象类
+     * @param username B端用户账号
      */
     @Select("SELECT * FROM admin_user WHERE username = #{username}")
     AdminUser getByUsername(String username);
 
     /**
-     * 根据用户id查询数据
+     * 根据id查询B端用户
      *
-     * @param id 用户id
-     * @return AdminUser 管理员用户对象类
-     **/
+     * @param id B端用户id
+     */
     @Select("SELECT * FROM admin_user WHERE id = #{id}")
     AdminUser getById(Long id);
 
     /**
-     * 动态更新管理端用户数据
+     * 动态更新B端用户
      *
-     * @param adminUser 管理员用户对象类
+     * @param adminUser B端用户实体类
      */
     @AutoFill(operation = OperationType.UPDATE, terminal = TerminalType.ADMIN)
     void update(AdminUser adminUser);
 
     /**
-     * B端用户分页查询
+     * 分页查询B端用户
      *
      * @param adminUserPageQueryDTO B端用户分页查询DTO对象
-     * @return Page<AdminUser> AdminUser类的分页对象
      */
-    Page<AdminUser> getListPage(AdminUserPageQueryDTO adminUserPageQueryDTO);
+    Page<AdminUserVO> query(AdminUserPageQueryDTO adminUserPageQueryDTO);
 }

@@ -1,6 +1,6 @@
 package com.study.interceptor;
 
-import com.study.constant.JwtClaimsConstant;
+import com.study.constant.JwtConstant;
 import com.study.context.BaseContext;
 import com.study.properties.JwtProperties;
 import com.study.utils.JwtUtil;
@@ -9,9 +9,12 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.stereotype.Component;
 import org.springframework.web.method.HandlerMethod;
 import org.springframework.web.servlet.HandlerInterceptor;
+
+import java.util.Objects;
 
 /**
  * B端jwt令牌校验拦截器
@@ -23,6 +26,9 @@ public class JwtTokenAdminInterceptor implements HandlerInterceptor {
 
     @Autowired
     private JwtProperties jwtProperties; // 注入配置类，获取 JWT 配置（如令牌名称和秘钥）
+
+    @Autowired
+    private StringRedisTemplate stringRedisTemplate;
 
     /**
      * 校验 JWT 令牌
@@ -44,15 +50,26 @@ public class JwtTokenAdminInterceptor implements HandlerInterceptor {
 
         //2. 校验令牌
         try {
-            log.info("jwt校验：{}", token);
-            Claims claims = JwtUtil.parseJWT(jwtProperties.getAdminSecretKey(), token);
-            Long adminUserId = Long.valueOf(claims.get(JwtClaimsConstant.ADMIN_ID).toString());
-            log.info("当前B端用户id：{}", adminUserId);
+            Claims claims = JwtUtil.parseJWT(jwtProperties.getAdminSecretKey(),token);
+            String username = claims.get(JwtConstant.ADMIN_USERNAME).toString();
+
+            log.info("jwt校验:{}",token);
+            if(!Objects.equals(stringRedisTemplate.opsForValue().get(JwtConstant.TOKEN_LIST + username),token)){
+                log.warn("jwt令牌已失效:{}", token);
+                response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
+                return false;
+            }
+
+            // 解析用户id
+            Long adminUserId = Long.valueOf(claims.get(JwtConstant.ADMIN_ID).toString());
+            log.info("当前B端用户id:{}", adminUserId);
+
+            // 设置当前用户id
             BaseContext.setCurrentId(adminUserId);
             return true;
         } catch (Exception ex) {
             //4. 不通过，响应401状态码（未经授权）
-            response.setStatus(401);
+            response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
             return false;
         }
     }

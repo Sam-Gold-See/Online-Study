@@ -34,13 +34,25 @@
         </set>
         WHERE id = #{id}
     </update>
-    <select id="getListPage" resultType="com.study.entity.AdminUser">
+    <select id="query" resultType="com.study.vo.AdminUserVO">
         SELECT * FROM admin_user
         <where>
             <if test="name != null and name != ''">
-                AND name like concat('%', #{name}, '%')
+                AND `name` LIKE CONCAT('%', #{name}, '%')
+            </if>
+            <if test="phone != null and phone != ''">
+                AND phone LIKE CONCAT('%', #{phone}, '%')
+            </if>
+            <if test="gender != null">
+                AND gender = #{gender}
+            </if>
+            <if test="status != null">
+                AND status = #{status}
+            </if>
+            <if test="level != null">
+                AND level = #{level}
             </if>
         </where>
-        ORDER BY create_time desc
+        ORDER BY update_time DESC
     </select>
 </mapper>

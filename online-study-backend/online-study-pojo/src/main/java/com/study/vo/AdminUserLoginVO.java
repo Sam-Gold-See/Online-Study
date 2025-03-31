@@ -8,9 +8,9 @@ import lombok.NoArgsConstructor;
 import java.io.Serializable;
 
 @Data
-@Builder
-@NoArgsConstructor
 @AllArgsConstructor
+@NoArgsConstructor
+@Builder
 public class AdminUserLoginVO implements Serializable {
 
     // 时间戳唯一id
@@ -21,6 +21,12 @@ public class AdminUserLoginVO implements Serializable {
 
     // 用户登录账号
     private String username;
+
+    // 用户手机
+    private String phone;
+
+    // 用户性别（M：男，女：F）
+    private Character gender;
 
     // jwt令牌
     private String token;

@@ -1,82 +1,80 @@
 package com.study.service;
 
-import com.study.dto.clientuser.*;
-import com.study.entity.ClientUser;
+import com.study.dto.ClientUserDTO;
+import com.study.dto.ClientUserPageQueryDTO;
 import com.study.result.PageResult;
 import com.study.vo.ClientUserLoginVO;
+import com.study.vo.ClientUserVO;
 
 public interface ClientUserService {
 
     /**
      * 新增C端用户
      *
-     * @param clientUserRegistDTO C端用户注册DTO对象
+     * @param clientUserDTO C端用户DTO
      */
-    void add(ClientUserRegistDTO clientUserRegistDTO);
+    void add(ClientUserDTO clientUserDTO);
 
     /**
-     * 用户登录
+     * C端用户登录
      *
-     * @param clientUserLoginDTO C端用户登录DTO对象
-     * @return ClientUserLoginVO C端用户登录VO对象
+     * @param clientUserDTO C端用户DTO
      */
-    ClientUserLoginVO login(ClientUserLoginDTO clientUserLoginDTO);
+    ClientUserLoginVO login(ClientUserDTO clientUserDTO);
 
     /**
-     * 发送验证码
+     * C端用户重置密码
      *
-     * @param toEmail 目标邮箱
+     * @param clientUserDTO C端用户DTO
      */
-    void sendMsg(String toEmail);
+    void editPassword(ClientUserDTO clientUserDTO);
 
     /**
-     * 修改密码
+     * C端用户重置邮箱
      *
-     * @param clientUserEditPasswordDTO C端用户修改密码DTO
+     * @param clientUserDTO C端用户DTO
      */
-    void editPassword(ClientUserEditPasswordDTO clientUserEditPasswordDTO);
+    void editEmail(ClientUserDTO clientUserDTO);
 
     /**
-     * 修改邮箱
+     * C端用户修改个人信息
      *
-     * @param clientUserEditEmailDTO C端用户修改邮箱DTO
+     * @param clientUserDTO C端用户DTO
      */
-    void editEmail(ClientUserEditEmailDTO clientUserEditEmailDTO);
+    void editInfo(ClientUserDTO clientUserDTO);
+
+    /**
+     * C端用户退出
+     *
+     * @param authentication jwt令牌
+     */
+    void logout(String authentication);
+
+    /**
+     * 设置C端用户登录权限
+     *
+     * @param clientUserDTO 用户管理DTO对象
+     */
+    void editStatus(ClientUserDTO clientUserDTO);
+
+    /**
+     * 查询C端用户信息
+     *
+     * @param id C端用户id
+     */
+    ClientUserVO getInfo(Long id);
+
+    /**
+     * 设置C端用户信息
+     *
+     * @param clientUserDTO C端用户DTO对象
+     */
+    void setInfo(ClientUserDTO clientUserDTO);
 
     /**
      * C端用户分页查询
      *
-     * @param clientUserPageQueryDTO C端用户分页查询DTO对象
-     * @return PageResult<AdminUser> ClientUser类的分页查询对象
+     * @param clientUserPageQueryDTO C端用户分页查询DTO
      */
-    PageResult<ClientUser> getClientListPage(ClientUserPageQueryDTO clientUserPageQueryDTO);
-
-    /**
-     * 修改个人信息
-     *
-     * @param clientUserUpdateDTO 用户更新个人信息DTO
-     */
-    void updateInfo(ClientUserUpdateDTO clientUserUpdateDTO);
-
-    /**
-     * 查询个人信息
-     *
-     * @return ClientUser实体类对象
-     */
-    ClientUser getInfo();
-
-    /**
-     * 修改头像
-     *
-     * @param avatar 头像资源链接
-     */
-    void editAvatar(String avatar);
-
-    /**
-     * 设置C端用户账号登录状态
-     *
-     * @param id     C端用户id
-     * @param status C端用户目标状态
-     */
-    void editStatus(Long id, Integer status);
+    PageResult<ClientUserVO> query(ClientUserPageQueryDTO clientUserPageQueryDTO);
 }
