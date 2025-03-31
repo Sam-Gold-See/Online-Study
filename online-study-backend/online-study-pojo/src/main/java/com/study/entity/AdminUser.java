@@ -39,6 +39,9 @@ public class AdminUser implements Serializable {
     // 登录权限（1=正常，0=禁用）
     private Integer status;
 
+    // 是否用权限修改其他B端用户（1=有权限，0=无）
+    private Integer level;
+
     // 创建时间
     private LocalDateTime createTime;
 
@@ -50,7 +53,4 @@ public class AdminUser implements Serializable {
 
     // 更新用户ID
     private Long updateUser;
-
-    // 是否用权限修改其他管理端用户（1=有权限，0=无）
-    private Integer level;
 }

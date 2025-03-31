@@ -1,10 +1,6 @@
 package com.study.exception;
 
-public class EmailException extends BaseException {
-
-    public EmailException() {
-    }
-
+public class EmailException extends BusinessException {
     public EmailException(String message) {
         super(message);
     }

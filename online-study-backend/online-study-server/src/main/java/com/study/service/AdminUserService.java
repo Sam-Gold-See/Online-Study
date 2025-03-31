@@ -1,66 +1,67 @@
 package com.study.service;
 
-import com.study.dto.adminuser.AdminUserDTO;
-import com.study.dto.adminuser.AdminUserLoginDTO;
-import com.study.dto.adminuser.AdminUserPageQueryDTO;
+import com.study.dto.AdminUserDTO;
+import com.study.dto.AdminUserPageQueryDTO;
 import com.study.entity.AdminUser;
 import com.study.result.PageResult;
 import com.study.vo.AdminUserLoginVO;
+import com.study.vo.AdminUserVO;
 
 public interface AdminUserService {
 
     /**
      * 新增B端用户
      *
-     * @param adminUserDTO B端用户DTO对象
+     * @param adminUserDTO B端用户DTO
      */
     void add(AdminUserDTO adminUserDTO);
 
     /**
-     * 用户登录
+     * B端用户登录
      *
-     * @param adminUserLoginDTO B端用户登录DTO对象
-     * @return AdminUserLoginVO B端用户登录VO对象
+     * @param adminUserDTO B端用户DTO
      */
-    AdminUserLoginVO login(AdminUserLoginDTO adminUserLoginDTO);
+    AdminUserLoginVO login(AdminUserDTO adminUserDTO);
 
     /**
-     * 启用、禁用B端用户登录权限
+     * B端用户退出
      *
-     * @param id     用户id
-     * @param status 目标状态
+     * @param token jwt令牌
      */
-    void editStatus(Long id, Integer status);
-
+    void logout(String token);
 
     /**
-     * 启用、禁用B端用户修改权限
+     * 设置B端用户登录权限
      *
-     * @param id    用户id
-     * @param level 目标权限
+     * @param adminUserDTO B端用户DTO
      */
-    void editLevel(Long id, Integer level);
+    void editStatus(AdminUserDTO adminUserDTO);
 
     /**
-     * B端用户分页查询
+     * 设置B端用户修改权限
+     *
+     * @param adminUserDTO B端用户DTO
+     */
+    void editLevel(AdminUserDTO adminUserDTO);
+
+    /**
+     * 设置B端用户信息
+     *
+     * @param adminUserDTO B端用户DTO
+     */
+    void update(AdminUserDTO adminUserDTO);
+
+    /**
+     * 查询B端用户信息
+     *
+     * @param id B端用户id
+     */
+    AdminUser getInfo(Long id);
+
+    /**
+     * 分页查询B端用户
      *
      * @param adminUserPageQueryDTO B端用户分页查询DTO对象
-     * @return PageResult<AdminUser> AdminUser类的分页查询对象
      */
-    PageResult<AdminUser> getAdminListPage(AdminUserPageQueryDTO adminUserPageQueryDTO);
-
-    /**
-     * B端用户数据查询
-     *
-     * @param id 用户id
-     * @return AdminUser类Admin用户实体对象
-     */
-    AdminUser getById(Long id);
-
-    /**
-     * B端用户数据更新
-     *
-     * @param adminUser B端用户
-     */
-    void updateAdmin(AdminUser adminUser);
+    PageResult<AdminUserVO> query(AdminUserPageQueryDTO adminUserPageQueryDTO);
 }

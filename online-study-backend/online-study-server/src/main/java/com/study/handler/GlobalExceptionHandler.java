@@ -1,7 +1,7 @@
 package com.study.handler;
 
 import com.study.constant.MessageConstant;
-import com.study.exception.BaseException;
+import com.study.exception.BusinessException;
 import com.study.result.Result;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -25,8 +25,8 @@ public class GlobalExceptionHandler {
      * @return Result响应对象类
      */
     @ExceptionHandler
-    public Result<String> exceptionHandler(BaseException e) {
-        log.error("异常信息：{}", e.getMessage());
+    public Result<String> exceptionHandler(BusinessException e) {
+        log.error("异常信息:{}", e.getMessage());
         return Result.error(e.getMessage());
     }
 
@@ -42,18 +42,25 @@ public class GlobalExceptionHandler {
         String message = ex.getMessage();
 
         // 记录日志，方便调试和排查问题
-        log.error("SQL 约束异常: {}", message);
+        log.error("SQL 约束异常:{}", message);
 
         // 处理唯一约束冲突问题
         // 'Duplicate entry 'admin' for key 'admin_user.username'
         if (message.contains("Duplicate entry")) {
             // 使用正则表达式提取冲突值，如 `admin`
-            Pattern pattern = Pattern.compile("Duplicate entry '(.*?)' for key");
+            Pattern pattern = Pattern.compile("Duplicate entry '(.*?)' for key '(.*?)'");
             Matcher matcher = pattern.matcher(message);
             if (matcher.find()) {
-                String username = matcher.group(1); // 获取冲突字段的值
-                String msg = username + MessageConstant.ALREADY_EXISTS; // 格式化提示
-                return Result.error(msg); // 返回全局统一响应对象
+                String conflictValue = matcher.group(1); // 获取冲突字段的值
+                String conflictKey = matcher.group(2); // 获取冲突的唯一索引名称
+                if (conflictKey.contains("admin_user.username"))
+                    return Result.error("账号 '" + conflictValue + "' 已存在！");
+                else if (conflictKey.contains("admin_user.phone"))
+                    return Result.error("手机号 '" + conflictValue + "' 已被注册！");
+                else if (conflictKey.contains("client_user.email"))
+                    return Result.error("邮箱 '" + conflictValue + "' 已被注册！");
+                else if (conflictKey.contains("favourite.unique_favourite"))
+                    return Result.error("已收藏，无法重复收藏");
             }
         }
         // 其他未知 SQL 约束异常，返回通用错误信息
