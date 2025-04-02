@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.converter.HttpMessageConverter;
 import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
+import org.springframework.web.servlet.config.annotation.CorsRegistry;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurationSupport;
 
@@ -55,5 +56,23 @@ public class WebMvcConfiguration extends WebMvcConfigurationSupport {
         converter.setObjectMapper(new JacksonObjectMapper());
         // 将自己的消息转化器加入容器中
         converters.add(0, converter);
+    }
+
+    /**
+     * 配置全局跨域（开发测试时）
+     *
+     * @param registry 跨域
+     */
+    //TODO 后期使用Nginx部署后删除全局跨域
+    @Override
+    public void addCorsMappings(CorsRegistry registry) {
+        registry.addMapping("/**")
+                //是否发送Cookie
+                .allowCredentials(true)
+                //放行哪些原始域
+                .allowedOrigins("*")
+                .allowedMethods("GET", "POST", "PUT", "DELETE")
+                .allowedHeaders("*")
+                .exposedHeaders("*");
     }
 }
