@@ -2,8 +2,8 @@ import http from "../utils/http";
 
 //登录接口
 export const loginApi= (message) => {
-    email=message.email
-    password=message.password
+    const email=message.email
+    const password=message.password
     return http({
         url:'client/user/login',
         method:'POST',
@@ -53,6 +53,19 @@ export const askCode=(email)=>{
 
 //重置密码接口
 export const editCode=(form)=>{
+    return http({
+        url:'client/user/editPassword',
+        method:'POST',
+        data:{
+            email
+        }
+    })
+
+}
+
+
+//获取日程信息接口
+export const scheduleDetail=(form)=>{
     return http({
         url:'client/user/editPassword',
         method:'POST',

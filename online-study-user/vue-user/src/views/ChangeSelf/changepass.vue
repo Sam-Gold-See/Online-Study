@@ -1,14 +1,12 @@
 <script setup lang="ts">
 import { reactive,ref } from 'vue'
-import { useRouter } from 'vue-router'
 import type { FormInstance, FormRules } from 'element-plus'
-import success from '@/views/Register/successdialog.vue'
+const emit = defineEmits(['close'])
 
-const router=useRouter()
+
 const pass=ref(false)
 const nocode=ref(true)
 const count=ref(60)
-const successful=ref(false)
 
 const getcode=()=>{
     nocode.value=false;
@@ -66,38 +64,29 @@ const rules2 = reactive<FormRules<Form2>>({
   ],
 })
 
-const replace=()=>{
-    successful.value=true;
-    setTimeout(()=>{
-        router.replace({path:'/login'})
-    },900)
-}
+
 </script>
 
 <template>
-    <div class="background">
-
-        <div class="container">
-            <div class="title">
-                重置密码
-            </div>
-            <div style="height:100px;margin-top:20px;padding-left:30px;">
+    <div>
+        <div class="box">
+            <div style="height:100px;margin-top:30px;padding-left:10px;">
                 <div style="font-size:22px;margin-bottom:20px;">邮箱验证</div>
                 <div style="color:#61666D">为了您的账号安全，需要验证您的邮箱。验证码将发送至：</div>
             </div>
-            <div class="verify">
-                <el-form
-                    ref="ruleFormRef1"
-                    style="max-width: 300px;margin-top:80px;"
-                    :model="ruleForm1"
-                    :rules="rules1"
-                    label-width="auto"
-                    label-position="top"
-                    size="large"
-                    status-icon
-                    class="elform"
-                    v-if="!pass"
-                > 
+
+            <el-form
+                ref="ruleFormRef1"
+                style="max-width: 300px"
+                :model="ruleForm1"
+                :rules="rules1"
+                label-width="auto"
+                label-position="top"
+                size="large"
+                status-icon
+                class="elform"
+                v-if="!pass"
+            >
                 <el-form-item label="验证码" prop="verifycode">
                     <el-input v-model="ruleForm1.verifycode" :validate-event='false'/>
                 </el-form-item>
@@ -115,8 +104,8 @@ const replace=()=>{
                 >
                     下一步
                 </el-button>
-            </el-form>
 
+            </el-form>
             <el-form
                 ref="ruleFormRef2"
                 style="max-width: 300px"
@@ -138,75 +127,45 @@ const replace=()=>{
     
                     
                 <el-button style='margin-left:105px;margin-top:20px;float:left;' type="primary"
-                    @click="replace"
+                    @click="pass=false"
                 >
                     立即修改
                 </el-button>
+                <el-form-item>
+                    
+                </el-form-item>
             </el-form>
-            </div>
-            <div class="footer" @click="router.push({path:'/login'})">
-                返回登录
-            </div>
-        </div>
-        
-    </div>
 
-    <success v-if="successful" message="修改成功！"/>
+            <span class="cancel" @click="emit('close')">
+                取消修改
+            </span>
+        </div>
+    </div>
 </template>
 
 <style scoped>
-.background{
-    width:1698px;
-    height:800px;
-    position:absolute;
-    left:0px;
-    top:0px;
-    background-image: url('@/assets/bk3.png');
-}
-
-.container{
-    width:650px;
-    height:630px;
-    margin-left:540px;
-    margin-top:50px;
-    background-color: white;
-    border:1px solid white;
-    border-radius: 10px;
-}
-
-.title{
-    height:60px;
-    margin-top:20px;
-    font-size:30px;
-    font-weight: 600;
-    border-bottom:2px solid gray;
-    padding-left:30px;
-}
-
-.verify{
-    width:650px;
-    height:300px;
-    margin-top:10px;
-    border:1px solid white;
+.box{
+  width:700px;
+  height:500px;
+  position: absolute;
+  left:260px;
+  top:240px;
+  background-color: white;
 }
 
 .elform{
-    margin-left:180px;
+    margin-left:200px;
     margin-top:50px;
 }
 
-.footer{
-    width:70px;
-    height:40px;
-    margin-top:20px;
-    margin-left:300px;
-    line-height:40px;
-    font-size:16px;
-    text-align: center;
+.cancel{
+    position:absolute;
+    left:325px;
+    top:450px;
+    font-size:14px;
     cursor:pointer;
 }
-.footer:hover{
+.cancel:hover{
     color:#61666d98;
 }
 </style>
-
