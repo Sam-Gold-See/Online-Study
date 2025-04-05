@@ -36,6 +36,7 @@
         <cache>3.4.3</cache>
         <poi>5.4.0</poi>
         <email>1.5</email>
+        <amqp>3.4.3</amqp>
     </properties>
 
     <dependencyManagement>
@@ -194,6 +195,7 @@
             <dependency>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-starter-amqp</artifactId>
+                <version>${amqp}</version>
             </dependency>
 
         </dependencies>
