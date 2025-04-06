@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/client/post")
 @RestController
 @Slf4j
+@CrossOrigin(origins = "http://localhost:5173")
 public class PostController {
 
     @Autowired

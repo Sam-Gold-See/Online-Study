@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @RequestMapping("/client/favourite")
 @Slf4j
+@CrossOrigin(origins = "http://localhost:5173")
 public class FavouriteController {
 
     @Autowired

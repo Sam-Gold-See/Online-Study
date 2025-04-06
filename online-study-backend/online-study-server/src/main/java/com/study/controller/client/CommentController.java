@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @RequestMapping("/client/comment")
 @Slf4j
+@CrossOrigin(origins = "http://localhost:5173")
 public class CommentController {
 
     @Autowired
