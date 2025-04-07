@@ -55,6 +55,12 @@ public class ClientUserServiceImpl implements ClientUserService {
         // 获取用户邮箱和验证码
         String email = clientUserDTO.getEmail();
 
+        ClientUser clientUserDB = clientUserMapper.getByEmail(email);
+        if (clientUserDB != null) {
+            // 账号已存在
+            throw new AccountException(MessageConstant.ACCOUNT_ALREADY_EXIST);
+        }
+
         // 检验验证码
         checkVerificationCode(clientUserDTO, email);
 
