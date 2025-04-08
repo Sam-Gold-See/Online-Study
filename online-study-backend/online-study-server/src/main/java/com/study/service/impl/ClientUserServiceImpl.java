@@ -16,7 +16,6 @@ import com.study.mapper.ClientUserMapper;
 import com.study.properties.JwtProperties;
 import com.study.result.PageResult;
 import com.study.service.ClientUserService;
-import com.study.utils.CodeUtils;
 import com.study.utils.IdUtil;
 import com.study.utils.JwtUtil;
 import com.study.vo.ClientUserLoginVO;
@@ -62,7 +61,7 @@ public class ClientUserServiceImpl implements ClientUserService {
         }
 
         // 检验验证码
-        checkVerificationCode(clientUserDTO, email);
+        checkVerificationCode(email);
 
         // 复制数据
         ClientUser clientUser = new ClientUser();
@@ -136,17 +135,19 @@ public class ClientUserServiceImpl implements ClientUserService {
     public void editPassword(ClientUserDTO clientUserDTO) {
         // 获取用户邮箱和验证码
         String email = clientUserDTO.getEmail();
-        checkVerificationCode(clientUserDTO, email);
+        checkVerificationCode(email);
 
         String password = clientUserDTO.getPassword();
         password = DigestUtils.md5DigestAsHex(password.getBytes());
 
-        stringRedisTemplate.delete(JwtConstant.AUTHENTICATION_LIST + email);
+        Long id = clientUserMapper.getByEmail(email).getId();
 
         clientUserMapper.update(ClientUser.builder()
-                .email(email)
+                .id(id)
                 .password(password)
                 .build());
+
+        stringRedisTemplate.delete(JwtConstant.AUTHENTICATION_LIST + email);
     }
 
     /**
@@ -160,7 +161,7 @@ public class ClientUserServiceImpl implements ClientUserService {
         String newEmail = clientUserDTO.getEmail();
 
         // 检验验证码
-        checkVerificationCode(clientUserDTO, newEmail);
+        checkVerificationCode(newEmail);
 
         Long userId = BaseContext.getCurrentId();
         ClientUser clientUserDB = clientUserMapper.getById(userId);
@@ -290,14 +291,12 @@ public class ClientUserServiceImpl implements ClientUserService {
         return new PageResult<>(page.getTotal(), page.getResult());
     }
 
-    private void checkVerificationCode(ClientUserDTO clientUserDTO, String email) {
-        String verificationCode = clientUserDTO.getVerificationCode();
-        verificationCode = CodeUtils.upperLetters(verificationCode);
+    private void checkVerificationCode(String email) {
         String verificationCodeRedis = stringRedisTemplate.opsForValue().get(AccountConstant.REDIS_KEY + email);
 
         // 验证码比对
-        if (verificationCodeRedis == null || !Objects.equals(verificationCodeRedis, verificationCode)) {
-            throw new VerificationException(MessageConstant.VERIFICATION_CODE_ERROR);
+        if (verificationCodeRedis == null || !Objects.equals(verificationCodeRedis, AccountConstant.PERMISSION.toString())) {
+            throw new VerificationException(MessageConstant.PERMISSION_ERROR);
         }
 
         // 验证码正确，删除 Redis 中的验证码
