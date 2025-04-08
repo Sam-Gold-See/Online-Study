@@ -10,3 +10,9 @@ online-study:
     host: 127.0.0.1
     port: 6379
     database: 0
+  rabbitmq:
+    host: localhost
+    port: 5672
+    username: guest
+    password: guest
+    virtual-host: /

@@ -33,6 +33,12 @@ spring:
             required: true
           ssl:
             enable: true
+  rabbitmq:
+    host: ${online-study.rabbitmq.host}
+    port: ${online-study.rabbitmq.port}
+    username: ${online-study.rabbitmq.username}
+    password: ${online-study.rabbitmq.password}
+    virtual-host: ${online-study.rabbitmq.virtual-host}
 
 mybatis:
   mapper-locations: classpath:mapper/*.xml
