@@ -20,6 +20,7 @@ public class NotificationProducer {
      * @param notificationDTO 通知DTO对象
      */
     public void sendNotificationDTO(NotificationDTO notificationDTO) {
+        log.info("发送通知:{}", notificationDTO);
         rabbitTemplate.convertAndSend(
                 RabbitMQConstant.NOTIFICATION_EXCHANGE,
                 RabbitMQConstant.NOTIFICATION_ROUTING_KEY,
