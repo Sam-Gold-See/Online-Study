@@ -61,6 +61,8 @@ public class GlobalExceptionHandler {
                     return Result.error("邮箱 '" + conflictValue + "' 已被注册！");
                 else if (conflictKey.contains("favourite.unique_favourite"))
                     return Result.error("已收藏，无法重复收藏");
+                else if (conflictKey.contains("like.unique_like_post"))
+                    return Result.error("已点赞，无法重复点赞");
             }
         }
         // 其他未知 SQL 约束异常，返回通用错误信息
