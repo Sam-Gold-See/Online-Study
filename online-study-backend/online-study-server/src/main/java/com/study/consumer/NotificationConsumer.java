@@ -31,5 +31,6 @@ public class NotificationConsumer {
         BeanUtils.copyProperties(notificationDTO, notification);
 
         notificationMapper.insert(notification);
+        log.info("接收通知:{}", notification);
     }
 }
