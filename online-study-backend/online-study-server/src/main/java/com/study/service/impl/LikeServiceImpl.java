@@ -1,13 +1,15 @@
 package com.study.service.impl;
 
+import com.study.constant.NotificationConstant;
 import com.study.context.BaseContext;
 import com.study.dto.LikeDTO;
+import com.study.dto.NotificationDTO;
 import com.study.entity.Like;
 import com.study.mapper.LikeMapper;
+import com.study.producer.NotificationProducer;
 import com.study.service.LikeService;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -17,7 +19,7 @@ public class LikeServiceImpl implements LikeService {
     private LikeMapper likeMapper;
 
     @Autowired
-    private StringRedisTemplate stringRedisTemplate;
+    private NotificationProducer notificationProducer;
 
     /**
      * 新增点赞
@@ -31,6 +33,14 @@ public class LikeServiceImpl implements LikeService {
         like.setUserId(BaseContext.getCurrentId());
 
         likeMapper.insert(like);
+
+        notificationProducer.sendNotificationDTO(
+                NotificationDTO.builder()
+                        .userId(BaseContext.getCurrentId())
+                        .type(NotificationConstant.LIKE)
+                        .sourceId(like.getId())
+                        .build()
+        );
     }
 
     /**
