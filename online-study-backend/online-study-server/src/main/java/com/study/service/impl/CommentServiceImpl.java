@@ -4,12 +4,15 @@ import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
 import com.study.constant.CommentConstant;
 import com.study.constant.MessageConstant;
+import com.study.constant.NotificationConstant;
 import com.study.context.BaseContext;
 import com.study.dto.CommentDTO;
 import com.study.dto.CommentPageQueryDTO;
+import com.study.dto.NotificationDTO;
 import com.study.entity.Comment;
 import com.study.exception.OperationException;
 import com.study.mapper.CommentMapper;
+import com.study.producer.NotificationProducer;
 import com.study.result.PageResult;
 import com.study.service.CommentService;
 import org.springframework.beans.BeanUtils;
@@ -20,6 +23,9 @@ import java.util.Objects;
 
 @Service
 public class CommentServiceImpl implements CommentService {
+
+    @Autowired
+    private NotificationProducer notificationProducer;
 
     @Autowired
     private CommentMapper commentMapper;
@@ -36,6 +42,17 @@ public class CommentServiceImpl implements CommentService {
         comment.setUserId(BaseContext.getCurrentId());
 
         commentMapper.insert(comment);
+
+        Long parentId = comment.getParentId();
+
+        notificationProducer.sendNotificationDTO(
+                NotificationDTO.builder()
+                        .userId(BaseContext.getCurrentId())
+                        .type(parentId == null ? NotificationConstant.COMMENT : NotificationConstant.REPLY)
+                        .sourceId(comment.getId())
+                        .commentId(parentId)
+                        .build()
+        );
     }
 
     /**
