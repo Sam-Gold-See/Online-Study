@@ -6,6 +6,7 @@ import com.study.enumeration.OperationType;
 import com.study.enumeration.TerminalType;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Options;
 import org.apache.ibatis.annotations.Select;
 
 @Mapper
@@ -17,8 +18,9 @@ public interface LikeMapper {
      * @param like 点赞实体类对象
      */
     @AutoFill(operation = OperationType.INSERT, terminal = TerminalType.CLIENT)
-    @Insert("INSERT INTO `like` (user_id, post_id, comment_id, update_time) " +
-            "VALUES (#{userId}, #{postId}, #{commentId}, #{updateTime})")
+    @Insert("INSERT INTO `like` (user_id, post_id, comment_id, create_time, update_time) " +
+            "VALUES (#{userId}, #{postId}, #{commentId}, #{createTime}, #{updateTime})")
+    @Options(useGeneratedKeys = true, keyProperty = "id")
     void insert(Like like);
 
     /**
