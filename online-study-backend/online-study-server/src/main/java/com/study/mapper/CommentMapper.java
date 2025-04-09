@@ -8,6 +8,7 @@ import com.study.enumeration.OperationType;
 import com.study.enumeration.TerminalType;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Options;
 import org.apache.ibatis.annotations.Select;
 
 @Mapper
@@ -21,6 +22,7 @@ public interface CommentMapper {
     @AutoFill(operation = OperationType.INSERT, terminal = TerminalType.CLIENT)
     @Insert("INSERT INTO comment (post_id, user_id, parent_id, content, create_time, update_time) " +
             "VALUES (#{postId}, #{userId}, #{parentId}, #{content}, #{createTime}, #{updateTime})")
+    @Options(useGeneratedKeys = true, keyProperty = "id")
     void insert(Comment comment);
 
     /**
