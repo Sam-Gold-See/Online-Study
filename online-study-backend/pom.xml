@@ -50,7 +50,7 @@
                 <version>${lombok}</version>
             </dependency>
 
-            <!-- Object 和 JSON 之间的序列化、反序列化 pojo -->
+            <!-- Object 和 JSON 之间的序列化、反序列化 pojo server -->
 
             <dependency>
                 <groupId>com.fasterxml.jackson.core</groupId>
