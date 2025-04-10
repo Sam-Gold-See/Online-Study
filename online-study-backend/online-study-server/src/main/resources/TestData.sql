@@ -11,6 +11,10 @@ INSERT INTO `client_user` (id, name, email, password, gender, status, avatar, cr
 VALUES (2174169369495400, 'HCX', '2377043893@qq.com', 'e10adc3949ba59abbe56e057f20f883e', 'M', 1, '',
         '2025-03-11 19:48:14', '2025-03-11 19:48:14');
 
+INSERT INTO `client_user` (id, name, email, password, gender, status, avatar, create_time, update_time)
+VALUES (2174403345526401, '1111', '2786065026@qq.com', 'e10adc3949ba59abbe56e057f20f883e', 'M', 1, '',
+        '2025-04-07 21:44:15', '2025-04-07 21:44:15');
+
 INSERT INTO `post_category` (name)
 VALUES ('其他'),
        ('组队'),
