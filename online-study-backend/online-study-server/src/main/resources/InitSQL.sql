@@ -62,7 +62,7 @@ CREATE TABLE `post`
     `create_time`   DATETIME COMMENT '创建时间',
     `update_time`   DATETIME COMMENT '更新时间',
     `score` DOUBLE DEFAULT NULL COMMENT '热度系数',
-    `category_id`   BIGINT     DEFAULT 1 COMMENT '帖子种类id',
+    `category_id`   BIGINT  DEFAULT 1 COMMENT '帖子种类id',
     FOREIGN KEY (user_id) REFERENCES `client_user` (id) ON DELETE CASCADE,
     FOREIGN KEY (category_id) REFERENCES `post_category` (id) ON DELETE SET NULL
 ) COMMENT ='帖子表';
@@ -112,14 +112,17 @@ CREATE TABLE `like`
 
 CREATE TABLE `notification`
 (
-    `id`         BIGINT PRIMARY KEY AUTO_INCREMENT COMMENT '通知id',
-    `user_id`    BIGINT  NOT NULL COMMENT '接收用户id',
-    `type`       TINYINT NOT NULL COMMENT '通知类型（1=点赞，2=评论，3=回复）',
-    `source_id`  BIGINT  NOT NULL COMMENT '来源id（帖子id或评论id）',
-    `is_read`    TINYINT DEFAULT 0 COMMENT '是否已读（0=未读，1=已读）',
-    `comment_id` BIGINT  DEFAULT NULL COMMENT '评论id（评论帖子时、回复评论时非空）',
+    `id`          BIGINT PRIMARY KEY AUTO_INCREMENT COMMENT '通知id',
+    `from_id`     BIGINT  NOT NULL COMMENT '发送者id',
+    `to_id`       BIGINT  NOT NULL COMMENT '接收者id',
+    `type`        TINYINT NOT NULL COMMENT '通知类型（1=点赞，2=评论，3=回复）',
+    `post_id`     BIGINT  NOT NULL COMMENT '来源id（帖子id）',
+    `comment_id`  BIGINT  DEFAULT NULL COMMENT '评论id（评论帖子时、回复评论时非空）',
+    `content`     TEXT COMMENT '消息内容',
+    `status`      TINYINT DEFAULT 0 COMMENT '是否已读（0=未读，1=已读）',
     `create_time` DATETIME COMMENT '创建时间',
     `update_time` DATETIME COMMENT '更新时间',
-    FOREIGN KEY (user_id) REFERENCES client_user (id) ON DELETE CASCADE,
+    FOREIGN KEY (from_id) REFERENCES client_user (id) ON DELETE CASCADE,
+    FOREIGN KEY (to_id) REFERENCES client_user (id) ON DELETE CASCADE,
     FOREIGN KEY (comment_id) REFERENCES comment (id) ON DELETE CASCADE
 ) COMMENT='通知表';
