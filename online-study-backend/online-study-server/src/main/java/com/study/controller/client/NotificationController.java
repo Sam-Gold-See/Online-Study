@@ -6,10 +6,7 @@ import com.study.service.NotificationService;
 import com.study.vo.NotificationVO;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -30,5 +27,17 @@ public class NotificationController {
         List<NotificationVO> list = notificationService.getList();
         log.info("C端用户(id:{})查询通知:{}", BaseContext.getCurrentId(), list);
         return Result.success(list);
+    }
+
+    /**
+     * 已读通知
+     *
+     * @param id 通知id
+     */
+    @DeleteMapping
+    public Result<String> delete(Long id) {
+        notificationService.delete(id);
+        log.info("C端用户(id:{})已读通知:{}", BaseContext.getCurrentId(), id);
+        return Result.success();
     }
 }
