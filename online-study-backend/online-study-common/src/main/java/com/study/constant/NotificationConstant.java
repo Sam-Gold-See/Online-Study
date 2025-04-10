@@ -17,6 +17,9 @@ public class NotificationConstant {
     // 通知未读状态
     public static final Integer UNREAD = 0;
 
+    // 通知已读状态
+    public static final Integer READ = 1;
+
     // 点赞帖子通知内容
     public static final String LIKE_POST_NOTIFICATION = "您的帖子收到了一条点赞";
 
