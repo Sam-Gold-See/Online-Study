@@ -27,4 +27,18 @@ public class NotificationServiceImpl implements NotificationService {
                 .build();
         return notificationMapper.getList(notification);
     }
+
+    /**
+     * 已读通知
+     *
+     * @param id 通知id
+     */
+    @Override
+    public void delete(Long id) {
+        Notification notification = Notification.builder()
+                .id(id)
+                .status(NotificationConstant.READ)
+                .build();
+        notificationMapper.update(notification);
+    }
 }
