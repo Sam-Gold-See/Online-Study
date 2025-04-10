@@ -17,4 +17,9 @@ public interface NotificationService {
      * @param id 通知id
      */
     void delete(Long id);
+
+    /**
+     * 全部已读
+     */
+    void readAll();
 }

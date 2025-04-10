@@ -16,6 +16,7 @@ public class NotificationServiceImpl implements NotificationService {
 
     @Autowired
     private NotificationMapper notificationMapper;
+
     /**
      * 查询通知
      */
@@ -40,5 +41,16 @@ public class NotificationServiceImpl implements NotificationService {
                 .status(NotificationConstant.READ)
                 .build();
         notificationMapper.update(notification);
+    }
+
+    /**
+     * 全部已读
+     */
+    @Override
+    public void readAll() {
+        notificationMapper.readAll(Notification.builder()
+                .status(NotificationConstant.READ)
+                .toId(BaseContext.getCurrentId())
+                .build());
     }
 }
