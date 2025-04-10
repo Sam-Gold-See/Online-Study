@@ -1,4 +1,31 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.study.mapper.NotificationMapper">
+    <update id="update">
+        UPDATE notification
+        <set>
+            <if test="fromId != null">
+                from_id = #{fromId},
+            </if>
+            <if test="toId != null">
+                to_id = #{toId},
+            </if>
+            <if test="type != null">
+                type = #{type},
+            </if>
+            <if test="postId != null">
+                post_id = #{postId},
+            </if>
+            <if test="commentId != null">
+                comment_id = #{commentId},
+            </if>
+            <if test="content != null">
+                content = #{content},
+            </if>
+            <if test="status != null">
+                status = #{status},
+            </if>
+        </set>
+        WHERE id = #{id}
+    </update>
 </mapper>

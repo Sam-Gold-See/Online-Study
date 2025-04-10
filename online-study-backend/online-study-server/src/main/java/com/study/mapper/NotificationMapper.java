@@ -31,4 +31,12 @@ public interface NotificationMapper {
      */
     @Select("SELECT * FROM notification WHERE to_id = #{toId} AND status = #{status} ORDER BY create_time DESC")
     List<NotificationVO> getList(Notification notification);
+
+    /**
+     * 动态更新
+     *
+     * @param notification 通知实体类对象
+     */
+    @AutoFill(operation = OperationType.UPDATE, terminal = TerminalType.CLIENT)
+    void update(Notification notification);
 }
