@@ -16,7 +16,9 @@ public class NotificationServiceImpl implements NotificationService {
 
     @Autowired
     private NotificationMapper notificationMapper;
-
+    /**
+     * 查询通知
+     */
     @Override
     public List<NotificationVO> getList() {
         Notification notification = Notification.builder()
