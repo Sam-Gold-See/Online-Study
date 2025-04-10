@@ -36,9 +36,9 @@ public class LikeServiceImpl implements LikeService {
 
         notificationProducer.sendNotificationDTO(
                 NotificationDTO.builder()
-                        .userId(BaseContext.getCurrentId())
+                        .fromId(BaseContext.getCurrentId())
                         .type(NotificationConstant.LIKE)
-                        .sourceId(like.getId())
+                        .postId(like.getPostId())
                         .build()
         );
     }

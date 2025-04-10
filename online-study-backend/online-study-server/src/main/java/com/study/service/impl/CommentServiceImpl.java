@@ -47,9 +47,9 @@ public class CommentServiceImpl implements CommentService {
 
         notificationProducer.sendNotificationDTO(
                 NotificationDTO.builder()
-                        .userId(BaseContext.getCurrentId())
+                        .fromId(BaseContext.getCurrentId())
                         .type(parentId == null ? NotificationConstant.COMMENT : NotificationConstant.REPLY)
-                        .sourceId(comment.getId())
+                        .postId(comment.getPostId())
                         .commentId(parentId)
                         .build()
         );
