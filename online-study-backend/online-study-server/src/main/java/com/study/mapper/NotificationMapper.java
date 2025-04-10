@@ -16,6 +16,7 @@ public interface NotificationMapper {
      * @param notification 通知实体类对象
      */
     @AutoFill(operation = OperationType.INSERT, terminal = TerminalType.CLIENT)
-    @Insert("INSERT INTO notification (user_id, type, source_id, comment_id, create_time, update_time) VALUES (#{userId}, #{type}, #{sourceId}, #{commentId}, #{createTime}, #{updateTime})")
+    @Insert("INSERT INTO notification (from_id, to_id, type, post_id, comment_id, content, create_time, update_time) " +
+            "VALUES (#{fromId}, #{toId}, #{type}, #{postId}, #{commentId}, #{content}, #{createTime}, #{updateTime})")
     void insert(Notification notification);
 }
