@@ -21,20 +21,26 @@ public class Notification implements Serializable {
     // 通知id
     private Long id;
 
+    // 发送用户id
+    private Long fromId;
+
     // 接收用户id
-    private Long userId;
+    private Long toId;
 
     // 通知类型（1=点赞，2=评论，3=回复）
     private Integer type;
 
-    // 来源id（帖子id或评论id）
-    private Long sourceId;
+    // 帖子id
+    private Long postId;
+
+    // 评论id
+    private Long commentId;
+
+    // 通知内容
+    private String content;
 
     // 是否已读（0=未读，1=已读）
-    private Integer isRead;
-
-    // 评论id（评论帖子、回复评论时非空）
-    private Long commentId;
+    private Integer status;
 
     // 创建时间
     private LocalDateTime createTime;
