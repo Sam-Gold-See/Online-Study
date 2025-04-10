@@ -47,4 +47,12 @@ public interface CommentMapper {
      * @param commentPageQueryDTO 评论分页查询DTO对象
      */
     Page<Comment> query(CommentPageQueryDTO commentPageQueryDTO);
+
+    /**
+     * 获取评论用户id
+     *
+     * @param commentId 帖子id
+     */
+    @Select("SELECT user_id FROM comment WHERE id = #{commentId}")
+    Long getUserId(Long commentId);
 }
