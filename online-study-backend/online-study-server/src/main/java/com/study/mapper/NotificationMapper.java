@@ -8,6 +8,7 @@ import com.study.vo.NotificationVO;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.Update;
 
 import java.util.List;
 
@@ -39,4 +40,12 @@ public interface NotificationMapper {
      */
     @AutoFill(operation = OperationType.UPDATE, terminal = TerminalType.CLIENT)
     void update(Notification notification);
+
+    /**
+     * 全部已读
+     *
+     * @param notification 通知实体类对象
+     */
+    @Update("UPDATE notification SET status = #{status} WHERE to_id = #{toId}")
+    void readAll(Notification notification);
 }
