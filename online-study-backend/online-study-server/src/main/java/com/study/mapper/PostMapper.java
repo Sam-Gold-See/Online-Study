@@ -53,4 +53,12 @@ public interface PostMapper {
      * @param postPageQueryDTO 帖子分页查询DTO
      */
     Page<Post> adminQuery(PostPageQueryDTO postPageQueryDTO);
+
+    /**
+     * 获取帖子用户id
+     *
+     * @param postId 帖子id
+     */
+    @Select("SELECT user_id FROM post WHERE id = #{postId}")
+    Long getUserId(Long postId);
 }
