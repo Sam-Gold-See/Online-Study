@@ -159,24 +159,19 @@ public class ClientUserServiceImpl implements ClientUserService {
     public void editEmail(ClientUserDTO clientUserDTO) {
         //  获取用户新邮箱和验证码
         String newEmail = clientUserDTO.getEmail();
-
-        // 检验验证码
-        checkVerificationCode(newEmail);
+        String oldEmail = clientUserDTO.getOldEmail();
 
         Long userId = BaseContext.getCurrentId();
         ClientUser clientUserDB = clientUserMapper.getById(userId);
 
         // 检查目前账号的邮箱是否为数据库中邮箱（旧邮箱）
-        if (!(Objects.equals(clientUserDB.getEmail(), clientUserDTO.getOldEmail()))) {
+        if (!(Objects.equals(clientUserDB.getEmail(), oldEmail))) {
             throw new AccountException(MessageConstant.ACCOUNT_NOT_FOUND);
         }
 
-        String password = DigestUtils.md5DigestAsHex(clientUserDTO.getPassword().getBytes());
-        if (!password.equals(clientUserDB.getPassword())) {
-            throw new AccountException(MessageConstant.PASSWORD_ERROR);
-        }
-
-        stringRedisTemplate.delete(JwtConstant.AUTHENTICATION_LIST + clientUserDTO.getOldEmail());
+        // 检验验证码
+        checkVerificationCode(newEmail);
+        checkVerificationCode(oldEmail);
 
         clientUserMapper.update(ClientUser.builder()
                 .id(userId)
