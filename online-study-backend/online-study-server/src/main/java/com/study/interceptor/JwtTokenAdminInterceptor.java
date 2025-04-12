@@ -50,10 +50,11 @@ public class JwtTokenAdminInterceptor implements HandlerInterceptor {
 
         //2. 校验令牌
         try {
+            log.info("jwt校验:{}",token);
+
             Claims claims = JwtUtil.parseJWT(jwtProperties.getAdminSecretKey(),token);
             String username = claims.get(JwtConstant.ADMIN_USERNAME).toString();
 
-            log.info("jwt校验:{}",token);
             if(!Objects.equals(stringRedisTemplate.opsForValue().get(JwtConstant.TOKEN_LIST + username),token)){
                 log.warn("jwt令牌已失效:{}", token);
                 response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
@@ -69,6 +70,7 @@ public class JwtTokenAdminInterceptor implements HandlerInterceptor {
             return true;
         } catch (Exception ex) {
             //4. 不通过，响应401状态码（未经授权）
+            log.warn("jwt令牌异常:{}", token);
             response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
             return false;
         }
