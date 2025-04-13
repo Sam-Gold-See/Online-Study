@@ -27,8 +27,8 @@ public class PostCategoryController {
      */
     @GetMapping
     public Result<List<PostCategory>> getList() {
-        List<PostCategory> list = postCategoryService.getList();
         log.info("C端用户(id:{})正在获取全部帖子种类", BaseContext.getCurrentId());
+        List<PostCategory> list = postCategoryService.getList();
         return Result.success(list);
     }
 }

@@ -36,8 +36,8 @@ public class NotificationController {
      */
     @DeleteMapping
     public Result<String> delete(Long id) {
-        notificationService.delete(id);
         log.info("C端用户(id:{})已读通知:{}", BaseContext.getCurrentId(), id);
+        notificationService.delete(id);
         return Result.success();
     }
 
@@ -46,8 +46,8 @@ public class NotificationController {
      */
     @DeleteMapping("/all")
     public Result<String> deleteAll() {
-        notificationService.readAll();
         log.info("C端用户(id:{})全部通知已读", BaseContext.getCurrentId());
+        notificationService.readAll();
         return Result.success();
     }
 }

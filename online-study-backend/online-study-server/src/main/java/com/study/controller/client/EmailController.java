@@ -23,8 +23,8 @@ public class EmailController {
      */
     @GetMapping("/sendCode")
     public Result<String> sendCode(String email) {
-        emailService.sendCode(email);
         log.info("请求验证码:{}", email);
+        emailService.sendCode(email);
         return Result.success();
     }
 
@@ -35,8 +35,8 @@ public class EmailController {
      */
     @PostMapping("/checkCode")
     public Result<String> checkCode(@RequestBody ClientUserDTO clientUserDTO) {
-        emailService.checkCode(clientUserDTO);
         log.info("验证验证码(邮箱{}):{}", clientUserDTO.getEmail(), clientUserDTO.getVerificationCode());
+        emailService.checkCode(clientUserDTO);
         return Result.success();
     }
 }

@@ -27,8 +27,8 @@ public class CommentController {
      */
     @PostMapping("/add")
     public Result<String> add(@RequestBody CommentDTO commentDTO) {
-        commentService.add(commentDTO);
         log.info("C端用户(id:{})新增评论:{}", BaseContext.getCurrentId(), commentDTO);
+        commentService.add(commentDTO);
         return Result.success();
     }
 
@@ -39,8 +39,8 @@ public class CommentController {
      */
     @DeleteMapping("/delete")
     public Result<String> delete(@RequestBody CommentDTO commentDTO) {
-        commentService.delete(commentDTO);
         log.info("C端用户(id:{})删除评论:{}", BaseContext.getCurrentId(), commentDTO);
+        commentService.delete(commentDTO);
         return Result.success();
     }
 
@@ -51,8 +51,8 @@ public class CommentController {
      */
     @GetMapping("/postQuery")
     public Result<PageResult<Comment>> postQuery(@RequestBody CommentPageQueryDTO commentPageQueryDTO) {
-        PageResult<Comment> pageResult = commentService.query(commentPageQueryDTO);
         log.info("C端用户(id:{})查询帖子评论:{}", BaseContext.getCurrentId(), commentPageQueryDTO);
+        PageResult<Comment> pageResult = commentService.query(commentPageQueryDTO);
         return Result.success(pageResult);
     }
 
@@ -63,8 +63,8 @@ public class CommentController {
      */
     @GetMapping("/commentQuery")
     public Result<PageResult<Comment>> commentQuery(@RequestBody CommentPageQueryDTO commentPageQueryDTO) {
-        PageResult<Comment> pageResult = commentService.query(commentPageQueryDTO);
         log.info("C端用户(id:{})查询评论回复:{}", BaseContext.getCurrentId(), commentPageQueryDTO);
+        PageResult<Comment> pageResult = commentService.query(commentPageQueryDTO);
         return Result.success(pageResult);
     }
 
@@ -75,8 +75,8 @@ public class CommentController {
      */
     @PutMapping("/edit")
     public Result<String> edit(@RequestBody CommentDTO commentDTO) {
-        commentService.edit(commentDTO);
         log.info("C端用户(id:{})修改评论:{}", BaseContext.getCurrentId(), commentDTO);
+        commentService.edit(commentDTO);
         return Result.success();
     }
 }

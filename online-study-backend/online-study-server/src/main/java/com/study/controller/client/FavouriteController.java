@@ -27,8 +27,8 @@ public class FavouriteController {
      */
     @PostMapping("/add")
     public Result<String> add(@RequestBody FavouriteDTO favouriteDTO) {
-        favouriteService.add(favouriteDTO);
         log.info("C端用户(id:{})新增收藏:{}", BaseContext.getCurrentId(), favouriteDTO);
+        favouriteService.add(favouriteDTO);
         return Result.success();
     }
 
@@ -39,8 +39,8 @@ public class FavouriteController {
      */
     @DeleteMapping("/delete")
     public Result<String> delete(@RequestBody FavouriteDTO favouriteDTO) {
-        favouriteService.delete(favouriteDTO);
         log.info("C端用户(id:{})删除收藏:{}", BaseContext.getCurrentId(), favouriteDTO);
+        favouriteService.delete(favouriteDTO);
         return Result.success();
     }
 
@@ -51,8 +51,8 @@ public class FavouriteController {
      */
     @GetMapping("/query")
     public Result<PageResult<Favourite>> query(@RequestBody FavouritePageQueryDTO favouritePageQueryDTO) {
-        PageResult<Favourite> pageResult = favouriteService.query(favouritePageQueryDTO);
         log.info("C端用户(id:{})查询收藏列表)", BaseContext.getCurrentId());
+        PageResult<Favourite> pageResult = favouriteService.query(favouritePageQueryDTO);
         return Result.success(pageResult);
     }
 }

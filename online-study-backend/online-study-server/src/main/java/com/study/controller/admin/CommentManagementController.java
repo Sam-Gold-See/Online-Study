@@ -26,8 +26,8 @@ public class CommentManagementController {
      */
     @GetMapping()
     public Result<Comment> get(Long id) {
-        Comment comment = commentService.get(id);
         log.info("B端用户(id:{})查询评论详情(id:{})", BaseContext.getCurrentId(), id);
+        Comment comment = commentService.get(id);
         return Result.success(comment);
     }
 
@@ -38,8 +38,8 @@ public class CommentManagementController {
      */
     @GetMapping("/query")
     public Result<PageResult<Comment>> query(@RequestBody CommentPageQueryDTO commentPageQueryDTO) {
-        PageResult<Comment> pageResult = commentService.query(commentPageQueryDTO);
         log.info("B端用户(id:{})分页查询评论", BaseContext.getCurrentId());
+        PageResult<Comment> pageResult = commentService.query(commentPageQueryDTO);
         return Result.success(pageResult);
     }
 
@@ -50,8 +50,8 @@ public class CommentManagementController {
      */
     @PutMapping("/setDeleted")
     public Result<String> delete(@RequestBody CommentDTO commentDTO) {
-        commentService.setDeleted(commentDTO);
         log.info("B端用户(id:{})设置评论可见状态:{}", BaseContext.getCurrentId(), commentDTO);
+        commentService.setDeleted(commentDTO);
         return Result.success();
     }
 }

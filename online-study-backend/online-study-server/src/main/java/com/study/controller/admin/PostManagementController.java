@@ -26,8 +26,8 @@ public class PostManagementController {
      */
     @PutMapping("/top")
     public Result<String> editTop(@RequestBody PostDTO postDTO) {
-        postService.editTop(postDTO);
         log.info("B端用户(id:{})设置帖子(id:{})的置顶状态为:{}", BaseContext.getCurrentId(), postDTO.getId(), postDTO.getTop());
+        postService.editTop(postDTO);
         return Result.success();
     }
 
@@ -38,8 +38,8 @@ public class PostManagementController {
      */
     @PutMapping("/pro")
     public Result<String> editPro(@RequestBody PostDTO postDTO) {
-        postService.editPro(postDTO);
         log.info("B端用户(id:{})设置帖子(id:{})的加精状态为:{}", BaseContext.getCurrentId(), postDTO.getId(), postDTO.getPro());
+        postService.editPro(postDTO);
         return Result.success();
     }
 
@@ -50,8 +50,8 @@ public class PostManagementController {
      */
     @DeleteMapping("/delete")
     public Result<String> delete(@RequestBody PostDTO postDTO) {
-        postService.isDeleted(postDTO);
         log.info("B端用户(id:{})设置帖子(id:{})的删除状态为:{}", BaseContext.getCurrentId(), postDTO.getId(), postDTO.getIsDeleted());
+        postService.isDeleted(postDTO);
         return Result.success();
     }
 
@@ -62,8 +62,8 @@ public class PostManagementController {
      */
     @PutMapping("/category")
     public Result<String> category(@RequestBody PostDTO postDTO) {
-        postService.category(postDTO);
         log.info("B端用户(id:{})设置帖子(id:{})的帖子种类为:{}", BaseContext.getCurrentId(), postDTO.getId(), postDTO.getCategoryId());
+        postService.category(postDTO);
         return Result.success();
     }
 
@@ -74,8 +74,8 @@ public class PostManagementController {
      */
     @GetMapping("/query")
     public Result<PageResult<Post>> query(@RequestBody PostPageQueryDTO postPageQueryDTO) {
-        PageResult<Post> pageResult = postService.adminQuery(postPageQueryDTO);
         log.info("B端用户(id:{})分页查询帖子数据", BaseContext.getCurrentId());
+        PageResult<Post> pageResult = postService.adminQuery(postPageQueryDTO);
         return Result.success(pageResult);
     }
 }

@@ -27,8 +27,8 @@ public class PostController {
      */
     @PostMapping("/add")
     public Result<String> add(@RequestBody PostDTO postDTO) {
-        postService.add(postDTO);
         log.info("C端用户(id:{})新增帖子:{}", BaseContext.getCurrentId(), postDTO);
+        postService.add(postDTO);
         return Result.success();
     }
 
@@ -39,8 +39,8 @@ public class PostController {
      */
     @GetMapping("/get")
     public Result<PostVO> get(Long id) {
-        PostVO postVO = postService.get(id);
         log.info("C端用户(id:{})查看帖子:{}", BaseContext.getCurrentId(), id);
+        PostVO postVO = postService.get(id);
         return Result.success(postVO);
     }
 
@@ -51,8 +51,8 @@ public class PostController {
      */
     @DeleteMapping("/delete")
     public Result<String> delete(Long id) {
-        postService.delete(id);
         log.info("C端用户(id:{})删除帖子:{}", BaseContext.getCurrentId(), id);
+        postService.delete(id);
         return Result.success();
     }
 
@@ -63,8 +63,8 @@ public class PostController {
      */
     @PostMapping("/editPost")
     public Result<String> edit(@RequestBody PostDTO postDTO) {
-        postService.editPost(postDTO);
         log.info("C端用户(id:{})修改帖子:{}", BaseContext.getCurrentId(), postDTO);
+        postService.editPost(postDTO);
         return Result.success();
     }
 
@@ -75,8 +75,8 @@ public class PostController {
      */
     @GetMapping("/query")
     public Result<PageResult<PostVO>> query(@RequestBody PostPageQueryDTO postPageQueryDTO) {
-        PageResult<PostVO> pageResult = postService.query(postPageQueryDTO);
         log.info("帖子分页查询，条件为:{}", postPageQueryDTO);
+        PageResult<PostVO> pageResult = postService.query(postPageQueryDTO);
         return Result.success(pageResult);
     }
 }

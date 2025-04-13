@@ -23,8 +23,8 @@ public class PostCategoryManagementController {
      */
     @GetMapping
     public Result<List<PostCategory>> getList() {
-        List<PostCategory> list = postCategoryService.getList();
         log.info("B端用户(id:{})查询全部帖子种类", BaseContext.getCurrentId());
+        List<PostCategory> list = postCategoryService.getList();
         return Result.success(list);
     }
 
@@ -35,8 +35,8 @@ public class PostCategoryManagementController {
      */
     @PutMapping("/add")
     public Result<String> add(String name) {
-        PostCategory postCategory = postCategoryService.add(name);
-        log.info("B端用户(id:{})新增帖子种类:{}", BaseContext.getCurrentId(), postCategory);
+        log.info("B端用户(id:{})新增帖子种类:{}", BaseContext.getCurrentId(), name);
+        postCategoryService.add(name);
         return Result.success();
     }
 
@@ -47,8 +47,8 @@ public class PostCategoryManagementController {
      */
     @DeleteMapping("/delete")
     public Result<String> delete(Integer id) {
-        PostCategory postCategory = postCategoryService.delete(id);
-        log.info("B端用户(id:{})删除帖子种类:{}", BaseContext.getCurrentId(), postCategory);
+        log.info("B端用户(id:{})删除帖子种类id:{}", BaseContext.getCurrentId(), id);
+        postCategoryService.delete(id);
         return Result.success();
     }
 
@@ -59,8 +59,8 @@ public class PostCategoryManagementController {
      */
     @PostMapping("/edit")
     public Result<String> edit(@RequestBody PostCategory postCategory) {
-        postCategoryService.edit(postCategory);
         log.info("B端用户(id:{})修改帖子种类:{}", BaseContext.getCurrentId(), postCategory);
+        postCategoryService.edit(postCategory);
         return Result.success();
     }
 }

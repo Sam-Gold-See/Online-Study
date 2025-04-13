@@ -25,8 +25,8 @@ public class UserController {
      */
     @PostMapping("/regist")
     public Result<String> regist(@RequestBody ClientUserDTO clientUserDTO) {
-        clientUserService.add(clientUserDTO);
         log.info("C端用户注册:{}", clientUserDTO);
+        clientUserService.add(clientUserDTO);
         return Result.success();
     }
 
@@ -37,8 +37,8 @@ public class UserController {
      */
     @PostMapping("/login")
     public Result<ClientUserLoginVO> login(@RequestBody ClientUserDTO clientUserDTO) {
-        ClientUserLoginVO clientUserLoginVO = clientUserService.login(clientUserDTO);
         log.info("C端用户登录:{}", clientUserDTO);
+        ClientUserLoginVO clientUserLoginVO = clientUserService.login(clientUserDTO);
         return Result.success(clientUserLoginVO);
     }
 
@@ -49,8 +49,8 @@ public class UserController {
      */
     @PutMapping("/editPassword")
     public Result<String> editPassword(@RequestBody ClientUserDTO clientUserDTO) {
-        clientUserService.editPassword(clientUserDTO);
         log.info("C端用户重置密码:{}", clientUserDTO);
+        clientUserService.editPassword(clientUserDTO);
         return Result.success();
     }
 
@@ -61,8 +61,8 @@ public class UserController {
      */
     @PutMapping("/editEmail")
     public Result<String> editEmail(@RequestBody ClientUserDTO clientUserDTO) {
-        clientUserService.editEmail(clientUserDTO);
         log.info("C端用户重置邮箱:{}", clientUserDTO);
+        clientUserService.editEmail(clientUserDTO);
         return Result.success();
     }
 
@@ -73,8 +73,8 @@ public class UserController {
      */
     @PutMapping("/editInfo")
     public Result<String> editInfo(@RequestBody ClientUserDTO clientUserDTO) {
-        clientUserService.editInfo(clientUserDTO);
         log.info("C端用户修改个人信息:{}", clientUserDTO);
+        clientUserService.editInfo(clientUserDTO);
         return Result.success();
     }
 
@@ -85,8 +85,8 @@ public class UserController {
      */
     @GetMapping("/logout")
     public Result<String> logout(@RequestHeader String authentication) {
-        clientUserService.logout(authentication);
         log.info("C端用户退出，用户id:{}", BaseContext.getCurrentId());
+        clientUserService.logout(authentication);
         return Result.success();
     }
 }

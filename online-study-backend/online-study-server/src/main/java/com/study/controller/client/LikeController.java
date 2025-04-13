@@ -24,8 +24,8 @@ public class LikeController {
      */
     @PutMapping("/add")
     public Result<String> add(@RequestBody LikeDTO likeDTO) {
-        likeService.add(likeDTO);
         log.info("C端用户(id:{})新增点赞:{}", BaseContext.getCurrentId(), likeDTO);
+        likeService.add(likeDTO);
         return Result.success();
     }
 
@@ -36,8 +36,8 @@ public class LikeController {
      */
     @DeleteMapping("/delete")
     public Result<String> delete(@RequestBody LikeDTO likeDTO) {
-        likeService.delete(likeDTO);
         log.info("C端用户(id:{})删除点赞{}", BaseContext.getCurrentId(), likeDTO);
+        likeService.delete(likeDTO);
         return Result.success();
     }
 
@@ -48,8 +48,8 @@ public class LikeController {
      */
     @GetMapping
     public Result<String> get(@RequestBody LikeDTO likeDTO) {
-        Integer result = likeService.get(likeDTO);
         log.info("C端用户(id:{})正在查询{}点赞情况", BaseContext.getCurrentId(), likeDTO);
+        Integer result = likeService.get(likeDTO);
         return Result.success(result.toString());
     }
 }
