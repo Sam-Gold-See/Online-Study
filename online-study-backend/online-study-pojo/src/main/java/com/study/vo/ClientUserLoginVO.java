@@ -25,6 +25,9 @@ public class ClientUserLoginVO implements Serializable {
     // 用户头像资源链接
     private String avatar;
 
+    // 用户性别（M：男，女：F）
+    private Character gender;
+
     // C端Jwt令牌
     private String authentication;
 }

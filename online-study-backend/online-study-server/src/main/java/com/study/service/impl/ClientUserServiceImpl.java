@@ -121,6 +121,7 @@ public class ClientUserServiceImpl implements ClientUserService {
                 .id(clientUserDB.getId())
                 .name(clientUserDB.getName())
                 .email(email)
+                .gender(clientUserDB.getGender())
                 .avatar(clientUserDB.getAvatar())
                 .authentication(authentication)
                 .build();
